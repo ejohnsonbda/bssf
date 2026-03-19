@@ -371,17 +371,30 @@
     ============================================================ */
     #ticker {
       background: linear-gradient(90deg, var(--blue) 0%, var(--blue-mid) 50%, var(--pink-dark) 100%);
-      padding: .6rem 0; overflow: hidden;
+      padding: .6rem 0; overflow: hidden; position: relative;
     }
-    .ticker-inner { display: flex; align-items: center; }
+    .ticker-inner {
+      display: flex; align-items: center; position: relative;
+    }
     .ticker-label {
       background: var(--pink); color: white; padding: .3rem .9rem;
       font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
-      white-space: nowrap; margin-right: 1.5rem; border-radius: 4px; flex-shrink: 0;
+      white-space: nowrap; border-radius: 4px; flex-shrink: 0;
+      position: relative; z-index: 10;
+      /* Decorative right-pointing arrow shape */
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
+      padding-right: 1.2rem;
+      box-shadow: 4px 0 12px rgba(0,0,0,.3);
+    }
+    .ticker-scroll-wrap {
+      flex: 1; overflow: hidden; position: relative;
+      /* Fade-out mask on the right edge */
+      -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+      mask-image: linear-gradient(to right, black 80%, transparent 100%);
     }
     .ticker-track {
       display: flex; gap: 3rem; animation: ticker-scroll 30s linear infinite;
-      white-space: nowrap;
+      white-space: nowrap; padding-left: 1.5rem;
     }
     .ticker-item { color: white; font-size: .85rem; font-weight: 500; }
     .ticker-item .score { font-weight: 700; color: var(--green-light); }
@@ -1247,9 +1260,11 @@
   <div id="ticker" style="margin-top:70px">
     <div class="container">
       <div class="ticker-inner">
-        <span class="ticker-label"><i class="fas fa-circle" style="font-size:.5rem;animation:pulse 1s infinite"></i> LIVE</span>
-        <div class="ticker-track" id="tickerTrack">
-          <!-- Populated by JS -->
+        <span class="ticker-label"><i class="fas fa-circle" style="font-size:.5rem;animation:pulse 1s infinite"></i>&nbsp;LIVE</span>
+        <div class="ticker-scroll-wrap">
+          <div class="ticker-track" id="tickerTrack">
+            <!-- Populated by JS -->
+          </div>
         </div>
       </div>
     </div>
