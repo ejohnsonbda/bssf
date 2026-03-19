@@ -1719,6 +1719,7 @@
       </div>
       <div class="admin-sidebar-section">
         <div class="section-label">Content</div>
+        <div class="admin-nav-item" onclick="showAdminView('schools-manager')"><i class="fas fa-school"></i> Schools</div>
         <div class="admin-nav-item" onclick="showAdminView('teams-manager')"><i class="fas fa-users"></i> Teams</div>
         <div class="admin-nav-item" onclick="showAdminView('players-manager')"><i class="fas fa-user-alt"></i> Players</div>
         <div class="admin-nav-item" onclick="showAdminView('winners-manager')"><i class="fas fa-medal"></i> Weekly Winners</div>
@@ -2071,19 +2072,177 @@
         </div>
       </div>
 
+      <!-- SCHOOLS MANAGER -->
+      <div id="aview-schools-manager" class="aview">
+        <div class="admin-page-header">
+          <div><h2>Schools Manager</h2><p>Manage schools and their logos</p></div>
+          <button class="btn btn-primary" onclick="openSchoolForm()"><i class="fas fa-plus"></i> Add School</button>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header"><h3>All Schools</h3></div>
+          <table class="admin-table">
+            <thead><tr><th>Logo</th><th>School Name</th><th>Short Name</th><th>Contact</th><th>Actions</th></tr></thead>
+            <tbody id="adminSchoolsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SCHOOL FORM -->
+      <div id="aview-school-form" class="aview">
+        <div class="admin-page-header">
+          <div><h2 id="schoolFormTitle">Add School</h2><p>Enter school details and upload logo</p></div>
+          <button class="btn btn-outline-blue" onclick="showAdminView('schools-manager')"><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
+        <div class="grid-2" style="grid-template-columns:1fr 320px;align-items:start">
+          <div class="form-card">
+            <div class="form-card-title">School Details</div>
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label class="form-label">School Name</label>
+                <input type="text" id="schName" class="form-control" placeholder="e.g. Warwick Academy" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Short Name</label>
+                <input type="text" id="schShortName" class="form-control" placeholder="e.g. Warwick" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" id="schEmail" class="form-control" placeholder="info@school.bm" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input type="text" id="schPhone" class="form-control" placeholder="+1 (441) 555-0000" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Website</label>
+                <input type="url" id="schWebsite" class="form-control" placeholder="https://school.bm" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Founded Year</label>
+                <input type="text" id="schFounded" class="form-control" placeholder="e.g. 1965" />
+              </div>
+              <div class="form-group full">
+                <label class="form-label">Address</label>
+                <input type="text" id="schAddress" class="form-control" placeholder="School address, Bermuda" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Primary Color</label>
+                <input type="color" id="schColorPrimary" class="form-control" value="#1e40af" style="height:44px;padding:.25rem" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Secondary Color</label>
+                <input type="color" id="schColorSecondary" class="form-control" value="#fbbf24" style="height:44px;padding:.25rem" />
+              </div>
+            </div>
+            <div style="margin-top:1.5rem;display:flex;gap:.75rem">
+              <button class="btn btn-primary" onclick="saveSchool()"><i class="fas fa-save"></i> Save School</button>
+              <button class="btn btn-outline-blue" onclick="showAdminView('schools-manager')">Cancel</button>
+            </div>
+          </div>
+          <div>
+            <div class="form-card">
+              <div class="form-card-title"><i class="fas fa-image" style="color:var(--pink-light)"></i> School Logo</div>
+              <!-- Logo Preview -->
+              <div id="schLogoPreview" style="width:120px;height:120px;border-radius:16px;background:linear-gradient(135deg,var(--blue-mid),var(--pink));display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;overflow:hidden;border:3px solid rgba(255,255,255,.1)">
+                <span style="font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;color:white" id="schLogoPlaceholder">SCH</span>
+              </div>
+              <!-- Upload Button -->
+              <label class="logo-upload-btn" for="schLogoFile" style="display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem;border:2px dashed rgba(255,255,255,.2);border-radius:var(--radius);cursor:pointer;color:var(--gray-300);font-size:.875rem;font-weight:600;transition:var(--transition);margin-bottom:.75rem">
+                <i class="fas fa-cloud-upload-alt" style="font-size:1.1rem;color:var(--pink-light)"></i>
+                Click to Upload Logo
+              </label>
+              <input type="file" id="schLogoFile" accept="image/*" style="display:none" onchange="previewLogo('schLogoFile','schLogoPreview','schLogoPlaceholder','schLogoData')" />
+              <input type="hidden" id="schLogoData" value="" />
+              <p style="font-size:.75rem;color:var(--gray-500);text-align:center">PNG, JPG, WebP · Max 2MB<br>Recommended: 200×200px square</p>
+              <div style="margin-top:1rem">
+                <label class="form-label">Or paste image URL</label>
+                <input type="url" id="schLogoUrl" class="form-control" placeholder="https://..." oninput="previewLogoUrl('schLogoUrl','schLogoPreview','schLogoPlaceholder')" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="editingSchoolId" value="" />
+      </div>
+
       <!-- TEAMS MANAGER -->
       <div id="aview-teams-manager" class="aview">
         <div class="admin-page-header">
-          <div><h2>Teams Manager</h2><p>Manage school teams</p></div>
+          <div><h2>Teams Manager</h2><p>Manage school teams and their logos</p></div>
           <button class="btn btn-primary" onclick="openTeamForm()"><i class="fas fa-plus"></i> Add Team</button>
         </div>
         <div class="admin-table-wrap">
           <div class="admin-table-header"><h3>All Teams</h3></div>
           <table class="admin-table">
-            <thead><tr><th>Team</th><th>School</th><th>Sport</th><th>Coach</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Logo</th><th>Team</th><th>School</th><th>Sport</th><th>Coach</th><th>Actions</th></tr></thead>
             <tbody id="adminTeamsTable"></tbody>
           </table>
         </div>
+      </div>
+
+      <!-- TEAM FORM -->
+      <div id="aview-team-form" class="aview">
+        <div class="admin-page-header">
+          <div><h2 id="teamFormTitle">Add Team</h2><p>Enter team details and upload logo</p></div>
+          <button class="btn btn-outline-blue" onclick="showAdminView('teams-manager')"><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
+        <div class="grid-2" style="grid-template-columns:1fr 320px;align-items:start">
+          <div class="form-card">
+            <div class="form-card-title">Team Details</div>
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label class="form-label">Team Name</label>
+                <input type="text" id="tmName" class="form-control" placeholder="e.g. Eagles" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">School</label>
+                <input type="text" id="tmSchool" class="form-control" placeholder="e.g. Warwick Academy" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sport</label>
+                <select id="tmSport" class="form-control">
+                  <option>Football</option><option>Basketball</option><option>Track</option>
+                  <option>Swimming</option><option>Cricket</option><option>Tennis</option><option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Coach</label>
+                <input type="text" id="tmCoach" class="form-control" placeholder="Coach name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Primary Color</label>
+                <input type="color" id="tmColorPrimary" class="form-control" value="#1e40af" style="height:44px;padding:.25rem" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Secondary Color</label>
+                <input type="color" id="tmColorSecondary" class="form-control" value="#fbbf24" style="height:44px;padding:.25rem" />
+              </div>
+            </div>
+            <div style="margin-top:1.5rem;display:flex;gap:.75rem">
+              <button class="btn btn-primary" onclick="saveTeam()"><i class="fas fa-save"></i> Save Team</button>
+              <button class="btn btn-outline-blue" onclick="showAdminView('teams-manager')">Cancel</button>
+            </div>
+          </div>
+          <div>
+            <div class="form-card">
+              <div class="form-card-title"><i class="fas fa-image" style="color:var(--pink-light)"></i> Team Logo</div>
+              <div id="tmLogoPreview" style="width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--blue-mid),var(--pink));display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;overflow:hidden;border:3px solid rgba(255,255,255,.1)">
+                <span style="font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;color:white" id="tmLogoPlaceholder">TM</span>
+              </div>
+              <label class="logo-upload-btn" for="tmLogoFile" style="display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem;border:2px dashed rgba(255,255,255,.2);border-radius:var(--radius);cursor:pointer;color:var(--gray-300);font-size:.875rem;font-weight:600;transition:var(--transition);margin-bottom:.75rem">
+                <i class="fas fa-cloud-upload-alt" style="font-size:1.1rem;color:var(--pink-light)"></i>
+                Click to Upload Logo
+              </label>
+              <input type="file" id="tmLogoFile" accept="image/*" style="display:none" onchange="previewLogo('tmLogoFile','tmLogoPreview','tmLogoPlaceholder','tmLogoData')" />
+              <input type="hidden" id="tmLogoData" value="" />
+              <p style="font-size:.75rem;color:var(--gray-500);text-align:center">PNG, JPG, WebP · Max 2MB<br>Recommended: 200×200px square</p>
+              <div style="margin-top:1rem">
+                <label class="form-label">Or paste image URL</label>
+                <input type="url" id="tmLogoUrl" class="form-control" placeholder="https://..." oninput="previewLogoUrl('tmLogoUrl','tmLogoPreview','tmLogoPlaceholder')" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="editingTeamId" value="" />
       </div>
 
       <!-- PLAYERS MANAGER -->
@@ -2409,7 +2568,10 @@ const AVIEW_TITLES = {
   'event-form': 'Event Form',
   'results-manager': 'Results Manager',
   'standings-manager': 'Standings Manager',
+  'schools-manager': 'Schools Manager',
+  'school-form': 'School Form',
   'teams-manager': 'Teams Manager',
+  'team-form': 'Team Form',
   'players-manager': 'Players Manager',
   'winners-manager': 'Weekly Winners',
   'gallery-manager': 'Gallery Manager',
@@ -3147,6 +3309,7 @@ function showAdminView(view) {
     case 'events-manager': loadAdminEvents(); break;
     case 'results-manager': loadAdminResults(); break;
     case 'standings-manager': loadAdminStandings('Football', document.querySelector('#adminStandingsTabs .sport-tab')); break;
+    case 'schools-manager': loadAdminSchools(); break;
     case 'teams-manager': loadAdminTeams(); break;
     case 'players-manager': loadAdminPlayers(); break;
     case 'winners-manager': loadAdminWinners(); break;
@@ -3606,12 +3769,149 @@ function deleteStanding(sport, idx) {
 // ============================================================
 //  ADMIN TEAMS
 // ============================================================
+//  LOGO UPLOAD HELPERS
+// ============================================================
+function previewLogo(fileInputId, previewId, placeholderId, dataId) {
+  const file = document.getElementById(fileInputId).files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) { showToast('Image must be under 2MB', 'error'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const data = e.target.result;
+    const preview = document.getElementById(previewId);
+    const placeholder = document.getElementById(placeholderId);
+    preview.style.background = 'none';
+    preview.innerHTML = `<img src="${data}" style="width:100%;height:100%;object-fit:contain;border-radius:inherit" />`;
+    if (dataId) document.getElementById(dataId).value = data;
+    // Clear URL input if present
+    const urlId = dataId ? dataId.replace('Data','Url') : null;
+    if (urlId && document.getElementById(urlId)) document.getElementById(urlId).value = '';
+  };
+  reader.readAsDataURL(file);
+}
+
+function previewLogoUrl(urlInputId, previewId, placeholderId) {
+  const url = document.getElementById(urlInputId).value.trim();
+  const preview = document.getElementById(previewId);
+  if (!url) {
+    preview.style.background = 'linear-gradient(135deg,var(--blue-mid),var(--pink))';
+    preview.innerHTML = `<span style="font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;color:white" id="${placeholderId}">IMG</span>`;
+    return;
+  }
+  preview.style.background = 'none';
+  preview.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:contain;border-radius:inherit" onerror="this.parentElement.innerHTML='<span style=color:red;font-size:.75rem>Invalid URL</span>'" />`;
+}
+
+function getLogoValue(dataId, urlId) {
+  const data = document.getElementById(dataId) ? document.getElementById(dataId).value : '';
+  if (data) return data;
+  const url = document.getElementById(urlId) ? document.getElementById(urlId).value.trim() : '';
+  return url || '';
+}
+
+function renderLogoCell(logo, name, color) {
+  if (logo) return `<img src="${logo}" style="width:40px;height:40px;object-fit:contain;border-radius:8px;background:#fff;border:1px solid var(--gray-200)" />`;
+  const initials = name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  return `<div style="width:40px;height:40px;border-radius:8px;background:${color||'#1e40af'};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;color:white;font-family:'Oswald',sans-serif">${initials}</div>`;
+}
+
+// ============================================================
+//  ADMIN SCHOOLS
+// ============================================================
+function loadAdminSchools() {
+  const schools = DB.getOrDefault('schools', []);
+  const tbody = document.getElementById('adminSchoolsTable');
+  if (!tbody) return;
+  tbody.innerHTML = schools.length ? schools.map(s => `
+    <tr>
+      <td>${renderLogoCell(s.logo, s.name, s.colorPrimary)}</td>
+      <td style="font-weight:600">${s.name}</td>
+      <td>${s.shortName || '—'}</td>
+      <td>${s.email || s.phone || '—'}</td>
+      <td>
+        <button class="action-btn edit" onclick="editSchool('${s.id}')"><i class="fas fa-edit"></i></button>
+        <button class="action-btn delete" onclick="deleteSchool('${s.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>
+  `).join('') : '<tr><td colspan="5" style="text-align:center;color:var(--gray-500);padding:2rem">No schools yet. Click "Add School" to get started.</td></tr>';
+}
+
+function openSchoolForm(id) {
+  const schools = DB.getOrDefault('schools', []);
+  const s = id ? schools.find(x => x.id === id) : null;
+  document.getElementById('schoolFormTitle').textContent = s ? 'Edit School' : 'Add School';
+  document.getElementById('editingSchoolId').value = id || '';
+  document.getElementById('schName').value = s ? s.name : '';
+  document.getElementById('schShortName').value = s ? (s.shortName||'') : '';
+  document.getElementById('schEmail').value = s ? (s.email||'') : '';
+  document.getElementById('schPhone').value = s ? (s.phone||'') : '';
+  document.getElementById('schWebsite').value = s ? (s.website||'') : '';
+  document.getElementById('schFounded').value = s ? (s.founded||'') : '';
+  document.getElementById('schAddress').value = s ? (s.address||'') : '';
+  document.getElementById('schColorPrimary').value = s ? (s.colorPrimary||'#1e40af') : '#1e40af';
+  document.getElementById('schColorSecondary').value = s ? (s.colorSecondary||'#fbbf24') : '#fbbf24';
+  document.getElementById('schLogoData').value = '';
+  document.getElementById('schLogoUrl').value = s ? (s.logo && !s.logo.startsWith('data:') ? s.logo : '') : '';
+  const prev = document.getElementById('schLogoPreview');
+  if (s && s.logo) {
+    prev.style.background = 'none';
+    prev.innerHTML = `<img src="${s.logo}" style="width:100%;height:100%;object-fit:contain;border-radius:inherit" />`;
+  } else {
+    prev.style.background = 'linear-gradient(135deg,var(--blue-mid),var(--pink))';
+    prev.innerHTML = `<span style="font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;color:white" id="schLogoPlaceholder">SCH</span>`;
+  }
+  showAdminView('school-form');
+}
+
+function editSchool(id) { openSchoolForm(id); }
+
+function saveSchool() {
+  const name = document.getElementById('schName').value.trim();
+  if (!name) { showToast('School name is required', 'error'); return; }
+  const logo = getLogoValue('schLogoData', 'schLogoUrl');
+  const id = document.getElementById('editingSchoolId').value;
+  const schools = DB.getOrDefault('schools', []);
+  const obj = {
+    id: id || 'sch' + Date.now(),
+    name,
+    shortName: document.getElementById('schShortName').value.trim(),
+    email: document.getElementById('schEmail').value.trim(),
+    phone: document.getElementById('schPhone').value.trim(),
+    website: document.getElementById('schWebsite').value.trim(),
+    founded: document.getElementById('schFounded').value.trim(),
+    address: document.getElementById('schAddress').value.trim(),
+    colorPrimary: document.getElementById('schColorPrimary').value,
+    colorSecondary: document.getElementById('schColorSecondary').value,
+    logo,
+  };
+  if (id) {
+    const idx = schools.findIndex(s => s.id === id);
+    if (idx > -1) schools[idx] = obj; else schools.push(obj);
+  } else {
+    schools.push(obj);
+  }
+  DB.set('schools', schools);
+  showToast(id ? 'School updated!' : 'School added!');
+  showAdminView('schools-manager');
+}
+
+function deleteSchool(id) {
+  if (!confirm('Delete this school?')) return;
+  DB.set('schools', DB.getOrDefault('schools', []).filter(s => s.id !== id));
+  loadAdminSchools();
+  showToast('School deleted');
+}
+
+// ============================================================
+//  ADMIN TEAMS (with logo upload)
+// ============================================================
 function loadAdminTeams() {
   const teams = DB.getOrDefault('teams', []);
   const tbody = document.getElementById('adminTeamsTable');
   if (!tbody) return;
-  tbody.innerHTML = teams.map(t => `
+  tbody.innerHTML = teams.length ? teams.map(t => `
     <tr>
+      <td>${renderLogoCell(t.logo, t.name, t.colors ? t.colors.primary : '#1e40af')}</td>
       <td style="font-weight:600">${t.name}</td>
       <td>${t.school}</td>
       <td><span class="badge badge-blue">${t.sport}</span></td>
@@ -3621,28 +3921,64 @@ function loadAdminTeams() {
         <button class="action-btn delete" onclick="deleteTeam('${t.id}')"><i class="fas fa-trash"></i></button>
       </td>
     </tr>
-  `).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--gray-500);padding:2rem">No teams yet</td></tr>';
+  `).join('') : '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:2rem">No teams yet. Click "Add Team" to get started.</td></tr>';
 }
 
-function openTeamForm() {
-  openModal('Add Team', `
-    <div class="form-group mb-3"><label class="form-label">Team Name</label><input type="text" id="mTeamName" class="form-control" placeholder="e.g. Eagles" /></div>
-    <div class="form-group mb-3"><label class="form-label">School</label><input type="text" id="mTeamSchool" class="form-control" placeholder="e.g. Warwick Academy" /></div>
-    <div class="form-group mb-3"><label class="form-label">Sport</label><select id="mTeamSport" class="form-control"><option>Football</option><option>Basketball</option><option>Track</option><option>Swimming</option><option>Cricket</option><option>Tennis</option></select></div>
-    <div class="form-group"><label class="form-label">Coach</label><input type="text" id="mTeamCoach" class="form-control" placeholder="Coach name" /></div>
-  `, () => {
-    const name = document.getElementById('mTeamName').value.trim();
-    if (!name) { showToast('Team name required','error'); return; }
-    const teams = DB.getOrDefault('teams', []);
-    teams.push({ id:'t'+Date.now(), name, school: document.getElementById('mTeamSchool').value, sport: document.getElementById('mTeamSport').value, coach: document.getElementById('mTeamCoach').value, colors:{primary:'#1e40af',secondary:'#fbbf24'} });
-    DB.set('teams', teams);
-    loadAdminTeams();
-    closeModal();
-    showToast('Team added!');
-  });
+function openTeamForm(id) {
+  const teams = DB.getOrDefault('teams', []);
+  const t = id ? teams.find(x => x.id === id) : null;
+  document.getElementById('teamFormTitle').textContent = t ? 'Edit Team' : 'Add Team';
+  document.getElementById('editingTeamId').value = id || '';
+  document.getElementById('tmName').value = t ? t.name : '';
+  document.getElementById('tmSchool').value = t ? t.school : '';
+  document.getElementById('tmSport').value = t ? t.sport : 'Football';
+  document.getElementById('tmCoach').value = t ? (t.coach||'') : '';
+  document.getElementById('tmColorPrimary').value = t && t.colors ? t.colors.primary : '#1e40af';
+  document.getElementById('tmColorSecondary').value = t && t.colors ? t.colors.secondary : '#fbbf24';
+  document.getElementById('tmLogoData').value = '';
+  document.getElementById('tmLogoUrl').value = t ? (t.logo && !t.logo.startsWith('data:') ? t.logo : '') : '';
+  const prev = document.getElementById('tmLogoPreview');
+  if (t && t.logo) {
+    prev.style.background = 'none';
+    prev.innerHTML = `<img src="${t.logo}" style="width:100%;height:100%;object-fit:contain;border-radius:50%" />`;
+  } else {
+    prev.style.background = 'linear-gradient(135deg,var(--blue-mid),var(--pink))';
+    prev.innerHTML = `<span style="font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;color:white" id="tmLogoPlaceholder">TM</span>`;
+  }
+  showAdminView('team-form');
 }
 
-function editTeam(id) { showToast('Edit team: click the team row to modify', 'warning'); }
+function editTeam(id) { openTeamForm(id); }
+
+function saveTeam() {
+  const name = document.getElementById('tmName').value.trim();
+  if (!name) { showToast('Team name is required', 'error'); return; }
+  const logo = getLogoValue('tmLogoData', 'tmLogoUrl');
+  const id = document.getElementById('editingTeamId').value;
+  const teams = DB.getOrDefault('teams', []);
+  const obj = {
+    id: id || 't' + Date.now(),
+    name,
+    school: document.getElementById('tmSchool').value.trim(),
+    sport: document.getElementById('tmSport').value,
+    coach: document.getElementById('tmCoach').value.trim(),
+    colors: {
+      primary: document.getElementById('tmColorPrimary').value,
+      secondary: document.getElementById('tmColorSecondary').value,
+    },
+    logo,
+  };
+  if (id) {
+    const idx = teams.findIndex(t => t.id === id);
+    if (idx > -1) teams[idx] = obj; else teams.push(obj);
+  } else {
+    teams.push(obj);
+  }
+  DB.set('teams', teams);
+  showToast(id ? 'Team updated!' : 'Team added!');
+  showAdminView('teams-manager');
+}
+
 function deleteTeam(id) {
   if (!confirm('Delete this team?')) return;
   DB.set('teams', DB.getOrDefault('teams', []).filter(t => t.id !== id));
