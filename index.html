@@ -1,0 +1,3876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BSSF – Bermuda School Sports Federation</title>
+  <meta name="description" content="Official platform for Bermuda School Sports Federation – scores, standings, events, news, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ============================================================
+       CSS VARIABLES & RESET
+    ============================================================ */
+    :root {
+      --pink:       #e91e8c;
+      --pink-light: #f472b6;
+      --pink-dark:  #be185d;
+      --blue:       #1e3a8a;
+      --blue-mid:   #2563eb;
+      --blue-light: #60a5fa;
+      --blue-sky:   #0ea5e9;
+      --green:      #16a34a;
+      --green-light:#4ade80;
+      --green-dark: #15803d;
+      --white:      #ffffff;
+      --gray-50:    #f8fafc;
+      --gray-100:   #f1f5f9;
+      --gray-200:   #e2e8f0;
+      --gray-300:   #cbd5e1;
+      --gray-400:   #94a3b8;
+      --gray-500:   #64748b;
+      --gray-600:   #475569;
+      --gray-700:   #334155;
+      --gray-800:   #1e293b;
+      --gray-900:   #0f172a;
+      --radius:     12px;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.08);
+      --shadow:     0 4px 16px rgba(0,0,0,.12);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,.18);
+      --transition: all .25s cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-800);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    input, textarea, select { font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ============================================================
+       UTILITY CLASSES
+    ============================================================ */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 5rem 0; }
+    .section-sm { padding: 3rem 0; }
+    .text-center { text-align: center; }
+    .hidden { display: none !important; }
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .gap-1 { gap: .5rem; }
+    .gap-2 { gap: 1rem; }
+    .gap-3 { gap: 1.5rem; }
+    .gap-4 { gap: 2rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .mt-1 { margin-top: .5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .mt-3 { margin-top: 1.5rem; }
+    .mt-4 { margin-top: 2rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .mb-3 { margin-bottom: 1.5rem; }
+    .mb-4 { margin-bottom: 2rem; }
+    .w-full { width: 100%; }
+    .rounded { border-radius: var(--radius); }
+    .rounded-full { border-radius: 9999px; }
+    .overflow-hidden { overflow: hidden; }
+    .relative { position: relative; }
+    .absolute { position: absolute; }
+    .inset-0 { top:0;right:0;bottom:0;left:0; }
+    .z-10 { z-index: 10; }
+    .font-bold { font-weight: 700; }
+    .font-heading { font-family: 'Oswald', sans-serif; }
+    .text-sm { font-size: .875rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-xl { font-size: 1.25rem; }
+    .text-2xl { font-size: 1.5rem; }
+    .text-3xl { font-size: 1.875rem; }
+    .text-4xl { font-size: 2.25rem; }
+    .text-5xl { font-size: 3rem; }
+    .text-pink { color: var(--pink); }
+    .text-blue { color: var(--blue-mid); }
+    .text-green { color: var(--green); }
+    .text-white { color: var(--white); }
+    .text-gray { color: var(--gray-500); }
+    .bg-white { background: var(--white); }
+    .bg-gray { background: var(--gray-100); }
+    .uppercase { text-transform: uppercase; }
+    .tracking-wide { letter-spacing: .05em; }
+    .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .625rem 1.5rem; border-radius: var(--radius);
+      font-weight: 600; font-size: .9rem; transition: var(--transition);
+      cursor: pointer; border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: var(--white);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(233,30,140,.4); }
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--blue-mid), var(--blue));
+      color: var(--white);
+    }
+    .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,.4); }
+    .btn-green {
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--white);
+    }
+    .btn-green:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(22,163,74,.4); }
+    .btn-outline {
+      border-color: var(--pink); color: var(--pink); background: transparent;
+    }
+    .btn-outline:hover { background: var(--pink); color: var(--white); }
+    .btn-outline-blue {
+      border-color: var(--blue-mid); color: var(--blue-mid); background: transparent;
+    }
+    .btn-outline-blue:hover { background: var(--blue-mid); color: var(--white); }
+    .btn-sm { padding: .4rem 1rem; font-size: .8rem; }
+    .btn-lg { padding: .875rem 2rem; font-size: 1rem; }
+
+    /* ============================================================
+       CARDS
+    ============================================================ */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .card-body { padding: 1.5rem; }
+    .card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--gray-100); }
+    .card-footer { padding: 1rem 1.5rem; background: var(--gray-50); border-top: 1px solid var(--gray-100); }
+
+    /* ============================================================
+       BADGES
+    ============================================================ */
+    .badge {
+      display: inline-flex; align-items: center; gap: .3rem;
+      padding: .2rem .7rem; border-radius: 9999px;
+      font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .badge-pink { background: rgba(233,30,140,.12); color: var(--pink-dark); }
+    .badge-blue { background: rgba(37,99,235,.12); color: var(--blue-mid); }
+    .badge-green { background: rgba(22,163,74,.12); color: var(--green-dark); }
+    .badge-gray { background: var(--gray-100); color: var(--gray-600); }
+    .badge-live { background: #fee2e2; color: #dc2626; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+
+    /* ============================================================
+       SECTION HEADERS
+    ============================================================ */
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header .eyebrow {
+      display: inline-block; font-size: .8rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .15em;
+      color: var(--pink); margin-bottom: .75rem;
+    }
+    .section-header h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.5rem; font-weight: 700;
+      color: var(--gray-900); line-height: 1.2;
+    }
+    .section-header p { color: var(--gray-500); max-width: 600px; margin: .75rem auto 0; }
+    .divider {
+      width: 60px; height: 4px; margin: 1rem auto 0;
+      background: linear-gradient(90deg, var(--pink), var(--blue-mid), var(--green));
+      border-radius: 2px;
+    }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(15,23,42,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: var(--transition);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem; height: 70px; max-width: 1280px; margin: 0 auto;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .nav-brand .logo-mark {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--pink), var(--blue-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: white;
+    }
+    .nav-brand .brand-text { line-height: 1.1; }
+    .nav-brand .brand-name {
+      font-family: 'Oswald', sans-serif; font-size: 1.2rem;
+      font-weight: 700; color: white; letter-spacing: .05em;
+    }
+    .nav-brand .brand-sub { font-size: .7rem; color: var(--gray-400); letter-spacing: .08em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: .25rem; }
+    .nav-link {
+      padding: .5rem .875rem; border-radius: 8px;
+      font-size: .875rem; font-weight: 500; color: var(--gray-300);
+      transition: var(--transition); cursor: pointer;
+    }
+    .nav-link:hover, .nav-link.active {
+      background: rgba(255,255,255,.1); color: white;
+    }
+    .nav-link.active { color: var(--pink-light); }
+    .nav-cta {
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .nav-admin-btn {
+      padding: .45rem 1rem; border-radius: 8px; font-size: .8rem;
+      font-weight: 600; background: rgba(233,30,140,.2);
+      color: var(--pink-light); border: 1px solid rgba(233,30,140,.3);
+      transition: var(--transition); cursor: pointer;
+    }
+    .nav-admin-btn:hover { background: var(--pink); color: white; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      padding: .5rem; cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: white; border-radius: 2px; transition: var(--transition);
+    }
+    .mobile-menu {
+      display: none; background: var(--gray-900);
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 1rem 1.5rem;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu .nav-link { display: block; padding: .75rem 1rem; }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      min-height: 100vh; position: relative; overflow: hidden;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--gray-900) 0%, var(--blue) 50%, var(--gray-900) 100%);
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(233,30,140,.25) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 30%, rgba(37,99,235,.3) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 60% 80%, rgba(22,163,74,.2) 0%, transparent 60%);
+    }
+    .hero-pattern {
+      position: absolute; inset: 0; z-index: 0; opacity: .04;
+      background-image: repeating-linear-gradient(
+        45deg, white 0, white 1px, transparent 0, transparent 50%
+      );
+      background-size: 30px 30px;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+      padding-top: 70px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-text .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(233,30,140,.2); border: 1px solid rgba(233,30,140,.3);
+      color: var(--pink-light); padding: .4rem 1rem; border-radius: 9999px;
+      font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-text h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700;
+      color: white; line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .hero-text h1 .highlight {
+      background: linear-gradient(135deg, var(--pink-light), var(--blue-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-text p { color: var(--gray-300); font-size: 1.1rem; margin-bottom: 2rem; max-width: 480px; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem;
+    }
+    .hero-stat {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius); padding: 1rem; text-align: center;
+    }
+    .hero-stat .num {
+      font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--pink-light), var(--blue-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-stat .label { font-size: .75rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: .1em; }
+    .hero-visual {
+      position: relative;
+    }
+    .hero-card-stack { position: relative; }
+    .hero-main-card {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem;
+      color: white;
+    }
+    .hero-main-card .card-label {
+      font-size: .75rem; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--pink-light); margin-bottom: 1rem;
+    }
+    .hero-score-display {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(0,0,0,.3); border-radius: 12px; padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero-score-team { text-align: center; }
+    .hero-score-team .team-name { font-size: .85rem; color: var(--gray-300); }
+    .hero-score-team .team-score {
+      font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; color: white;
+    }
+    .hero-score-vs {
+      font-size: .8rem; color: var(--gray-400); text-align: center;
+    }
+    .hero-score-vs .live-dot {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      background: #ef4444; margin-right: .3rem; animation: pulse 1.5s infinite;
+    }
+    .hero-floating-badge {
+      position: absolute; background: white; border-radius: 12px;
+      padding: .75rem 1rem; box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .hero-floating-badge.badge-1 { top: -1rem; right: -1rem; }
+    .hero-floating-badge.badge-2 { bottom: 1rem; left: -1.5rem; }
+    .hero-floating-badge .badge-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .hero-floating-badge .badge-icon.pink { background: rgba(233,30,140,.15); color: var(--pink); }
+    .hero-floating-badge .badge-icon.green { background: rgba(22,163,74,.15); color: var(--green); }
+    .hero-floating-badge .badge-text .title { font-size: .8rem; font-weight: 700; color: var(--gray-800); }
+    .hero-floating-badge .badge-text .sub { font-size: .7rem; color: var(--gray-500); }
+
+    /* ============================================================
+       LIVE SCORES TICKER
+    ============================================================ */
+    #ticker {
+      background: linear-gradient(90deg, var(--blue) 0%, var(--blue-mid) 50%, var(--pink-dark) 100%);
+      padding: .6rem 0; overflow: hidden;
+    }
+    .ticker-inner { display: flex; align-items: center; }
+    .ticker-label {
+      background: var(--pink); color: white; padding: .3rem .9rem;
+      font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      white-space: nowrap; margin-right: 1.5rem; border-radius: 4px; flex-shrink: 0;
+    }
+    .ticker-track {
+      display: flex; gap: 3rem; animation: ticker-scroll 30s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-item { color: white; font-size: .85rem; font-weight: 500; }
+    .ticker-item .score { font-weight: 700; color: var(--green-light); }
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ============================================================
+       SPORTS FILTER TABS
+    ============================================================ */
+    .sport-tabs {
+      display: flex; gap: .5rem; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 2rem;
+    }
+    .sport-tab {
+      padding: .5rem 1.25rem; border-radius: 9999px;
+      font-size: .85rem; font-weight: 600; cursor: pointer;
+      border: 2px solid var(--gray-200); color: var(--gray-600);
+      transition: var(--transition); background: white;
+    }
+    .sport-tab:hover { border-color: var(--pink); color: var(--pink); }
+    .sport-tab.active {
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      border-color: transparent; color: white;
+    }
+
+    /* ============================================================
+       EVENTS GRID
+    ============================================================ */
+    .event-card {
+      background: white; border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow-sm); transition: var(--transition);
+      border: 1px solid var(--gray-100);
+    }
+    .event-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .event-card-header {
+      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .event-card-header .sport-name {
+      font-size: .75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--blue-light);
+    }
+    .event-card-body { padding: 1.25rem; }
+    .event-teams {
+      display: flex; align-items: center; justify-content: space-between;
+      margin: 1rem 0;
+    }
+    .event-team { text-align: center; flex: 1; }
+    .event-team .team-logo {
+      width: 50px; height: 50px; border-radius: 50%;
+      object-fit: cover; margin: 0 auto .5rem;
+      border: 2px solid var(--gray-100);
+    }
+    .event-team .team-logo-placeholder {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-mid), var(--pink));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Oswald', sans-serif; font-weight: 700; color: white;
+      font-size: 1.1rem; margin: 0 auto .5rem;
+    }
+    .event-team .name { font-size: .85rem; font-weight: 600; color: var(--gray-700); }
+    .event-team .school { font-size: .75rem; color: var(--gray-400); }
+    .event-vs {
+      font-family: 'Oswald', sans-serif; font-size: 1.5rem;
+      font-weight: 700; color: var(--gray-300); padding: 0 .5rem;
+    }
+    .event-score {
+      font-family: 'Oswald', sans-serif; font-size: 2rem;
+      font-weight: 700; color: var(--gray-800); padding: 0 .5rem;
+      text-align: center;
+    }
+    .event-meta {
+      display: flex; gap: 1rem; font-size: .8rem; color: var(--gray-500);
+      padding-top: 1rem; border-top: 1px solid var(--gray-100);
+    }
+    .event-meta span { display: flex; align-items: center; gap: .3rem; }
+
+    /* ============================================================
+       STANDINGS TABLE
+    ============================================================ */
+    .standings-table {
+      width: 100%; border-collapse: collapse; font-size: .9rem;
+    }
+    .standings-table thead th {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
+      color: white; padding: .875rem 1rem; text-align: left;
+      font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600;
+    }
+    .standings-table thead th:first-child { border-radius: var(--radius) 0 0 0; }
+    .standings-table thead th:last-child { border-radius: 0 var(--radius) 0 0; }
+    .standings-table tbody tr {
+      border-bottom: 1px solid var(--gray-100); transition: var(--transition);
+    }
+    .standings-table tbody tr:hover { background: var(--gray-50); }
+    .standings-table tbody tr.top-3 { background: rgba(233,30,140,.04); }
+    .standings-table tbody td { padding: .875rem 1rem; }
+    .standings-table .pos {
+      font-family: 'Oswald', sans-serif; font-weight: 700;
+      width: 40px; text-align: center;
+    }
+    .standings-table .pos.gold { color: #f59e0b; }
+    .standings-table .pos.silver { color: #94a3b8; }
+    .standings-table .pos.bronze { color: #b45309; }
+    .standings-table .team-cell { display: flex; align-items: center; gap: .75rem; }
+    .standings-table .team-logo-sm {
+      width: 32px; height: 32px; border-radius: 50%;
+      object-fit: cover; border: 1px solid var(--gray-200);
+    }
+    .standings-table .team-logo-sm-placeholder {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-mid), var(--pink));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Oswald', sans-serif; font-weight: 700; color: white; font-size: .8rem;
+    }
+    .standings-table .pts {
+      font-family: 'Oswald', sans-serif; font-weight: 700;
+      color: var(--pink-dark); font-size: 1.1rem;
+    }
+    .standings-table .form-dots { display: flex; gap: 3px; }
+    .standings-table .form-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .form-w { background: var(--green); }
+    .form-d { background: var(--gray-300); }
+    .form-l { background: #ef4444; }
+
+    /* ============================================================
+       WEEKLY WINNER
+    ============================================================ */
+    .winner-card {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--pink-dark) 100%);
+      border-radius: 20px; overflow: hidden; position: relative;
+      padding: 2.5rem; color: white;
+    }
+    .winner-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .winner-card .trophy-icon {
+      font-size: 3rem; margin-bottom: 1rem; display: block;
+    }
+    .winner-card .winner-name {
+      font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700;
+      margin-bottom: .25rem;
+    }
+    .winner-card .winner-achievement {
+      color: var(--pink-light); font-weight: 600; margin-bottom: .5rem;
+    }
+    .winner-card .winner-desc { opacity: .85; font-size: .95rem; }
+    .winner-avatar {
+      width: 120px; height: 120px; border-radius: 50%;
+      border: 4px solid rgba(255,255,255,.3); object-fit: cover;
+    }
+
+    /* ============================================================
+       BLOG SECTION
+    ============================================================ */
+    .blog-card {
+      background: white; border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow-sm); transition: var(--transition);
+      border: 1px solid var(--gray-100);
+    }
+    .blog-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .blog-card-img {
+      height: 200px; overflow: hidden; position: relative;
+    }
+    .blog-card-img img {
+      width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease;
+    }
+    .blog-card:hover .blog-card-img img { transform: scale(1.05); }
+    .blog-card-img .category-tag {
+      position: absolute; top: 1rem; left: 1rem;
+    }
+    .blog-card-body { padding: 1.5rem; }
+    .blog-card-meta {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: .8rem; color: var(--gray-400); margin-bottom: .75rem;
+    }
+    .blog-card-meta span { display: flex; align-items: center; gap: .3rem; }
+    .blog-card-title {
+      font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 600;
+      color: var(--gray-900); margin-bottom: .5rem; line-height: 1.3;
+      transition: var(--transition);
+    }
+    .blog-card:hover .blog-card-title { color: var(--pink); }
+    .blog-card-excerpt { font-size: .9rem; color: var(--gray-500); line-height: 1.6; }
+    .blog-card-footer {
+      padding: 1rem 1.5rem; border-top: 1px solid var(--gray-100);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .blog-author { display: flex; align-items: center; gap: .5rem; }
+    .blog-author-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--blue-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; font-weight: 700; color: white;
+    }
+    .blog-author-name { font-size: .8rem; font-weight: 600; color: var(--gray-700); }
+    .read-more {
+      font-size: .8rem; font-weight: 600; color: var(--pink);
+      display: flex; align-items: center; gap: .3rem;
+      transition: var(--transition);
+    }
+    .read-more:hover { gap: .6rem; }
+
+    /* ============================================================
+       BLOG DETAIL PAGE
+    ============================================================ */
+    #page-blog-detail { padding-top: 70px; }
+    .blog-detail-hero {
+      height: 450px; position: relative; overflow: hidden;
+    }
+    .blog-detail-hero img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .blog-detail-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.2) 60%, transparent 100%);
+    }
+    .blog-detail-hero-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2rem; max-width: 900px; margin: 0 auto;
+    }
+    .blog-detail-body {
+      max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem;
+    }
+    .blog-detail-content {
+      font-size: 1.05rem; line-height: 1.85; color: var(--gray-700);
+    }
+    .blog-detail-content h2 {
+      font-family: 'Oswald', sans-serif; font-size: 1.75rem;
+      color: var(--gray-900); margin: 2rem 0 1rem;
+    }
+    .blog-detail-content h3 {
+      font-family: 'Oswald', sans-serif; font-size: 1.35rem;
+      color: var(--gray-800); margin: 1.5rem 0 .75rem;
+    }
+    .blog-detail-content p { margin-bottom: 1.25rem; }
+    .blog-detail-content blockquote {
+      border-left: 4px solid var(--pink); padding: 1rem 1.5rem;
+      background: rgba(233,30,140,.05); border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1.5rem 0; font-style: italic; color: var(--gray-600);
+    }
+    .blog-detail-content img {
+      border-radius: var(--radius); margin: 1.5rem 0; width: 100%;
+    }
+    .blog-detail-content ul, .blog-detail-content ol {
+      padding-left: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .blog-detail-content li { margin-bottom: .5rem; }
+    .blog-tags-list { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem; }
+    .blog-tag-chip {
+      padding: .3rem .8rem; border-radius: 9999px;
+      background: var(--gray-100); color: var(--gray-600);
+      font-size: .8rem; font-weight: 500; cursor: pointer;
+      transition: var(--transition);
+    }
+    .blog-tag-chip:hover { background: var(--pink); color: white; }
+    .blog-share { display: flex; gap: .75rem; align-items: center; margin-top: 2rem; }
+    .share-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; transition: var(--transition); cursor: pointer;
+    }
+    .share-btn.fb { background: #1877f2; color: white; }
+    .share-btn.tw { background: #1da1f2; color: white; }
+    .share-btn.wa { background: #25d366; color: white; }
+    .share-btn:hover { transform: scale(1.1); }
+    .related-posts { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--gray-200); }
+
+    /* ============================================================
+       BLOG FULL PAGE
+    ============================================================ */
+    #page-blog { padding-top: 70px; }
+    .blog-page-hero {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--pink-dark) 100%);
+      padding: 4rem 0; text-align: center; color: white;
+    }
+    .blog-page-hero h1 {
+      font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700;
+    }
+    .blog-page-hero p { opacity: .8; margin-top: .5rem; }
+    .blog-search-bar {
+      max-width: 500px; margin: 1.5rem auto 0;
+      display: flex; background: white; border-radius: 9999px;
+      overflow: hidden; box-shadow: var(--shadow);
+    }
+    .blog-search-bar input {
+      flex: 1; padding: .75rem 1.25rem; border: none; outline: none;
+      font-size: .95rem; color: var(--gray-800);
+    }
+    .blog-search-bar button {
+      padding: .75rem 1.5rem; background: var(--pink); color: white;
+      font-weight: 600; font-size: .9rem; cursor: pointer; border: none;
+    }
+    .blog-layout {
+      display: grid; grid-template-columns: 1fr 320px; gap: 3rem;
+      max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem;
+    }
+    .blog-sidebar .sidebar-widget {
+      background: white; border-radius: var(--radius);
+      box-shadow: var(--shadow-sm); overflow: hidden; margin-bottom: 1.5rem;
+    }
+    .sidebar-widget-header {
+      padding: 1rem 1.25rem; background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+      color: white; font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 1rem;
+    }
+    .sidebar-widget-body { padding: 1.25rem; }
+    .category-list-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .6rem 0; border-bottom: 1px solid var(--gray-100);
+      cursor: pointer; transition: var(--transition);
+    }
+    .category-list-item:last-child { border-bottom: none; }
+    .category-list-item:hover { color: var(--pink); }
+    .category-list-item .cat-name { font-size: .9rem; font-weight: 500; }
+    .category-list-item .cat-count {
+      background: var(--gray-100); color: var(--gray-500);
+      padding: .15rem .5rem; border-radius: 9999px; font-size: .75rem;
+    }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .recent-post-item {
+      display: flex; gap: .75rem; padding: .75rem 0;
+      border-bottom: 1px solid var(--gray-100); cursor: pointer;
+    }
+    .recent-post-item:last-child { border-bottom: none; }
+    .recent-post-img {
+      width: 60px; height: 60px; border-radius: 8px;
+      object-fit: cover; flex-shrink: 0;
+    }
+    .recent-post-img-placeholder {
+      width: 60px; height: 60px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--blue-mid), var(--pink));
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.2rem;
+    }
+    .recent-post-title {
+      font-size: .85rem; font-weight: 600; color: var(--gray-800);
+      line-height: 1.3; transition: var(--transition);
+    }
+    .recent-post-item:hover .recent-post-title { color: var(--pink); }
+    .recent-post-date { font-size: .75rem; color: var(--gray-400); margin-top: .25rem; }
+
+    /* ============================================================
+       GALLERY
+    ============================================================ */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-item {
+      position: relative; border-radius: var(--radius); overflow: hidden;
+      aspect-ratio: 4/3; cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 60%);
+      opacity: 0; transition: var(--transition);
+      display: flex; align-items: flex-end; padding: 1rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay .caption { color: white; font-size: .85rem; font-weight: 500; }
+
+    /* ============================================================
+       LIGHTBOX
+    ============================================================ */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,.95); display: flex; align-items: center;
+      justify-content: center; padding: 2rem;
+    }
+    .lightbox-img { max-width: 90vw; max-height: 85vh; border-radius: var(--radius); }
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      color: white; font-size: 2rem; cursor: pointer; opacity: .7;
+    }
+    .lightbox-close:hover { opacity: 1; }
+
+    /* ============================================================
+       ADMIN PANEL
+    ============================================================ */
+    #admin-shell {
+      display: flex; flex-direction: column; min-height: 100vh;
+      background: var(--gray-900);
+    }
+    .admin-topbar {
+      height: 64px; background: var(--gray-800); border-bottom: 1px solid rgba(255,255,255,.08);
+      display: flex; align-items: center; padding: 0 1.5rem;
+      justify-content: space-between; flex-shrink: 0;
+    }
+    .admin-topbar .page-title {
+      font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 600; color: white;
+    }
+    .admin-topbar .topbar-actions { display: flex; align-items: center; gap: 1rem; }
+    .admin-topbar .admin-user {
+      display: flex; align-items: center; gap: .5rem; color: var(--gray-300); font-size: .85rem;
+    }
+    .admin-topbar .admin-user .avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--blue-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700; color: white;
+    }
+    .admin-body { display: flex; flex: 1; overflow: hidden; }
+    .admin-sidebar {
+      width: 240px; background: var(--gray-800); border-right: 1px solid rgba(255,255,255,.06);
+      display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto;
+    }
+    .admin-sidebar-section { padding: 1.5rem 1rem .5rem; }
+    .admin-sidebar-section .section-label {
+      font-size: .65rem; text-transform: uppercase; letter-spacing: .15em;
+      color: var(--gray-500); font-weight: 600; padding: 0 .5rem; margin-bottom: .5rem;
+    }
+    .admin-nav-item {
+      display: flex; align-items: center; gap: .75rem;
+      padding: .65rem .875rem; border-radius: 8px; cursor: pointer;
+      color: var(--gray-400); font-size: .875rem; font-weight: 500;
+      transition: var(--transition); margin-bottom: 2px;
+    }
+    .admin-nav-item i { width: 18px; text-align: center; font-size: .9rem; }
+    .admin-nav-item:hover { background: rgba(255,255,255,.06); color: white; }
+    .admin-nav-item.active {
+      background: linear-gradient(135deg, rgba(233,30,140,.25), rgba(37,99,235,.25));
+      color: white; border: 1px solid rgba(233,30,140,.2);
+    }
+    .admin-nav-item.active i { color: var(--pink-light); }
+    .admin-content { flex: 1; overflow-y: auto; padding: 2rem; }
+    .aview { display: none; }
+    .aview.active { display: block; }
+    .admin-page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .admin-page-header h2 {
+      font-family: 'Oswald', sans-serif; font-size: 1.75rem; font-weight: 700; color: white;
+    }
+    .admin-page-header p { color: var(--gray-400); font-size: .9rem; margin-top: .25rem; }
+
+    /* Admin Stats Cards */
+    .admin-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+    .admin-stat-card {
+      background: var(--gray-700); border-radius: var(--radius);
+      padding: 1.5rem; border: 1px solid rgba(255,255,255,.06);
+    }
+    .admin-stat-card .stat-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; margin-bottom: 1rem;
+    }
+    .admin-stat-card .stat-value {
+      font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: white;
+    }
+    .admin-stat-card .stat-label { font-size: .8rem; color: var(--gray-400); margin-top: .25rem; }
+    .admin-stat-card .stat-change {
+      font-size: .75rem; margin-top: .5rem; display: flex; align-items: center; gap: .3rem;
+    }
+    .stat-up { color: var(--green-light); }
+    .stat-down { color: #f87171; }
+
+    /* Admin Table */
+    .admin-table-wrap {
+      background: var(--gray-700); border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.06); overflow: hidden;
+    }
+    .admin-table-header {
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,.06);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .admin-table-header h3 { font-size: 1rem; font-weight: 600; color: white; }
+    .admin-table {
+      width: 100%; border-collapse: collapse;
+    }
+    .admin-table thead th {
+      padding: .875rem 1.25rem; text-align: left;
+      font-size: .75rem; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--gray-400); font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .admin-table tbody tr { border-bottom: 1px solid rgba(255,255,255,.04); transition: var(--transition); }
+    .admin-table tbody tr:hover { background: rgba(255,255,255,.03); }
+    .admin-table tbody td { padding: .875rem 1.25rem; color: var(--gray-200); font-size: .875rem; }
+    .admin-table tbody td:last-child { display: flex; gap: .5rem; align-items: center; }
+
+    /* Admin Forms */
+    .admin-form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label { font-size: .8rem; font-weight: 600; color: var(--gray-300); text-transform: uppercase; letter-spacing: .08em; }
+    .form-control {
+      padding: .65rem 1rem; background: var(--gray-600);
+      border: 1px solid rgba(255,255,255,.1); border-radius: 8px;
+      color: white; font-size: .9rem; outline: none; transition: var(--transition);
+    }
+    .form-control:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(233,30,140,.15); }
+    .form-control::placeholder { color: var(--gray-500); }
+    select.form-control option { background: var(--gray-700); }
+    textarea.form-control { resize: vertical; min-height: 120px; }
+    .form-card {
+      background: var(--gray-700); border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.06); padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-card-title {
+      font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 600;
+      color: white; margin-bottom: 1.25rem; padding-bottom: .75rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .action-btn {
+      padding: .4rem .75rem; border-radius: 6px; font-size: .78rem;
+      font-weight: 600; cursor: pointer; transition: var(--transition); border: none;
+    }
+    .action-btn.edit { background: rgba(37,99,235,.2); color: var(--blue-light); }
+    .action-btn.edit:hover { background: var(--blue-mid); color: white; }
+    .action-btn.delete { background: rgba(239,68,68,.2); color: #f87171; }
+    .action-btn.delete:hover { background: #ef4444; color: white; }
+    .action-btn.view { background: rgba(22,163,74,.2); color: var(--green-light); }
+    .action-btn.view:hover { background: var(--green); color: white; }
+
+    /* Admin Login */
+    #admin-login {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--gray-900) 0%, var(--blue) 50%, var(--gray-900) 100%);
+    }
+    .login-card {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(20px); border-radius: 20px; padding: 2.5rem;
+      width: 100%; max-width: 420px; text-align: center;
+    }
+    .login-card .logo {
+      width: 70px; height: 70px; border-radius: 16px;
+      background: linear-gradient(135deg, var(--pink), var(--blue-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700;
+      color: white; margin: 0 auto 1.5rem;
+    }
+    .login-card h2 { font-family: 'Oswald', sans-serif; font-size: 1.75rem; color: white; margin-bottom: .5rem; }
+    .login-card p { color: var(--gray-400); font-size: .9rem; margin-bottom: 2rem; }
+    .login-form-group { margin-bottom: 1.25rem; text-align: left; }
+    .login-label { display: block; font-size: .8rem; font-weight: 600; color: var(--gray-300); margin-bottom: .4rem; }
+    .login-input {
+      width: 100%; padding: .75rem 1rem; background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15); border-radius: 10px;
+      color: white; font-size: .95rem; outline: none; transition: var(--transition);
+    }
+    .login-input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(233,30,140,.2); }
+    .login-input::placeholder { color: var(--gray-500); }
+    .login-btn {
+      width: 100%; padding: .875rem; border-radius: 10px;
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: white; font-weight: 700; font-size: 1rem; cursor: pointer;
+      border: none; transition: var(--transition); margin-top: .5rem;
+    }
+    .login-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(233,30,140,.4); }
+    .login-error {
+      background: rgba(239,68,68,.15); border: 1px solid rgba(239,68,68,.3);
+      color: #f87171; padding: .75rem 1rem; border-radius: 8px;
+      font-size: .85rem; margin-bottom: 1rem; text-align: left;
+    }
+
+    /* ============================================================
+       TOAST NOTIFICATIONS
+    ============================================================ */
+    #toast-container {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 99999;
+      display: flex; flex-direction: column; gap: .75rem;
+    }
+    .toast {
+      background: var(--gray-800); color: white; padding: 1rem 1.5rem;
+      border-radius: var(--radius); box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: .75rem;
+      min-width: 280px; max-width: 400px;
+      animation: slideIn .3s ease;
+      border-left: 4px solid var(--green);
+    }
+    .toast.error { border-left-color: #ef4444; }
+    .toast.warning { border-left-color: #f59e0b; }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    /* ============================================================
+       MODAL
+    ============================================================ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 5000;
+      background: rgba(0,0,0,.7); display: flex;
+      align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .modal {
+      background: var(--gray-800); border-radius: 16px;
+      width: 100%; max-width: 600px; max-height: 90vh;
+      overflow-y: auto; box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .modal-header {
+      padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-header h3 { font-family: 'Oswald', sans-serif; font-size: 1.3rem; color: white; }
+    .modal-close { color: var(--gray-400); font-size: 1.5rem; cursor: pointer; }
+    .modal-close:hover { color: white; }
+    .modal-body { padding: 1.5rem; }
+    .modal-footer {
+      padding: 1.25rem 1.5rem; border-top: 1px solid rgba(255,255,255,.08);
+      display: flex; justify-content: flex-end; gap: .75rem;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    #footer {
+      background: var(--gray-900); color: var(--gray-300);
+      padding: 4rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand .brand-name {
+      font-family: 'Oswald', sans-serif; font-size: 1.5rem;
+      font-weight: 700; color: white; margin-bottom: .75rem;
+    }
+    .footer-brand p { font-size: .9rem; line-height: 1.7; max-width: 300px; }
+    .footer-brand .social-links { display: flex; gap: .75rem; margin-top: 1.25rem; }
+    .social-link {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,.08); display: flex; align-items: center;
+      justify-content: center; color: var(--gray-400); font-size: .9rem;
+      transition: var(--transition); cursor: pointer;
+    }
+    .social-link:hover { background: var(--pink); color: white; }
+    .footer-col h4 {
+      font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600;
+      color: white; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: .08em;
+    }
+    .footer-col ul li {
+      margin-bottom: .6rem;
+    }
+    .footer-col ul li a, .footer-col ul li span {
+      font-size: .875rem; color: var(--gray-400); transition: var(--transition); cursor: pointer;
+    }
+    .footer-col ul li a:hover, .footer-col ul li span:hover { color: var(--pink-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08); padding-top: 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: .85rem; color: var(--gray-500);
+    }
+    .footer-bottom .accent { color: var(--pink-light); }
+
+    /* ============================================================
+       PAGE SYSTEM
+    ============================================================ */
+    .page { display: none; }
+    .page.active { display: block; }
+    #public-shell { min-height: 100vh; }
+
+    /* ============================================================
+       PAGE HERO BANNERS
+    ============================================================ */
+    .page-hero {
+      padding: 6rem 0 3rem; text-align: center;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--gray-900) 100%);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 20%, rgba(233,30,140,.2) 0%, transparent 60%);
+    }
+    .page-hero h1 {
+      font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700;
+      color: white; position: relative; z-index: 1;
+    }
+    .page-hero p { color: var(--gray-300); margin-top: .5rem; position: relative; z-index: 1; }
+    .page-hero .breadcrumb {
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      font-size: .85rem; color: var(--gray-400); margin-bottom: 1rem;
+      position: relative; z-index: 1;
+    }
+    .page-hero .breadcrumb .sep { color: var(--gray-600); }
+    .page-hero .breadcrumb .current { color: var(--pink-light); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .admin-stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .blog-layout { grid-template-columns: 1fr; }
+      .blog-sidebar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .admin-sidebar { display: none; }
+      .admin-stats-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+      .section-header h2 { font-size: 1.875rem; }
+      .hero-text h1 { font-size: 2.25rem; }
+      .admin-form-grid { grid-template-columns: 1fr; }
+      .blog-sidebar { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-stats { grid-template-columns: 1fr; }
+      .admin-stats-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       RICH TEXT EDITOR
+    ============================================================ */
+    .ql-toolbar { background: var(--gray-600) !important; border-color: rgba(255,255,255,.1) !important; border-radius: 8px 8px 0 0 !important; }
+    .ql-container { background: var(--gray-600) !important; border-color: rgba(255,255,255,.1) !important; border-radius: 0 0 8px 8px !important; min-height: 200px; }
+    .ql-editor { color: white !important; }
+    .ql-toolbar .ql-stroke { stroke: var(--gray-300) !important; }
+    .ql-toolbar .ql-fill { fill: var(--gray-300) !important; }
+    .ql-toolbar .ql-picker { color: var(--gray-300) !important; }
+
+    /* ============================================================
+       LOADING SPINNER
+    ============================================================ */
+    .spinner {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 3px solid rgba(233,30,140,.2);
+      border-top-color: var(--pink);
+      animation: spin .8s linear infinite;
+      margin: 2rem auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ============================================================
+       MISC
+    ============================================================ */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--pink), var(--blue-mid), var(--green));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .sport-icon { font-size: 2rem; }
+    .empty-state {
+      text-align: center; padding: 4rem 2rem; color: var(--gray-400);
+    }
+    .empty-state i { font-size: 3rem; margin-bottom: 1rem; opacity: .4; }
+    .empty-state p { font-size: .95rem; }
+    .pagination {
+      display: flex; align-items: center; justify-content: center;
+      gap: .5rem; margin-top: 2rem;
+    }
+    .page-btn {
+      width: 38px; height: 38px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .875rem; font-weight: 600; cursor: pointer;
+      border: 1px solid var(--gray-200); color: var(--gray-600);
+      transition: var(--transition); background: white;
+    }
+    .page-btn:hover, .page-btn.active {
+      background: var(--pink); border-color: var(--pink); color: white;
+    }
+    .scroll-top {
+      position: fixed; bottom: 2rem; left: 2rem; z-index: 999;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--blue-mid));
+      color: white; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: var(--shadow); transition: var(--transition);
+      opacity: 0; pointer-events: none;
+    }
+    .scroll-top.visible { opacity: 1; pointer-events: all; }
+    .scroll-top:hover { transform: translateY(-3px); }
+    .progress-bar {
+      height: 4px; background: var(--gray-200); border-radius: 2px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; border-radius: 2px;
+      background: linear-gradient(90deg, var(--pink), var(--blue-mid));
+      transition: width .3s ease;
+    }
+    .stat-pill {
+      display: inline-flex; align-items: center; gap: .3rem;
+      padding: .25rem .75rem; border-radius: 9999px;
+      font-size: .78rem; font-weight: 600;
+    }
+    .stat-pill.pink { background: rgba(233,30,140,.1); color: var(--pink-dark); }
+    .stat-pill.blue { background: rgba(37,99,235,.1); color: var(--blue-mid); }
+    .stat-pill.green { background: rgba(22,163,74,.1); color: var(--green-dark); }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     TOAST CONTAINER
+============================================================ -->
+<div id="toast-container"></div>
+
+<!-- ============================================================
+     SCROLL TO TOP
+============================================================ -->
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- ============================================================
+     LIGHTBOX
+============================================================ -->
+<div id="lightbox" class="hidden">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" class="lightbox-img" src="" alt="" />
+</div>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand" onclick="goPublic('home')" style="cursor:pointer">
+      <div class="logo-mark">BSSF</div>
+      <div class="brand-text">
+        <div class="brand-name">BSSF</div>
+        <div class="brand-sub">Bermuda School Sports</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <span class="nav-link" data-page="home" onclick="goPublic('home')">Home</span>
+      <span class="nav-link" data-page="events" onclick="goPublic('events')">Events</span>
+      <span class="nav-link" data-page="standings" onclick="goPublic('standings')">Standings</span>
+      <span class="nav-link" data-page="teams" onclick="goPublic('teams')">Teams</span>
+      <span class="nav-link" data-page="gallery" onclick="goPublic('gallery')">Gallery</span>
+      <span class="nav-link" data-page="blog" onclick="goPublic('blog')">News & Blog</span>
+    </div>
+    <div class="nav-cta">
+      <button class="nav-admin-btn" onclick="window.location.hash='#/admin'">
+        <i class="fas fa-lock"></i> Admin
+      </button>
+    </div>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <span class="nav-link" onclick="goPublic('home');toggleMobileMenu()">Home</span>
+    <span class="nav-link" onclick="goPublic('events');toggleMobileMenu()">Events</span>
+    <span class="nav-link" onclick="goPublic('standings');toggleMobileMenu()">Standings</span>
+    <span class="nav-link" onclick="goPublic('teams');toggleMobileMenu()">Teams</span>
+    <span class="nav-link" onclick="goPublic('gallery');toggleMobileMenu()">Gallery</span>
+    <span class="nav-link" onclick="goPublic('blog');toggleMobileMenu()">News & Blog</span>
+    <span class="nav-link" onclick="window.location.hash='#/admin'">Admin Panel</span>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PUBLIC SHELL
+============================================================ -->
+<div id="public-shell">
+
+  <!-- LIVE SCORES TICKER -->
+  <div id="ticker" style="margin-top:70px">
+    <div class="container">
+      <div class="ticker-inner">
+        <span class="ticker-label"><i class="fas fa-circle" style="font-size:.5rem;animation:pulse 1s infinite"></i> LIVE</span>
+        <div class="ticker-track" id="tickerTrack">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HOME PAGE ==================== -->
+  <div id="page-home" class="page">
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-pattern"></div>
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="eyebrow">
+            <i class="fas fa-trophy"></i>
+            Official Sports Platform
+          </div>
+          <h1>
+            Bermuda School<br>
+            <span class="highlight">Sports Federation</span>
+          </h1>
+          <p>Your central hub for inter-school sports — live scores, standings, events, athlete profiles, and the latest news from Bermuda's school sports community.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" onclick="goPublic('events')">
+              <i class="fas fa-calendar-alt"></i> View Events
+            </button>
+            <button class="btn btn-outline-blue btn-lg" onclick="goPublic('standings')">
+              <i class="fas fa-table"></i> Standings
+            </button>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="num" id="stat-schools">12</div>
+              <div class="label">Schools</div>
+            </div>
+            <div class="hero-stat">
+              <div class="num" id="stat-sports">8</div>
+              <div class="label">Sports</div>
+            </div>
+            <div class="hero-stat">
+              <div class="num" id="stat-athletes">450+</div>
+              <div class="label">Athletes</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card-stack">
+            <div class="hero-main-card">
+              <div class="card-label"><i class="fas fa-circle" style="color:#ef4444;font-size:.6rem;animation:pulse 1s infinite"></i> LIVE MATCH</div>
+              <div class="hero-score-display">
+                <div class="hero-score-team">
+                  <div class="team-name">Warwick Eagles</div>
+                  <div class="team-score">2</div>
+                </div>
+                <div class="hero-score-vs">
+                  <div><span class="live-dot"></span>LIVE</div>
+                  <div style="font-size:1.5rem;margin:.5rem 0">VS</div>
+                  <div>67'</div>
+                </div>
+                <div class="hero-score-team">
+                  <div class="team-name">Saltus Griffins</div>
+                  <div class="team-score">1</div>
+                </div>
+              </div>
+              <div style="font-size:.8rem;color:var(--gray-400);text-align:center">
+                <i class="fas fa-map-marker-alt"></i> National Sports Centre
+              </div>
+            </div>
+            <div class="hero-floating-badge badge-1">
+              <div class="badge-icon pink"><i class="fas fa-medal"></i></div>
+              <div class="badge-text">
+                <div class="title">Weekly Winner</div>
+                <div class="sub">Jason Smith · Eagles</div>
+              </div>
+            </div>
+            <div class="hero-floating-badge badge-2">
+              <div class="badge-icon green"><i class="fas fa-chart-line"></i></div>
+              <div class="badge-text">
+                <div class="title">Season Update</div>
+                <div class="sub">Standings refreshed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UPCOMING EVENTS PREVIEW -->
+    <section class="section bg-white">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Schedule</span>
+          <h2>Upcoming Events</h2>
+          <div class="divider"></div>
+          <p>Don't miss the action — check out upcoming matches and tournaments across all sports.</p>
+        </div>
+        <div class="sport-tabs" id="homeEventTabs">
+          <button class="sport-tab active" onclick="filterHomeEvents('all', this)">All Sports</button>
+          <button class="sport-tab" onclick="filterHomeEvents('Football', this)"><i class="fas fa-futbol"></i> Football</button>
+          <button class="sport-tab" onclick="filterHomeEvents('Basketball', this)"><i class="fas fa-basketball-ball"></i> Basketball</button>
+          <button class="sport-tab" onclick="filterHomeEvents('Track', this)"><i class="fas fa-running"></i> Track</button>
+          <button class="sport-tab" onclick="filterHomeEvents('Swimming', this)"><i class="fas fa-swimmer"></i> Swimming</button>
+          <button class="sport-tab" onclick="filterHomeEvents('Cricket', this)"><i class="fas fa-baseball-ball"></i> Cricket</button>
+        </div>
+        <div class="grid-3" id="homeEventsGrid">
+          <!-- Populated by JS -->
+        </div>
+        <div class="text-center mt-4">
+          <button class="btn btn-outline" onclick="goPublic('events')">View All Events <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WEEKLY WINNER -->
+    <section class="section" style="background:var(--gray-100)">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Spotlight</span>
+          <h2>Athlete of the Week</h2>
+          <div class="divider"></div>
+        </div>
+        <div id="weeklyWinnerSection">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- STANDINGS PREVIEW -->
+    <section class="section bg-white">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">League Table</span>
+          <h2>Current Standings</h2>
+          <div class="divider"></div>
+        </div>
+        <div class="sport-tabs" id="standingsTabs">
+          <button class="sport-tab active" onclick="loadStandingsTable('Football', this)">Football</button>
+          <button class="sport-tab" onclick="loadStandingsTable('Basketball', this)">Basketball</button>
+          <button class="sport-tab" onclick="loadStandingsTable('Cricket', this)">Cricket</button>
+        </div>
+        <div class="card" style="overflow:hidden">
+          <div id="standingsTableWrap">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <button class="btn btn-outline" onclick="goPublic('standings')">Full Standings <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG PREVIEW -->
+    <section class="section" style="background:var(--gray-100)">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Latest News</span>
+          <h2>From the Blog</h2>
+          <div class="divider"></div>
+          <p>Stay up to date with the latest sports news, athlete stories, and event highlights.</p>
+        </div>
+        <div class="grid-3" id="homeBlogGrid">
+          <!-- Populated by JS -->
+        </div>
+        <div class="text-center mt-4">
+          <button class="btn btn-outline" onclick="goPublic('blog')">Read All Articles <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPORTS OFFERED -->
+    <section class="section bg-white">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Our Sports</span>
+          <h2>Sports We Cover</h2>
+          <div class="divider"></div>
+        </div>
+        <div class="grid-4" id="sportsGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+  </div><!-- end page-home -->
+
+  <!-- ==================== EVENTS PAGE ==================== -->
+  <div id="page-events" class="page">
+    <div class="page-hero">
+      <div class="breadcrumb"><span onclick="goPublic('home')" style="cursor:pointer">Home</span><span class="sep">/</span><span class="current">Events</span></div>
+      <h1><i class="fas fa-calendar-alt"></i> Events & Fixtures</h1>
+      <p>All scheduled matches, tournaments, and sports events</p>
+    </div>
+    <section class="section">
+      <div class="container">
+        <div class="flex items-center justify-between mb-4" style="flex-wrap:wrap;gap:1rem">
+          <div class="sport-tabs" id="eventsPageTabs" style="margin-bottom:0">
+            <button class="sport-tab active" onclick="filterPageEvents('all',this)">All</button>
+            <button class="sport-tab" onclick="filterPageEvents('Football',this)">Football</button>
+            <button class="sport-tab" onclick="filterPageEvents('Basketball',this)">Basketball</button>
+            <button class="sport-tab" onclick="filterPageEvents('Track',this)">Track</button>
+            <button class="sport-tab" onclick="filterPageEvents('Swimming',this)">Swimming</button>
+            <button class="sport-tab" onclick="filterPageEvents('Cricket',this)">Cricket</button>
+          </div>
+          <div style="display:flex;gap:.5rem">
+            <select id="eventStatusFilter" class="form-control" style="background:white;color:var(--gray-700);border:1px solid var(--gray-200);padding:.5rem 1rem;border-radius:8px;font-size:.85rem" onchange="filterPageEvents(null,null)">
+              <option value="all">All Status</option>
+              <option value="scheduled">Scheduled</option>
+              <option value="live">Live</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-3" id="eventsPageGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== STANDINGS PAGE ==================== -->
+  <div id="page-standings" class="page">
+    <div class="page-hero">
+      <div class="breadcrumb"><span onclick="goPublic('home')" style="cursor:pointer">Home</span><span class="sep">/</span><span class="current">Standings</span></div>
+      <h1><i class="fas fa-table"></i> League Standings</h1>
+      <p>Current season league tables across all sports</p>
+    </div>
+    <section class="section">
+      <div class="container">
+        <div class="sport-tabs" id="standingsPageTabs">
+          <button class="sport-tab active" onclick="loadFullStandings('Football',this)">Football</button>
+          <button class="sport-tab" onclick="loadFullStandings('Basketball',this)">Basketball</button>
+          <button class="sport-tab" onclick="loadFullStandings('Cricket',this)">Cricket</button>
+          <button class="sport-tab" onclick="loadFullStandings('Track',this)">Track</button>
+          <button class="sport-tab" onclick="loadFullStandings('Swimming',this)">Swimming</button>
+        </div>
+        <div class="card" style="overflow:hidden">
+          <div id="standingsPageTableWrap"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== TEAMS PAGE ==================== -->
+  <div id="page-teams" class="page">
+    <div class="page-hero">
+      <div class="breadcrumb"><span onclick="goPublic('home')" style="cursor:pointer">Home</span><span class="sep">/</span><span class="current">Teams</span></div>
+      <h1><i class="fas fa-users"></i> Teams & Schools</h1>
+      <p>All participating schools and their sports teams</p>
+    </div>
+    <section class="section">
+      <div class="container">
+        <div class="grid-3" id="teamsGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== GALLERY PAGE ==================== -->
+  <div id="page-gallery" class="page">
+    <div class="page-hero">
+      <div class="breadcrumb"><span onclick="goPublic('home')" style="cursor:pointer">Home</span><span class="sep">/</span><span class="current">Gallery</span></div>
+      <h1><i class="fas fa-images"></i> Photo Gallery</h1>
+      <p>Capturing the best moments from Bermuda school sports</p>
+    </div>
+    <section class="section">
+      <div class="container">
+        <div class="sport-tabs" id="galleryTabs">
+          <button class="sport-tab active" onclick="filterGallery('all',this)">All Photos</button>
+          <button class="sport-tab" onclick="filterGallery('Football',this)">Football</button>
+          <button class="sport-tab" onclick="filterGallery('Basketball',this)">Basketball</button>
+          <button class="sport-tab" onclick="filterGallery('Track',this)">Track</button>
+          <button class="sport-tab" onclick="filterGallery('Swimming',this)">Swimming</button>
+        </div>
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== BLOG LIST PAGE ==================== -->
+  <div id="page-blog" class="page">
+    <div class="blog-page-hero">
+      <div class="container">
+        <h1><i class="fas fa-newspaper"></i> News & Blog</h1>
+        <p>Sports news, athlete stories, event highlights, and more</p>
+        <div class="blog-search-bar">
+          <input type="text" id="blogSearchInput" placeholder="Search articles..." onkeyup="handleBlogSearch(event)" />
+          <button onclick="executeBlogSearch()"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="blog-layout">
+      <div>
+        <!-- Featured Post -->
+        <div id="blogFeaturedPost" class="mb-4"></div>
+        <!-- Category Filter -->
+        <div class="sport-tabs" id="blogCategoryTabs" style="justify-content:flex-start;margin-bottom:1.5rem"></div>
+        <!-- Posts Grid -->
+        <div class="grid-2" id="blogPostsGrid"></div>
+        <!-- Pagination -->
+        <div class="pagination" id="blogPagination"></div>
+      </div>
+      <aside class="blog-sidebar">
+        <!-- Categories Widget -->
+        <div class="sidebar-widget">
+          <div class="sidebar-widget-header"><i class="fas fa-folder"></i> Categories</div>
+          <div class="sidebar-widget-body" id="sidebarCategories"></div>
+        </div>
+        <!-- Tags Widget -->
+        <div class="sidebar-widget">
+          <div class="sidebar-widget-header"><i class="fas fa-tags"></i> Tags</div>
+          <div class="sidebar-widget-body" id="sidebarTags"></div>
+        </div>
+        <!-- Recent Posts Widget -->
+        <div class="sidebar-widget">
+          <div class="sidebar-widget-header"><i class="fas fa-clock"></i> Recent Posts</div>
+          <div class="sidebar-widget-body" id="sidebarRecent"></div>
+        </div>
+        <!-- Newsletter Widget -->
+        <div class="sidebar-widget">
+          <div class="sidebar-widget-header"><i class="fas fa-envelope"></i> Newsletter</div>
+          <div class="sidebar-widget-body">
+            <p style="font-size:.85rem;color:var(--gray-500);margin-bottom:1rem">Get the latest sports news delivered to your inbox.</p>
+            <input type="email" placeholder="Your email address" class="form-control" style="background:var(--gray-100);color:var(--gray-800);border:1px solid var(--gray-200);margin-bottom:.75rem" />
+            <button class="btn btn-primary w-full" style="justify-content:center">Subscribe</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ==================== BLOG DETAIL PAGE ==================== -->
+  <div id="page-blog-detail" class="page">
+    <div id="blogDetailContent">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-name">BSSF</div>
+          <p>The official digital platform for the Bermuda School Sports Federation — connecting schools, athletes, and fans across the island.</p>
+          <div class="social-links">
+            <div class="social-link"><i class="fab fa-facebook-f"></i></div>
+            <div class="social-link"><i class="fab fa-twitter"></i></div>
+            <div class="social-link"><i class="fab fa-instagram"></i></div>
+            <div class="social-link"><i class="fab fa-youtube"></i></div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><span onclick="goPublic('home')">Home</span></li>
+            <li><span onclick="goPublic('events')">Events</span></li>
+            <li><span onclick="goPublic('standings')">Standings</span></li>
+            <li><span onclick="goPublic('teams')">Teams</span></li>
+            <li><span onclick="goPublic('gallery')">Gallery</span></li>
+            <li><span onclick="goPublic('blog')">News & Blog</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Sports</h4>
+          <ul>
+            <li><span>Football</span></li>
+            <li><span>Basketball</span></li>
+            <li><span>Track & Field</span></li>
+            <li><span>Swimming</span></li>
+            <li><span>Cricket</span></li>
+            <li><span>Tennis</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><span><i class="fas fa-envelope"></i> admin@bermudasporthub.com</span></li>
+            <li><span><i class="fas fa-phone"></i> +1 (441) 555-0100</span></li>
+            <li><span><i class="fas fa-map-marker-alt"></i> Hamilton, Bermuda</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 <span class="accent">BSSF</span> — Bermuda School Sports Federation</span>
+        <span>Built with <span class="accent">♥</span> for Bermuda sports</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- end public-shell -->
+
+<!-- ============================================================
+     ADMIN LOGIN
+============================================================ -->
+<div id="admin-login" class="hidden">
+  <div class="login-card">
+    <div class="logo">BSSF</div>
+    <h2>Admin Portal</h2>
+    <p>Sign in to manage the BSSF platform</p>
+    <div id="loginError" class="login-error hidden"></div>
+    <div class="login-form-group">
+      <label class="login-label">Username</label>
+      <input type="text" id="loginUser" class="login-input" placeholder="admin" />
+    </div>
+    <div class="login-form-group">
+      <label class="login-label">Password</label>
+      <input type="password" id="loginPass" class="login-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
+    </div>
+    <button class="login-btn" onclick="doLogin()">
+      <i class="fas fa-sign-in-alt"></i> Sign In
+    </button>
+    <p style="margin-top:1.5rem;font-size:.8rem;color:var(--gray-500)">
+      <a href="#" onclick="goPublic('home');return false" style="color:var(--pink-light)">← Back to website</a>
+    </p>
+  </div>
+</div>
+
+<!-- ============================================================
+     ADMIN SHELL
+============================================================ -->
+<div id="admin-shell" class="hidden">
+  <div class="admin-topbar">
+    <div>
+      <div class="page-title" id="adminPageTitle">Dashboard</div>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-sm btn-outline" onclick="goPublic('home')" style="color:var(--gray-300);border-color:rgba(255,255,255,.2)">
+        <i class="fas fa-external-link-alt"></i> View Site
+      </button>
+      <div class="admin-user">
+        <div class="avatar">A</div>
+        <span>Admin</span>
+      </div>
+      <button class="btn btn-sm" onclick="doLogout()" style="color:#f87171;background:rgba(239,68,68,.1)">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <nav class="admin-sidebar">
+      <div class="admin-sidebar-section">
+        <div class="section-label">Main</div>
+        <div class="admin-nav-item active" onclick="showAdminView('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
+        <div class="admin-nav-item" onclick="showAdminView('blog-manager')"><i class="fas fa-newspaper"></i> Blog Manager</div>
+        <div class="admin-nav-item" onclick="showAdminView('events-manager')"><i class="fas fa-calendar-alt"></i> Events</div>
+        <div class="admin-nav-item" onclick="showAdminView('results-manager')"><i class="fas fa-trophy"></i> Results</div>
+        <div class="admin-nav-item" onclick="showAdminView('standings-manager')"><i class="fas fa-table"></i> Standings</div>
+      </div>
+      <div class="admin-sidebar-section">
+        <div class="section-label">Content</div>
+        <div class="admin-nav-item" onclick="showAdminView('teams-manager')"><i class="fas fa-users"></i> Teams</div>
+        <div class="admin-nav-item" onclick="showAdminView('players-manager')"><i class="fas fa-user-alt"></i> Players</div>
+        <div class="admin-nav-item" onclick="showAdminView('winners-manager')"><i class="fas fa-medal"></i> Weekly Winners</div>
+        <div class="admin-nav-item" onclick="showAdminView('gallery-manager')"><i class="fas fa-images"></i> Gallery</div>
+      </div>
+      <div class="admin-sidebar-section">
+        <div class="section-label">System</div>
+        <div class="admin-nav-item" onclick="showAdminView('settings')"><i class="fas fa-cog"></i> Settings</div>
+        <div class="admin-nav-item" onclick="showAdminView('help')"><i class="fas fa-question-circle"></i> Help & Docs</div>
+      </div>
+    </nav>
+    <main class="admin-content">
+
+      <!-- DASHBOARD -->
+      <div id="aview-dashboard" class="aview active">
+        <div class="admin-page-header">
+          <div>
+            <h2>Dashboard</h2>
+            <p>Welcome back! Here's what's happening with BSSF.</p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="refreshDashboard()"><i class="fas fa-sync"></i> Refresh</button>
+        </div>
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card">
+            <div class="stat-icon" style="background:rgba(233,30,140,.15);color:var(--pink)"><i class="fas fa-calendar-alt"></i></div>
+            <div class="stat-value" id="dash-events">0</div>
+            <div class="stat-label">Total Events</div>
+            <div class="stat-change stat-up"><i class="fas fa-arrow-up"></i> Active season</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="stat-icon" style="background:rgba(37,99,235,.15);color:var(--blue-mid)"><i class="fas fa-users"></i></div>
+            <div class="stat-value" id="dash-teams">0</div>
+            <div class="stat-label">Teams</div>
+            <div class="stat-change stat-up"><i class="fas fa-arrow-up"></i> All sports</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="stat-icon" style="background:rgba(22,163,74,.15);color:var(--green)"><i class="fas fa-newspaper"></i></div>
+            <div class="stat-value" id="dash-posts">0</div>
+            <div class="stat-label">Blog Posts</div>
+            <div class="stat-change stat-up"><i class="fas fa-arrow-up"></i> Published</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="stat-icon" style="background:rgba(245,158,11,.15);color:#f59e0b"><i class="fas fa-images"></i></div>
+            <div class="stat-value" id="dash-photos">0</div>
+            <div class="stat-label">Gallery Photos</div>
+            <div class="stat-change stat-up"><i class="fas fa-arrow-up"></i> This season</div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="admin-table-wrap">
+            <div class="admin-table-header">
+              <h3><i class="fas fa-calendar-check" style="color:var(--pink-light)"></i> Recent Events</h3>
+            </div>
+            <table class="admin-table">
+              <thead><tr><th>Event</th><th>Sport</th><th>Date</th><th>Status</th></tr></thead>
+              <tbody id="dashRecentEvents"></tbody>
+            </table>
+          </div>
+          <div class="admin-table-wrap">
+            <div class="admin-table-header">
+              <h3><i class="fas fa-newspaper" style="color:var(--green-light)"></i> Recent Blog Posts</h3>
+            </div>
+            <table class="admin-table">
+              <thead><tr><th>Title</th><th>Category</th><th>Status</th></tr></thead>
+              <tbody id="dashRecentPosts"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOG MANAGER -->
+      <div id="aview-blog-manager" class="aview">
+        <div class="admin-page-header">
+          <div>
+            <h2>Blog Manager</h2>
+            <p>Create and manage blog posts, categories, and tags</p>
+          </div>
+          <button class="btn btn-primary" onclick="openBlogPostForm()"><i class="fas fa-plus"></i> New Post</button>
+        </div>
+        <!-- Blog Sub-tabs -->
+        <div style="display:flex;gap:.5rem;margin-bottom:1.5rem">
+          <button class="btn btn-secondary btn-sm" onclick="showBlogTab('posts')"><i class="fas fa-list"></i> Posts</button>
+          <button class="btn btn-outline-blue btn-sm" onclick="showBlogTab('categories')"><i class="fas fa-folder"></i> Categories</button>
+          <button class="btn btn-outline-blue btn-sm" onclick="showBlogTab('tags')"><i class="fas fa-tags"></i> Tags</button>
+        </div>
+        <!-- Posts List -->
+        <div id="blog-tab-posts">
+          <div class="admin-table-wrap">
+            <div class="admin-table-header">
+              <h3>All Posts</h3>
+              <input type="text" placeholder="Search posts..." class="form-control" style="width:250px;padding:.4rem .875rem" oninput="filterAdminPosts(this.value)" />
+            </div>
+            <table class="admin-table">
+              <thead><tr><th>Title</th><th>Category</th><th>Author</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+              <tbody id="adminPostsTable"></tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Categories -->
+        <div id="blog-tab-categories" class="hidden">
+          <div class="grid-2">
+            <div class="form-card">
+              <div class="form-card-title">Add Category</div>
+              <div class="form-group mb-3">
+                <label class="form-label">Category Name</label>
+                <input type="text" id="catName" class="form-control" placeholder="e.g. Match Reports" />
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Slug</label>
+                <input type="text" id="catSlug" class="form-control" placeholder="e.g. match-reports" />
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Color</label>
+                <select id="catColor" class="form-control">
+                  <option value="pink">Pink</option>
+                  <option value="blue">Blue</option>
+                  <option value="green">Green</option>
+                  <option value="gray">Gray</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" onclick="saveCategory()"><i class="fas fa-save"></i> Save Category</button>
+            </div>
+            <div class="admin-table-wrap">
+              <div class="admin-table-header"><h3>Categories</h3></div>
+              <table class="admin-table">
+                <thead><tr><th>Name</th><th>Slug</th><th>Posts</th><th>Actions</th></tr></thead>
+                <tbody id="adminCategoriesTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- Tags -->
+        <div id="blog-tab-tags" class="hidden">
+          <div class="grid-2">
+            <div class="form-card">
+              <div class="form-card-title">Add Tag</div>
+              <div class="form-group mb-3">
+                <label class="form-label">Tag Name</label>
+                <input type="text" id="tagName" class="form-control" placeholder="e.g. football" />
+              </div>
+              <button class="btn btn-primary" onclick="saveTag()"><i class="fas fa-save"></i> Save Tag</button>
+            </div>
+            <div class="admin-table-wrap">
+              <div class="admin-table-header"><h3>Tags</h3></div>
+              <table class="admin-table">
+                <thead><tr><th>Tag</th><th>Posts</th><th>Actions</th></tr></thead>
+                <tbody id="adminTagsTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOG POST FORM (modal-like view) -->
+      <div id="aview-blog-post-form" class="aview">
+        <div class="admin-page-header">
+          <div>
+            <h2 id="blogFormTitle">New Blog Post</h2>
+            <p>Write and publish a new article</p>
+          </div>
+          <div style="display:flex;gap:.75rem">
+            <button class="btn btn-outline-blue" onclick="showAdminView('blog-manager')"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="btn btn-secondary" onclick="saveBlogPost('draft')"><i class="fas fa-save"></i> Save Draft</button>
+            <button class="btn btn-primary" onclick="saveBlogPost('published')"><i class="fas fa-paper-plane"></i> Publish</button>
+          </div>
+        </div>
+        <div class="grid-2" style="grid-template-columns:1fr 320px;align-items:start">
+          <div>
+            <div class="form-card">
+              <div class="form-card-title">Post Content</div>
+              <div class="form-group mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" id="postTitle" class="form-control" placeholder="Enter post title..." />
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Excerpt</label>
+                <textarea id="postExcerpt" class="form-control" rows="3" placeholder="Brief summary of the post..."></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Content</label>
+                <div id="postContentEditor"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="form-card">
+              <div class="form-card-title">Post Settings</div>
+              <div class="form-group mb-3">
+                <label class="form-label">Category</label>
+                <select id="postCategory" class="form-control"></select>
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Author</label>
+                <input type="text" id="postAuthor" class="form-control" placeholder="Author name" value="BSSF Admin" />
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Featured Image URL</label>
+                <input type="url" id="postImage" class="form-control" placeholder="https://..." />
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Tags (comma separated)</label>
+                <input type="text" id="postTags" class="form-control" placeholder="football, match, 2025" />
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Sport</label>
+                <select id="postSport" class="form-control">
+                  <option value="">General</option>
+                  <option value="Football">Football</option>
+                  <option value="Basketball">Basketball</option>
+                  <option value="Track">Track & Field</option>
+                  <option value="Swimming">Swimming</option>
+                  <option value="Cricket">Cricket</option>
+                  <option value="Tennis">Tennis</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  <input type="checkbox" id="postFeatured" style="margin-right:.4rem" />
+                  Featured Post
+                </label>
+              </div>
+            </div>
+            <div class="form-card">
+              <div class="form-card-title">SEO</div>
+              <div class="form-group mb-3">
+                <label class="form-label">Meta Description</label>
+                <textarea id="postMeta" class="form-control" rows="3" placeholder="SEO meta description..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="editingPostId" value="" />
+      </div>
+
+      <!-- EVENTS MANAGER -->
+      <div id="aview-events-manager" class="aview">
+        <div class="admin-page-header">
+          <div><h2>Events Manager</h2><p>Schedule and manage sports events</p></div>
+          <button class="btn btn-primary" onclick="openEventForm()"><i class="fas fa-plus"></i> Add Event</button>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header"><h3>All Events</h3></div>
+          <table class="admin-table">
+            <thead><tr><th>Event</th><th>Sport</th><th>Date</th><th>Teams</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="adminEventsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- EVENT FORM -->
+      <div id="aview-event-form" class="aview">
+        <div class="admin-page-header">
+          <div><h2 id="eventFormTitle">Add Event</h2></div>
+          <button class="btn btn-outline-blue" onclick="showAdminView('events-manager')"><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
+        <div class="form-card">
+          <div class="admin-form-grid">
+            <div class="form-group">
+              <label class="form-label">Event Title</label>
+              <input type="text" id="evTitle" class="form-control" placeholder="e.g. Inter-School Football Championship" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sport</label>
+              <select id="evSport" class="form-control">
+                <option>Football</option><option>Basketball</option><option>Track</option>
+                <option>Swimming</option><option>Cricket</option><option>Tennis</option><option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <input type="date" id="evDate" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Time</label>
+              <input type="time" id="evTime" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input type="text" id="evLocation" class="form-control" placeholder="e.g. National Sports Centre" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select id="evStatus" class="form-control">
+                <option value="scheduled">Scheduled</option>
+                <option value="live">Live</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Home Team</label>
+              <input type="text" id="evHomeTeam" class="form-control" placeholder="Home team name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Away Team</label>
+              <input type="text" id="evAwayTeam" class="form-control" placeholder="Away team name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Home Score</label>
+              <input type="number" id="evHomeScore" class="form-control" placeholder="0" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Away Score</label>
+              <input type="number" id="evAwayScore" class="form-control" placeholder="0" min="0" />
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Description</label>
+              <textarea id="evDesc" class="form-control" rows="3" placeholder="Event description..."></textarea>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;display:flex;gap:.75rem">
+            <button class="btn btn-primary" onclick="saveEvent()"><i class="fas fa-save"></i> Save Event</button>
+            <button class="btn btn-outline-blue" onclick="showAdminView('events-manager')">Cancel</button>
+          </div>
+        </div>
+        <input type="hidden" id="editingEventId" value="" />
+      </div>
+
+      <!-- RESULTS MANAGER -->
+      <div id="aview-results-manager" class="aview">
+        <div class="admin-page-header">
+          <div><h2>Results Manager</h2><p>Record and verify match results</p></div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header"><h3>Completed Events</h3></div>
+          <table class="admin-table">
+            <thead><tr><th>Event</th><th>Sport</th><th>Date</th><th>Score</th><th>Winner</th><th>Verified</th></tr></thead>
+            <tbody id="adminResultsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- STANDINGS MANAGER -->
+      <div id="aview-standings-manager" class="aview">
+        <div class="admin-page-header">
+          <div><h2>Standings Manager</h2><p>Manage league tables</p></div>
+          <button class="btn btn-primary" onclick="openStandingForm()"><i class="fas fa-plus"></i> Add Entry</button>
+        </div>
+        <div class="sport-tabs" id="adminStandingsTabs" style="justify-content:flex-start">
+          <button class="sport-tab active" onclick="loadAdminStandings('Football',this)">Football</button>
+          <button class="sport-tab" onclick="loadAdminStandings('Basketball',this)">Basketball</button>
+          <button class="sport-tab" onclick="loadAdminStandings('Cricket',this)">Cricket</button>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header"><h3 id="adminStandingsTitle">Football Standings</h3></div>
+          <table class="admin-table">
+            <thead><tr><th>Pos</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>Pts</th><th>Actions</th></tr></thead>
+            <tbody id="adminStandingsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TEAMS MANAGER -->
+      <div id="aview-teams-manager" class="aview">
+        <div class="admin-page-header">
+          <div><h2>Teams Manager</h2><p>Manage school teams</p></div>
+          <button class="btn btn-primary" onclick="openTeamForm()"><i class="fas fa-plus"></i> Add Team</button>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header"><h3>All Teams</h3></div>
+          <table class="admin-table">
+            <thead><tr><th>Team</th><th>School</th><th>Sport</th><th>Coach</th><th>Actions</th></tr></thead>
+            <tbody id="adminTeamsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PLAYERS MANAGER -->
+      <div id="aview-players-manager" class="aview">
+        <div class="admin-page-header">
+          <div><h2>Players Manager</h2><p>Manage athlete profiles</p></div>
+          <button class="btn btn-primary" onclick="openPlayerForm()"><i class="fas fa-plus"></i> Add Player</button>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header"><h3>All Players</h3></div>
+          <table class="admin-table">
+            <thead><tr><th>Player</th><th>Team</th><th>Sport</th><th>Position</th><th>Actions</th></tr></thead>
+            <tbody id="adminPlayersTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- WEEKLY WINNERS MANAGER -->
+      <div id="aview-winners-manager" class="aview">
+        <div class="admin-page-header">
+          <div><h2>Weekly Winners</h2><p>Feature athlete achievements</p></div>
+          <button class="btn btn-primary" onclick="openWinnerForm()"><i class="fas fa-plus"></i> Add Winner</button>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header"><h3>Weekly Winners</h3></div>
+          <table class="admin-table">
+            <thead><tr><th>Athlete</th><th>Achievement</th><th>Sport</th><th>Week</th><th>Featured</th><th>Actions</th></tr></thead>
+            <tbody id="adminWinnersTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- GALLERY MANAGER -->
+      <div id="aview-gallery-manager" class="aview">
+        <div class="admin-page-header">
+          <div><h2>Gallery Manager</h2><p>Manage photo gallery</p></div>
+          <button class="btn btn-primary" onclick="openPhotoForm()"><i class="fas fa-plus"></i> Add Photo</button>
+        </div>
+        <div class="gallery-grid" id="adminGalleryGrid" style="margin-top:0"></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="aview-settings" class="aview">
+        <div class="admin-page-header">
+          <div><h2>Settings</h2><p>Configure site settings</p></div>
+        </div>
+        <div class="grid-2">
+          <div class="form-card">
+            <div class="form-card-title">Site Configuration</div>
+            <div class="form-group mb-3">
+              <label class="form-label">Site Name</label>
+              <input type="text" class="form-control" value="BSSF – Bermuda School Sports Federation" />
+            </div>
+            <div class="form-group mb-3">
+              <label class="form-label">Admin Email</label>
+              <input type="email" class="form-control" value="admin@bermudasporthub.com" />
+            </div>
+            <div class="form-group mb-3">
+              <label class="form-label">Season Year</label>
+              <input type="text" class="form-control" value="2025" />
+            </div>
+            <button class="btn btn-primary"><i class="fas fa-save"></i> Save Settings</button>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title">Admin Accounts</div>
+            <p style="color:var(--gray-400);font-size:.9rem;margin-bottom:1rem">Manage admin access credentials.</p>
+            <div style="background:rgba(233,30,140,.1);border:1px solid rgba(233,30,140,.2);border-radius:8px;padding:1rem;font-size:.85rem;color:var(--pink-light)">
+              <i class="fas fa-info-circle"></i> Default passwords: safehands, A7B9C2D4, X5Y8Z1W3, M9N4P6Q2
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HELP -->
+      <div id="aview-help" class="aview">
+        <div class="admin-page-header">
+          <div><h2>Help & Documentation</h2><p>Guides and troubleshooting</p></div>
+        </div>
+        <div class="grid-2">
+          <div class="form-card">
+            <div class="form-card-title"><i class="fas fa-book" style="color:var(--pink-light)"></i> Quick Start Guide</div>
+            <div style="color:var(--gray-300);font-size:.9rem;line-height:1.8">
+              <p><strong style="color:white">1. Adding Events:</strong> Go to Events Manager → Add Event → Fill in details → Save</p>
+              <p><strong style="color:white">2. Recording Results:</strong> Events Manager → Select completed event → Enter scores → Mark verified</p>
+              <p><strong style="color:white">3. Blog Posts:</strong> Blog Manager → New Post → Write content → Publish</p>
+              <p><strong style="color:white">4. Weekly Winners:</strong> Weekly Winners → Add Winner → Select athlete → Feature</p>
+              <p><strong style="color:white">5. Gallery:</strong> Gallery Manager → Add Photo → Enter URL → Save</p>
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="form-card-title"><i class="fas fa-wrench" style="color:var(--blue-light)"></i> Troubleshooting</div>
+            <div style="color:var(--gray-300);font-size:.9rem;line-height:1.8">
+              <p><strong style="color:white">Content not showing:</strong> Check status is set to "published"</p>
+              <p><strong style="color:white">Images not loading:</strong> Verify URL is valid and accessible</p>
+              <p><strong style="color:white">Standings not updating:</strong> Ensure results are marked as verified</p>
+              <p><strong style="color:white">Login issues:</strong> Clear browser cache, try different browser</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div><!-- end admin-shell -->
+
+<!-- ============================================================
+     MODALS
+============================================================ -->
+<div id="modalOverlay" class="modal-overlay hidden">
+  <div class="modal" id="modalBox">
+    <div class="modal-header">
+      <h3 id="modalTitle">Modal</h3>
+      <span class="modal-close" onclick="close
+Modal()">&times;</span>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<!-- Quill Rich Text Editor -->
+<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet" />
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+
+<script>
+// ============================================================
+//  DATA STORE (localStorage-backed)
+// ============================================================
+const DB = {
+  get(key) { try { return JSON.parse(localStorage.getItem('bssf_'+key)||'null'); } catch(e) { return null; } },
+  set(key, val) { localStorage.setItem('bssf_'+key, JSON.stringify(val)); },
+  getOrDefault(key, def) { const v = this.get(key); return v !== null ? v : def; }
+};
+
+// ============================================================
+//  SEED DATA
+// ============================================================
+function seedData() {
+  if (DB.get('seeded')) return;
+
+  const teams = [
+    { id:'t1', name:'Eagles', school:'Warwick Academy', sport:'Football', coach:'Mr. Thompson', logo:'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=80&h=80&fit=crop', colors:{primary:'#1e40af',secondary:'#fbbf24'} },
+    { id:'t2', name:'Griffins', school:'Saltus Grammar', sport:'Football', coach:'Ms. Clarke', logo:'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=80&h=80&fit=crop', colors:{primary:'#dc2626',secondary:'#ffffff'} },
+    { id:'t3', name:'Blazers', school:'Bermuda High School', sport:'Basketball', coach:'Mr. Williams', logo:'https://images.unsplash.com/photo-1594736797933-d0d8a822d3ca?w=80&h=80&fit=crop', colors:{primary:'#059669',secondary:'#fcd34d'} },
+    { id:'t4', name:'Wildcats', school:'CedarBridge Academy', sport:'Basketball', coach:'Ms. Davis', logo:'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=80&h=80&fit=crop', colors:{primary:'#7c3aed',secondary:'#e5e7eb'} },
+    { id:'t5', name:'Lions', school:'Mount Saint Agnes', sport:'Football', coach:'Mr. Brown', logo:'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=80&h=80&fit=crop', colors:{primary:'#ea580c',secondary:'#1f2937'} },
+    { id:'t6', name:'Sharks', school:'Berkeley Institute', sport:'Swimming', coach:'Ms. Johnson', logo:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=80&h=80&fit=crop', colors:{primary:'#0284c7',secondary:'#ffffff'} },
+  ];
+
+  const events = [
+    { id:'e1', title:'Inter-School Football Championship', sport:'Football', date:'2025-04-15', time:'15:00', location:'National Sports Centre', homeTeam:'Eagles', awayTeam:'Griffins', homeTeamId:'t1', awayTeamId:'t2', status:'completed', homeScore:3, awayScore:1, description:'Annual championship match between top football schools.' },
+    { id:'e2', title:'Basketball League – Round 4', sport:'Basketball', date:'2025-04-18', time:'17:00', location:'CedarBridge Gym', homeTeam:'Wildcats', awayTeam:'Blazers', homeTeamId:'t4', awayTeamId:'t3', status:'live', homeScore:42, awayScore:38, description:'Exciting league match in the basketball season.' },
+    { id:'e3', title:'Track & Field Championship', sport:'Track', date:'2025-04-22', time:'09:00', location:'National Stadium', homeTeam:'Warwick Academy', awayTeam:'All Schools', homeTeamId:'t1', awayTeamId:'', status:'scheduled', homeScore:0, awayScore:0, description:'Annual track and field championship open to all schools.' },
+    { id:'e4', title:'Swimming Gala 2025', sport:'Swimming', date:'2025-04-25', time:'10:30', location:'Bermuda Aquatics Centre', homeTeam:'Sharks', awayTeam:'All Schools', homeTeamId:'t6', awayTeamId:'', status:'scheduled', homeScore:0, awayScore:0, description:'Annual swimming gala featuring all school teams.' },
+    { id:'e5', title:'Football Cup Semi-Final', sport:'Football', date:'2025-05-02', time:'16:00', location:'National Sports Centre', homeTeam:'Lions', awayTeam:'Eagles', homeTeamId:'t5', awayTeamId:'t1', status:'scheduled', homeScore:0, awayScore:0, description:'Cup semi-final between Lions and Eagles.' },
+    { id:'e6', title:'Basketball Finals', sport:'Basketball', date:'2025-05-10', time:'18:00', location:'National Sports Centre', homeTeam:'Blazers', awayTeam:'Wildcats', homeTeamId:'t3', awayTeamId:'t4', status:'scheduled', homeScore:0, awayScore:0, description:'Season basketball finals.' },
+    { id:'e7', title:'Cricket League Match', sport:'Cricket', date:'2025-05-15', time:'11:00', location:'Somerset Cricket Club', homeTeam:'Saltus Grammar', awayTeam:'Warwick Academy', homeTeamId:'t2', awayTeamId:'t1', status:'scheduled', homeScore:0, awayScore:0, description:'Cricket league match.' },
+  ];
+
+  const standings = {
+    Football: [
+      { teamId:'t1', team:'Eagles', school:'Warwick Academy', played:8, won:6, drawn:1, lost:1, gf:18, ga:7, points:19 },
+      { teamId:'t2', team:'Griffins', school:'Saltus Grammar', played:8, won:5, drawn:2, lost:1, gf:15, ga:9, points:17 },
+      { teamId:'t5', team:'Lions', school:'Mount Saint Agnes', played:8, won:4, drawn:1, lost:3, gf:12, ga:11, points:13 },
+      { teamId:'t3', team:'Blazers', school:'Bermuda High School', played:8, won:3, drawn:2, lost:3, gf:10, ga:12, points:11 },
+      { teamId:'t4', team:'Wildcats', school:'CedarBridge Academy', played:8, won:1, drawn:1, lost:6, gf:5, ga:21, points:4 },
+    ],
+    Basketball: [
+      { teamId:'t3', team:'Blazers', school:'Bermuda High School', played:10, won:8, drawn:0, lost:2, gf:820, ga:750, points:16 },
+      { teamId:'t4', team:'Wildcats', school:'CedarBridge Academy', played:10, won:7, drawn:0, lost:3, gf:790, ga:760, points:14 },
+      { teamId:'t1', team:'Eagles', school:'Warwick Academy', played:10, won:5, drawn:0, lost:5, gf:740, ga:780, points:10 },
+      { teamId:'t2', team:'Griffins', school:'Saltus Grammar', played:10, won:3, drawn:0, lost:7, gf:700, ga:800, points:6 },
+    ],
+    Cricket: [
+      { teamId:'t2', team:'Griffins', school:'Saltus Grammar', played:6, won:5, drawn:1, lost:0, gf:0, ga:0, points:11 },
+      { teamId:'t1', team:'Eagles', school:'Warwick Academy', played:6, won:3, drawn:2, lost:1, gf:0, ga:0, points:8 },
+      { teamId:'t5', team:'Lions', school:'Mount Saint Agnes', played:6, won:2, drawn:1, lost:3, gf:0, ga:0, points:5 },
+    ],
+    Track: [
+      { teamId:'t1', team:'Eagles', school:'Warwick Academy', played:4, won:3, drawn:0, lost:1, gf:0, ga:0, points:9 },
+      { teamId:'t3', team:'Blazers', school:'Bermuda High School', played:4, won:2, drawn:1, lost:1, gf:0, ga:0, points:7 },
+    ],
+    Swimming: [
+      { teamId:'t6', team:'Sharks', school:'Berkeley Institute', played:5, won:4, drawn:0, lost:1, gf:0, ga:0, points:12 },
+      { teamId:'t1', team:'Eagles', school:'Warwick Academy', played:5, won:3, drawn:0, lost:2, gf:0, ga:0, points:9 },
+    ]
+  };
+
+  const players = [
+    { id:'p1', name:'Jason Smith', teamId:'t1', team:'Eagles', school:'Warwick Academy', sport:'Football', position:'Forward', jersey:'9', stats:{goals:8,matches:5,assists:3}, avatar:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face' },
+    { id:'p2', name:'Sarah Johnson', teamId:'t3', team:'Blazers', school:'Bermuda High School', sport:'Basketball', position:'Guard', jersey:'7', stats:{points:22.5,games:4,rebounds:5.2}, avatar:'https://images.unsplash.com/photo-1494790108755-2616b612b2ab?w=80&h=80&fit=crop&crop=face' },
+    { id:'p3', name:'Michael Brown', teamId:'t2', team:'Griffins', school:'Saltus Grammar', sport:'Track', position:'Sprinter', jersey:'', stats:{best100m:'10.8s',events:3,medals:2}, avatar:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face' },
+    { id:'p4', name:'Aaliyah Davis', teamId:'t6', team:'Sharks', school:'Berkeley Institute', sport:'Swimming', position:'Freestyle', jersey:'', stats:{best50m:'27.2s',events:4,medals:3}, avatar:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face' },
+    { id:'p5', name:'Marcus Williams', teamId:'t4', team:'Wildcats', school:'CedarBridge Academy', sport:'Basketball', position:'Center', jersey:'15', stats:{points:18,games:6,rebounds:9.5}, avatar:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face' },
+  ];
+
+  const weeklyWinners = [
+    { id:'w1', playerName:'Jason Smith', playerSchool:'Warwick Academy', achievement:'Player of the Week', description:'Jason scored a hat-trick in the championship match, leading Eagles to a 3-1 victory over Griffins with outstanding skill and determination.', sport:'Football', weekStart:'2025-04-07', weekEnd:'2025-04-13', featured:true, avatar:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face' },
+    { id:'w2', playerName:'Aaliyah Davis', playerSchool:'Berkeley Institute', achievement:'Swimmer of the Week', description:'Aaliyah broke the school record in the 50m freestyle with a time of 27.2 seconds, setting a new benchmark for Bermuda school swimming.', sport:'Swimming', weekStart:'2025-03-31', weekEnd:'2025-04-06', featured:false, avatar:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face' },
+  ];
+
+  const categories = [
+    { id:'c1', name:'Match Reports', slug:'match-reports', color:'pink', count:5 },
+    { id:'c2', name:'Athlete Spotlight', slug:'athlete-spotlight', color:'blue', count:3 },
+    { id:'c3', name:'Tournament News', slug:'tournament-news', color:'green', count:4 },
+    { id:'c4', name:'School Sports', slug:'school-sports', color:'gray', count:2 },
+    { id:'c5', name:'Training Tips', slug:'training-tips', color:'blue', count:2 },
+  ];
+
+  const tags = [
+    { id:'tag1', name:'football', count:6 },
+    { id:'tag2', name:'basketball', count:4 },
+    { id:'tag3', name:'track', count:3 },
+    { id:'tag4', name:'swimming', count:3 },
+    { id:'tag5', name:'championship', count:5 },
+    { id:'tag6', name:'2025', count:8 },
+    { id:'tag7', name:'bermuda', count:7 },
+    { id:'tag8', name:'youth', count:4 },
+    { id:'tag9', name:'cricket', count:2 },
+  ];
+
+  const blogPosts = [
+    {
+      id:'bp1', title:'Eagles Claim Championship Title with Stunning Hat-Trick Performance',
+      slug:'eagles-claim-championship-title',
+      excerpt:'Warwick Academy\'s Eagles secured the Inter-School Football Championship with a commanding 3-1 victory over Saltus Griffins, led by a brilliant hat-trick from Jason Smith.',
+      content:`<h2>A Historic Victory for Warwick Academy</h2><p>The National Sports Centre erupted in celebration as Warwick Academy's Eagles clinched the Inter-School Football Championship with a stunning 3-1 victory over Saltus Griffins. The match, watched by over 500 spectators, was a masterclass in attacking football.</p><h2>Jason Smith's Brilliant Performance</h2><p>Leading the charge was Jason Smith, who delivered a hat-trick performance that will be remembered for years to come. His first goal came in the 23rd minute with a powerful header from a corner kick. The second was a sublime curling effort from outside the box in the 51st minute, and the third — a penalty in the 78th minute — sealed the deal.</p><blockquote>"This is what we've been working towards all season. The team gave everything, and I'm so proud of every single player," said Eagles coach Mr. Thompson after the match.</blockquote><h2>Griffins Show Fight</h2><p>Saltus Griffins were not without their moments, pulling one back through a well-worked team goal in the 65th minute. However, the Eagles' defensive discipline ensured the championship trophy would be heading to Warwick Academy.</p><p>The victory marks the Eagles' third championship title in five years, cementing their status as the dominant force in Bermuda school football.</p>`,
+      category:'c1', categoryName:'Match Reports', author:'BSSF Admin', authorInitials:'BA',
+      featuredImage:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=400&fit=crop',
+      tags:['football','championship','2025','bermuda'], sport:'Football',
+      status:'published', featured:true, views:342, readTime:4,
+      publishedAt:'2025-04-16T10:00:00Z', createdAt:'2025-04-16T09:00:00Z'
+    },
+    {
+      id:'bp2', title:'Aaliyah Davis Breaks School Swimming Record in Spectacular Fashion',
+      slug:'aaliyah-davis-breaks-swimming-record',
+      excerpt:'Berkeley Institute\'s Aaliyah Davis shattered the school record in the 50m freestyle with a time of 27.2 seconds at the Bermuda Aquatics Centre.',
+      content:`<h2>A Record-Breaking Performance</h2><p>Berkeley Institute's swimming sensation Aaliyah Davis made history at the Bermuda Aquatics Centre, breaking the school record in the 50m freestyle with a blistering time of 27.2 seconds — nearly half a second faster than the previous record.</p><p>The 16-year-old's performance came during a regular league meet but drew gasps from the crowd and immediate recognition from coaches and officials present.</p><h2>The Road to the Record</h2><p>Davis has been training intensively since the start of the academic year, working with coach Ms. Johnson to refine her technique and build explosive power off the starting blocks. The hard work clearly paid off in spectacular fashion.</p><blockquote>"I knew I was in good form, but I didn't expect to break the record today. I just focused on my race and let everything else take care of itself," said Davis after the race.</blockquote><p>The record-breaking swim has put Davis firmly in contention for the national school championships scheduled for later this term.</p>`,
+      category:'c2', categoryName:'Athlete Spotlight', author:'Sports Desk', authorInitials:'SD',
+      featuredImage:'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&h=400&fit=crop',
+      tags:['swimming','record','2025','youth'], sport:'Swimming',
+      status:'published', featured:false, views:218, readTime:3,
+      publishedAt:'2025-04-08T14:00:00Z', createdAt:'2025-04-08T13:00:00Z'
+    },
+    {
+      id:'bp3', title:'Basketball Season Heats Up as Blazers and Wildcats Battle for Top Spot',
+      slug:'basketball-season-blazers-wildcats',
+      excerpt:'With just four games remaining in the basketball season, Bermuda High School\'s Blazers and CedarBridge Academy\'s Wildcats are locked in a thrilling title race.',
+      content:`<h2>Title Race Goes Down to the Wire</h2><p>The Bermuda school basketball season has entered its most exciting phase yet, with Bermuda High School's Blazers and CedarBridge Academy's Wildcats separated by just two points at the top of the standings.</p><p>The Blazers, led by the prolific Sarah Johnson who is averaging 22.5 points per game, have been in scintillating form. Meanwhile, the Wildcats have relied on the imposing presence of Marcus Williams in the paint, who is averaging 18 points and 9.5 rebounds.</p><h2>Key Matchup Ahead</h2><p>The two sides are scheduled to meet in the season finale on May 10th, a match that could well decide the championship. Both coaches are already preparing their tactical approaches for what promises to be a classic encounter.</p><p>Tickets for the season finale are available through school offices and are expected to sell out quickly given the level of interest in this year's competition.</p>`,
+      category:'c3', categoryName:'Tournament News', author:'BSSF Admin', authorInitials:'BA',
+      featuredImage:'https://images.unsplash.com/photo-1546519638405-a9f9e7f5e9b8?w=800&h=400&fit=crop',
+      tags:['basketball','championship','2025'], sport:'Basketball',
+      status:'published', featured:false, views:187, readTime:3,
+      publishedAt:'2025-04-12T09:00:00Z', createdAt:'2025-04-12T08:00:00Z'
+    },
+    {
+      id:'bp4', title:'Track & Field Championship Preview: What to Watch For',
+      slug:'track-field-championship-preview',
+      excerpt:'The annual Track & Field Championship is just days away. Here\'s your complete guide to the key events, athletes to watch, and what\'s at stake.',
+      content:`<h2>Championship Preview</h2><p>The annual BSSF Track & Field Championship is set to take place at the National Stadium on April 22nd, and all signs point to a spectacular day of athletics. Here's everything you need to know.</p><h2>Athletes to Watch</h2><p>Michael Brown of Saltus Griffins enters as the favourite in the 100m sprint after clocking 10.8 seconds in training. His main competition is expected to come from Warwick Academy's rising star, Devon Clarke, who has been in excellent form this season.</p><h2>Field Events</h2><p>The field events are equally competitive, with the long jump and high jump expected to produce some outstanding performances. Keep an eye on CedarBridge Academy's Jasmine Reid in the high jump, who has been consistently clearing 1.65m in practice.</p><h2>Team Competition</h2><p>In the team standings, Warwick Academy currently leads, but the gap is narrow enough that any school could take the title on the day. This makes for an incredibly exciting prospect for spectators.</p>`,
+      category:'c3', categoryName:'Tournament News', author:'Sports Desk', authorInitials:'SD',
+      featuredImage:'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&h=400&fit=crop',
+      tags:['track','championship','2025','bermuda'], sport:'Track',
+      status:'published', featured:false, views:156, readTime:5,
+      publishedAt:'2025-04-19T11:00:00Z', createdAt:'2025-04-19T10:00:00Z'
+    },
+    {
+      id:'bp5', title:'Five Training Tips to Improve Your Football Skills This Season',
+      slug:'five-training-tips-football',
+      excerpt:'Whether you\'re a seasoned player or just starting out, these five training tips from BSSF coaches will help you elevate your game this season.',
+      content:`<h2>Train Smarter, Play Better</h2><p>With the football season in full swing, now is the perfect time to sharpen your skills and give your team the edge. We spoke to several BSSF coaches to compile these five essential training tips.</p><h2>1. Master the Basics First</h2><p>Before working on advanced techniques, ensure your fundamental skills are solid. Passing accuracy, first touch, and positioning are the foundation of every great player's game.</p><h2>2. Work on Both Feet</h2><p>The best players are comfortable with both feet. Dedicate a portion of every training session to developing your weaker foot — it will make you far more unpredictable on the pitch.</p><h2>3. Improve Your Fitness</h2><p>Football is a high-intensity sport. Interval training — alternating between sprinting and jogging — is one of the most effective ways to build the fitness needed to perform at your best for 90 minutes.</p><h2>4. Study the Game</h2><p>Watch professional football with a tactical eye. Understanding formations, pressing triggers, and off-the-ball movement will make you a smarter player even before you step on the pitch.</p><h2>5. Rest and Recovery</h2><p>Training hard is important, but so is recovery. Ensure you're getting enough sleep, staying hydrated, and eating well to support your body's ability to adapt and improve.</p>`,
+      category:'c5', categoryName:'Training Tips', author:'Coach Corner', authorInitials:'CC',
+      featuredImage:'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=800&h=400&fit=crop',
+      tags:['football','training','youth','tips'], sport:'Football',
+      status:'published', featured:false, views:203, readTime:6,
+      publishedAt:'2025-04-10T08:00:00Z', createdAt:'2025-04-10T07:00:00Z'
+    },
+    {
+      id:'bp6', title:'Saltus Grammar Cricket Team Tops the League After Five Wins',
+      slug:'saltus-grammar-cricket-tops-league',
+      excerpt:'Saltus Grammar\'s cricket team has established themselves as clear favourites for the title after winning five of their six league matches this season.',
+      content:`<h2>Dominant Season for Saltus Cricket</h2><p>Saltus Grammar's cricket team has been in imperious form this season, winning five of their six league matches to sit comfortably at the top of the standings. Their only dropped points came in a rain-affected draw against Warwick Academy.</p><p>The team has been particularly impressive with the bat, posting scores in excess of 200 in three of their matches. Their bowling attack has also been formidable, with spinner James Trott taking 18 wickets in the season so far.</p><h2>Looking Ahead</h2><p>With one match remaining, Saltus need just a draw to secure the league title. However, coach Mr. Richards insists the team will be playing to win. "We don't play for draws. We play to win every game," he said.</p>`,
+      category:'c4', categoryName:'School Sports', author:'BSSF Admin', authorInitials:'BA',
+      featuredImage:'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&h=400&fit=crop',
+      tags:['cricket','2025','bermuda'], sport:'Cricket',
+      status:'published', featured:false, views:134, readTime:3,
+      publishedAt:'2025-04-14T15:00:00Z', createdAt:'2025-04-14T14:00:00Z'
+    },
+  ];
+
+  const gallery = [
+    { id:'g1', url:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop', caption:'Eagles vs Griffins Championship Final', sport:'Football', date:'2025-04-15' },
+    { id:'g2', url:'https://images.unsplash.com/photo-1546519638405-a9f9e7f5e9b8?w=600&h=400&fit=crop', caption:'Basketball League Action', sport:'Basketball', date:'2025-04-18' },
+    { id:'g3', url:'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=400&fit=crop', caption:'Track & Field Championships', sport:'Track', date:'2025-04-22' },
+    { id:'g4', url:'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&h=400&fit=crop', caption:'Swimming Gala 2025', sport:'Swimming', date:'2025-04-25' },
+    { id:'g5', url:'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=600&h=400&fit=crop', caption:'Football Training Session', sport:'Football', date:'2025-04-10' },
+    { id:'g6', url:'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600&h=400&fit=crop', caption:'Cricket League Match', sport:'Cricket', date:'2025-04-14' },
+    { id:'g7', url:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop', caption:'Aquatics Centre Practice', sport:'Swimming', date:'2025-04-05' },
+    { id:'g8', url:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop', caption:'Basketball Finals Preview', sport:'Basketball', date:'2025-04-20' },
+    { id:'g9', url:'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop', caption:'Football Cup Semi-Final', sport:'Football', date:'2025-05-02' },
+  ];
+
+  DB.set('teams', teams);
+  DB.set('events', events);
+  DB.set('standings', standings);
+  DB.set('players', players);
+  DB.set('weeklyWinners', weeklyWinners);
+  DB.set('categories', categories);
+  DB.set('tags', tags);
+  DB.set('blogPosts', blogPosts);
+  DB.set('gallery', gallery);
+  DB.set('seeded', true);
+}
+
+// ============================================================
+//  ROUTING
+// ============================================================
+const AVIEW_TITLES = {
+  'dashboard': 'Dashboard',
+  'blog-manager': 'Blog Manager',
+  'blog-post-form': 'Blog Post Editor',
+  'events-manager': 'Events Manager',
+  'event-form': 'Event Form',
+  'results-manager': 'Results Manager',
+  'standings-manager': 'Standings Manager',
+  'teams-manager': 'Teams Manager',
+  'players-manager': 'Players Manager',
+  'winners-manager': 'Weekly Winners',
+  'gallery-manager': 'Gallery Manager',
+  'settings': 'Settings',
+  'help': 'Help & Docs',
+};
+
+function handleRoute() {
+  const hash = window.location.hash || '#/';
+  if (hash.startsWith('#/admin')) {
+    document.getElementById('public-shell').classList.add('hidden');
+    document.getElementById('admin-login').classList.add('hidden');
+    document.getElementById('admin-shell').classList.add('hidden');
+    if (isLoggedIn()) {
+      document.getElementById('admin-shell').classList.remove('hidden');
+      const view = hash.replace('#/admin/', '').replace('#/admin','') || 'dashboard';
+      showAdminView(view || 'dashboard');
+    } else {
+      document.getElementById('admin-login').classList.remove('hidden');
+    }
+  } else {
+    document.getElementById('public-shell').classList.remove('hidden');
+    document.getElementById('admin-login').classList.add('hidden');
+    document.getElementById('admin-shell').classList.add('hidden');
+    const page = hash.replace('#/', '') || 'home';
+    renderPublicPage(page);
+  }
+}
+
+function goPublic(page) {
+  window.location.hash = '#/' + page;
+}
+
+window.addEventListener('hashchange', handleRoute);
+window.addEventListener('load', () => { seedData(); handleRoute(); });
+
+// ============================================================
+//  PUBLIC PAGES
+// ============================================================
+let currentPublicPage = 'home';
+let currentBlogFilter = 'all';
+let currentBlogPage = 1;
+const POSTS_PER_PAGE = 6;
+
+function renderPublicPage(page) {
+  // Handle blog detail
+  if (page.startsWith('blog/')) {
+    const slug = page.replace('blog/', '');
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-blog-detail').classList.add('active');
+    renderBlogDetail(slug);
+    updateNavActive('blog');
+    window.scrollTo(0, 0);
+    return;
+  }
+
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const pageEl = document.getElementById('page-' + page);
+  if (pageEl) {
+    pageEl.classList.add('active');
+    currentPublicPage = page;
+    updateNavActive(page);
+    window.scrollTo(0, 0);
+
+    // Initialize page content
+    switch(page) {
+      case 'home': initHomePage(); break;
+      case 'events': initEventsPage(); break;
+      case 'standings': initStandingsPage(); break;
+      case 'teams': initTeamsPage(); break;
+      case 'gallery': initGalleryPage(); break;
+      case 'blog': initBlogPage(); break;
+    }
+  }
+}
+
+function updateNavActive(page) {
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.toggle('active', l.dataset.page === page);
+  });
+}
+
+// ============================================================
+//  HOME PAGE
+// ============================================================
+function initHomePage() {
+  renderTicker();
+  renderHomeEvents('all');
+  renderWeeklyWinner();
+  loadStandingsTable('Football', document.querySelector('#standingsTabs .sport-tab'));
+  renderHomeBlog();
+  renderSportsGrid();
+}
+
+function renderTicker() {
+  const events = DB.getOrDefault('events', []);
+  const live = events.filter(e => e.status === 'live' || e.status === 'completed');
+  const items = live.length ? live : events.slice(0, 4);
+  const html = items.map(e => `
+    <span class="ticker-item">
+      ${e.homeTeam} <span class="score">${e.homeScore}</span> – <span class="score">${e.awayScore}</span> ${e.awayTeam}
+      <span style="color:var(--blue-light);margin-left:.5rem">${e.sport}</span>
+    </span>
+  `).join('');
+  // Duplicate for seamless loop
+  const track = document.getElementById('tickerTrack');
+  if (track) track.innerHTML = html + html;
+}
+
+function filterHomeEvents(sport, btn) {
+  document.querySelectorAll('#homeEventTabs .sport-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderHomeEvents(sport);
+}
+
+function renderHomeEvents(sport) {
+  const events = DB.getOrDefault('events', []);
+  let filtered = sport === 'all' ? events : events.filter(e => e.sport === sport);
+  filtered = filtered.slice(0, 6);
+  const grid = document.getElementById('homeEventsGrid');
+  if (!grid) return;
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-calendar-times"></i><p>No events found</p></div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(e => renderEventCard(e)).join('');
+}
+
+function renderEventCard(e) {
+  const statusBadge = {
+    scheduled: '<span class="badge badge-blue"><i class="fas fa-clock"></i> Scheduled</span>',
+    live: '<span class="badge badge-live"><i class="fas fa-circle"></i> LIVE</span>',
+    completed: '<span class="badge badge-green"><i class="fas fa-check"></i> Completed</span>',
+    cancelled: '<span class="badge badge-gray">Cancelled</span>',
+  }[e.status] || '';
+
+  const scoreOrVs = (e.status === 'live' || e.status === 'completed')
+    ? `<div class="event-score">${e.homeScore} – ${e.awayScore}</div>`
+    : `<div class="event-vs">VS</div>`;
+
+  return `
+    <div class="event-card">
+      <div class="event-card-header">
+        <span class="sport-name"><i class="fas fa-${sportIcon(e.sport)}"></i> ${e.sport}</span>
+        ${statusBadge}
+      </div>
+      <div class="event-card-body">
+        <div style="font-weight:700;color:var(--gray-800);margin-bottom:.75rem;font-size:.95rem">${e.title}</div>
+        <div class="event-teams">
+          <div class="event-team">
+            <div class="event-team-logo-placeholder" style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--blue-mid),var(--pink));display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-weight:700;color:white;font-size:1rem;margin:0 auto .5rem">${e.homeTeam.substring(0,2).toUpperCase()}</div>
+            <div class="name">${e.homeTeam}</div>
+          </div>
+          ${scoreOrVs}
+          <div class="event-team">
+            <div class="event-team-logo-placeholder" style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--green));display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-weight:700;color:white;font-size:1rem;margin:0 auto .5rem">${(e.awayTeam||'TBD').substring(0,2).toUpperCase()}</div>
+            <div class="name">${e.awayTeam || 'TBD'}</div>
+          </div>
+        </div>
+        <div class="event-meta">
+          <span><i class="fas fa-calendar"></i> ${formatDate(e.date)}</span>
+          <span><i class="fas fa-clock"></i> ${e.time}</span>
+          <span><i class="fas fa-map-marker-alt"></i> ${e.location}</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderWeeklyWinner() {
+  const winners = DB.getOrDefault('weeklyWinners', []);
+  const winner = winners.find(w => w.featured) || winners[0];
+  const section = document.getElementById('weeklyWinnerSection');
+  if (!section) return;
+  if (!winner) {
+    section.innerHTML = '<div class="empty-state"><i class="fas fa-medal"></i><p>No weekly winner featured yet</p></div>';
+    return;
+  }
+  section.innerHTML = `
+    <div style="max-width:800px;margin:0 auto">
+      <div class="winner-card">
+        <div style="display:flex;align-items:center;gap:2rem;flex-wrap:wrap">
+          <img src="${winner.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face'}"
+               alt="${winner.playerName}" class="winner-avatar"
+               onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face'" />
+          <div style="flex:1">
+            <span class="trophy-icon">🏆</span>
+            <div class="winner-name">${winner.playerName}</div>
+            <div class="winner-achievement">${winner.achievement}</div>
+            <div style="color:rgba(255,255,255,.7);font-size:.85rem;margin-bottom:.75rem">
+              <i class="fas fa-school"></i> ${winner.playerSchool} &nbsp;·&nbsp;
+              <i class="fas fa-${sportIcon(winner.sport)}"></i> ${winner.sport}
+            </div>
+            <div class="winner-desc">${winner.description}</div>
+            <div style="margin-top:1rem;font-size:.8rem;color:rgba(255,255,255,.5)">
+              Week of ${formatDate(winner.weekStart)} – ${formatDate(winner.weekEnd)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function loadStandingsTable(sport, btn) {
+  if (btn) {
+    document.querySelectorAll('#standingsTabs .sport-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const standings = DB.getOrDefault('standings', {});
+  const data = standings[sport] || [];
+  const wrap = document.getElementById('standingsTableWrap');
+  if (!wrap) return;
+  wrap.innerHTML = renderStandingsTable(data, sport);
+}
+
+function renderStandingsTable(data, sport) {
+  if (!data.length) return '<div class="empty-state"><i class="fas fa-table"></i><p>No standings data available</p></div>';
+  const isCricket = sport === 'Cricket';
+  const isTrackSwim = sport === 'Track' || sport === 'Swimming';
+  return `
+    <table class="standings-table">
+      <thead>
+        <tr>
+          <th class="pos">#</th>
+          <th>Team</th>
+          <th>P</th><th>W</th><th>D</th><th>L</th>
+          ${!isTrackSwim ? '<th>GF</th><th>GA</th><th>GD</th>' : ''}
+          <th>Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${data.map((row, i) => {
+          const pos = i + 1;
+          const posClass = pos === 1 ? 'gold' : pos === 2 ? 'silver' : pos === 3 ? 'bronze' : '';
+          const gd = (row.gf || 0) - (row.ga || 0);
+          return `
+            <tr class="${pos <= 3 ? 'top-3' : ''}">
+              <td class="pos ${posClass}">${pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : pos}</td>
+              <td>
+                <div class="team-cell">
+                  <div class="standings-table .team-logo-sm-placeholder" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue-mid),var(--pink));display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-weight:700;color:white;font-size:.75rem;flex-shrink:0">${row.team.substring(0,2).toUpperCase()}</div>
+                  <div>
+                    <div style="font-weight:600;color:var(--gray-800)">${row.team}</div>
+                    <div style="font-size:.75rem;color:var(--gray-400)">${row.school}</div>
+                  </div>
+                </div>
+              </td>
+              <td>${row.played}</td>
+              <td style="color:var(--green-dark);font-weight:600">${row.won}</td>
+              <td>${row.drawn}</td>
+              <td style="color:#ef4444">${row.lost}</td>
+              ${!isTrackSwim ? `<td>${row.gf}</td><td>${row.ga}</td><td style="color:${gd>=0?'var(--green-dark)':'#ef4444'}">${gd>0?'+':''}${gd}</td>` : ''}
+              <td class="pts">${row.points}</td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderHomeBlog() {
+  const posts = DB.getOrDefault('blogPosts', []).filter(p => p.status === 'published').slice(0, 3);
+  const grid = document.getElementById('homeBlogGrid');
+  if (!grid) return;
+  grid.innerHTML = posts.map(p => renderBlogCard(p)).join('');
+}
+
+function renderSportsGrid() {
+  const sports = [
+    { name:'Football', icon:'futbol', color:'var(--pink)', count:'5 teams' },
+    { name:'Basketball', icon:'basketball-ball', color:'var(--blue-mid)', count:'4 teams' },
+    { name:'Track & Field', icon:'running', color:'var(--green)', count:'All schools' },
+    { name:'Swimming', icon:'swimmer', color:'var(--blue-sky)', count:'3 teams' },
+    { name:'Cricket', icon:'baseball-ball', color:'var(--pink-dark)', count:'4 teams' },
+    { name:'Tennis', icon:'table-tennis', color:'var(--green-dark)', count:'2 teams' },
+    { name:'Volleyball', icon:'volleyball-ball', color:'var(--blue)', count:'3 teams' },
+    { name:'Athletics', icon:'medal', color:'#f59e0b', count:'All schools' },
+  ];
+  const grid = document.getElementById('sportsGrid');
+  if (!grid) return;
+  grid.innerHTML = sports.map(s => `
+    <div class="card" style="text-align:center;padding:2rem 1rem;cursor:pointer" onclick="goPublic('events')">
+      <div style="width:64px;height:64px;border-radius:16px;background:${s.color}20;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.75rem;color:${s.color}">
+        <i class="fas fa-${s.icon}"></i>
+      </div>
+      <div style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;color:var(--gray-800)">${s.name}</div>
+      <div style="font-size:.8rem;color:var(--gray-400);margin-top:.25rem">${s.count}</div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+//  EVENTS PAGE
+// ============================================================
+let eventsPageFilter = { sport: 'all', status: 'all' };
+
+function initEventsPage() {
+  renderEventsPage();
+}
+
+function filterPageEvents(sport, btn) {
+  if (sport !== null) {
+    eventsPageFilter.sport = sport;
+    document.querySelectorAll('#eventsPageTabs .sport-tab').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  }
+  const statusEl = document.getElementById('eventStatusFilter');
+  if (statusEl) eventsPageFilter.status = statusEl.value;
+  renderEventsPage();
+}
+
+function renderEventsPage() {
+  let events = DB.getOrDefault('events', []);
+  if (eventsPageFilter.sport !== 'all') events = events.filter(e => e.sport === eventsPageFilter.sport);
+  if (eventsPageFilter.status !== 'all') events = events.filter(e => e.status === eventsPageFilter.status);
+  const grid = document.getElementById('eventsPageGrid');
+  if (!grid) return;
+  if (!events.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-calendar-times"></i><p>No events found</p></div>';
+    return;
+  }
+  grid.innerHTML = events.map(e => renderEventCard(e)).join('');
+}
+
+// ============================================================
+//  STANDINGS PAGE
+// ============================================================
+function initStandingsPage() {
+  loadFullStandings('Football', document.querySelector('#standingsPageTabs .sport-tab'));
+}
+
+function loadFullStandings(sport, btn) {
+  if (btn) {
+    document.querySelectorAll('#standingsPageTabs .sport-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const standings = DB.getOrDefault('standings', {});
+  const data = standings[sport] || [];
+  const wrap = document.getElementById('standingsPageTableWrap');
+  if (wrap) wrap.innerHTML = renderStandingsTable(data, sport);
+}
+
+// ============================================================
+//  TEAMS PAGE
+// ============================================================
+function initTeamsPage() {
+  const teams = DB.getOrDefault('teams', []);
+  const grid = document.getElementById('teamsGrid');
+  if (!grid) return;
+  grid.innerHTML = teams.map(t => `
+    <div class="card">
+      <div style="height:120px;background:linear-gradient(135deg,${t.colors.primary},${t.colors.secondary});position:relative">
+        <div style="position:absolute;bottom:-30px;left:1.5rem;width:60px;height:60px;border-radius:50%;background:white;border:3px solid white;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-weight:700;font-size:1.2rem;color:${t.colors.primary}">
+          ${t.name.substring(0,2).toUpperCase()}
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:2.5rem">
+        <div style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gray-900)">${t.name}</div>
+        <div style="color:var(--gray-500);font-size:.85rem;margin-bottom:.75rem">${t.school}</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <span class="badge badge-blue"><i class="fas fa-${sportIcon(t.sport)}"></i> ${t.sport}</span>
+          ${t.coach ? `<span class="badge badge-gray"><i class="fas fa-user-tie"></i> ${t.coach}</span>` : ''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+//  GALLERY PAGE
+// ============================================================
+let galleryFilter = 'all';
+
+function initGalleryPage() {
+  filterGallery('all', document.querySelector('#galleryTabs .sport-tab'));
+}
+
+function filterGallery(sport, btn) {
+  galleryFilter = sport;
+  document.querySelectorAll('#galleryTabs .sport-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderGallery();
+}
+
+function renderGallery() {
+  let photos = DB.getOrDefault('gallery', []);
+  if (galleryFilter !== 'all') photos = photos.filter(p => p.sport === galleryFilter);
+  const grid = document.getElementById('galleryGrid');
+  if (!grid) return;
+  if (!photos.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-images"></i><p>No photos found</p></div>';
+    return;
+  }
+  grid.innerHTML = photos.map(p => `
+    <div class="gallery-item" onclick="openLightbox('${p.url}','${p.caption}')">
+      <img src="${p.url}" alt="${p.caption}" loading="lazy" />
+      <div class="gallery-overlay">
+        <div class="caption">${p.caption}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openLightbox(url, caption) {
+  document.getElementById('lightbox-img').src = url;
+  document.getElementById('lightbox-img').alt = caption;
+  document.getElementById('lightbox').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+// ============================================================
+//  BLOG PAGE
+// ============================================================
+function initBlogPage() {
+  currentBlogPage = 1;
+  currentBlogFilter = 'all';
+  renderBlogPage();
+  renderBlogSidebar();
+}
+
+function renderBlogPage() {
+  let posts = DB.getOrDefault('blogPosts', []).filter(p => p.status === 'published');
+  const searchTerm = document.getElementById('blogSearchInput')?.value?.toLowerCase() || '';
+
+  if (searchTerm) {
+    posts = posts.filter(p =>
+      p.title.toLowerCase().includes(searchTerm) ||
+      p.excerpt.toLowerCase().includes(searchTerm) ||
+      (p.tags || []).some(t => t.toLowerCase().includes(searchTerm))
+    );
+  }
+
+  if (currentBlogFilter !== 'all') {
+    posts = posts.filter(p => p.category === currentBlogFilter);
+  }
+
+  // Featured post
+  const featured = posts.find(p => p.featured);
+  const featuredEl = document.getElementById('blogFeaturedPost');
+  if (featuredEl && featured && currentBlogPage === 1 && currentBlogFilter === 'all' && !searchTerm) {
+    featuredEl.innerHTML = renderFeaturedBlogPost(featured);
+    posts = posts.filter(p => p.id !== featured.id);
+  } else if (featuredEl) {
+    featuredEl.innerHTML = '';
+  }
+
+  // Category tabs
+  const categories = DB.getOrDefault('categories', []);
+  const tabsEl = document.getElementById('blogCategoryTabs');
+  if (tabsEl) {
+    tabsEl.innerHTML = `<button class="sport-tab ${currentBlogFilter==='all'?'active':''}" onclick="setBlogFilter('all',this)">All</button>` +
+      categories.map(c => `<button class="sport-tab ${currentBlogFilter===c.id?'active':''}" onclick="setBlogFilter('${c.id}',this)">${c.name}</button>`).join('');
+  }
+
+  // Paginate
+  const total = posts.length;
+  const totalPages = Math.ceil(total / POSTS_PER_PAGE);
+  const start = (currentBlogPage - 1) * POSTS_PER_PAGE;
+  const pagePosts = posts.slice(start, start + POSTS_PER_PAGE);
+
+  const grid = document.getElementById('blogPostsGrid');
+  if (grid) {
+    grid.innerHTML = pagePosts.length
+      ? pagePosts.map(p => renderBlogCard(p)).join('')
+      : '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-search"></i><p>No posts found</p></div>';
+  }
+
+  // Pagination
+  const paginationEl = document.getElementById('blogPagination');
+  if (paginationEl && totalPages > 1) {
+    let html = '';
+    if (currentBlogPage > 1) html += `<button class="page-btn" onclick="setBlogPage(${currentBlogPage-1})"><i class="fas fa-chevron-left"></i></button>`;
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<button class="page-btn ${i===currentBlogPage?'active':''}" onclick="setBlogPage(${i})">${i}</button>`;
+    }
+    if (currentBlogPage < totalPages) html += `<button class="page-btn" onclick="setBlogPage(${currentBlogPage+1})"><i class="fas fa-chevron-right"></i></button>`;
+    paginationEl.innerHTML = html;
+  } else if (paginationEl) {
+    paginationEl.innerHTML = '';
+  }
+}
+
+function renderFeaturedBlogPost(post) {
+  return `
+    <div style="border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);cursor:pointer;position:relative;height:400px;margin-bottom:1.5rem" onclick="goPublic('blog/${post.slug}')">
+      <img src="${post.featuredImage}" alt="${post.title}" style="width:100%;height:100%;object-fit:cover" />
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.2) 60%,transparent 100%)"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:2rem;color:white">
+        <div style="display:flex;gap:.75rem;align-items:center;margin-bottom:.75rem">
+          <span class="badge badge-pink"><i class="fas fa-star"></i> Featured</span>
+          <span class="badge badge-gray">${post.categoryName}</span>
+        </div>
+        <h2 style="font-family:'Oswald',sans-serif;font-size:1.75rem;font-weight:700;line-height:1.2;margin-bottom:.5rem">${post.title}</h2>
+        <p style="opacity:.8;font-size:.9rem;margin-bottom:.75rem">${post.excerpt}</p>
+        <div style="display:flex;align-items:center;gap:1rem;font-size:.8rem;opacity:.7">
+          <span><i class="fas fa-user"></i> ${post.author}</span>
+          <span><i class="fas fa-calendar"></i> ${formatDate(post.publishedAt)}</span>
+          <span><i class="fas fa-clock"></i> ${post.readTime} min read</span>
+          <span><i class="fas fa-eye"></i> ${post.views} views</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderBlogCard(post) {
+  return `
+    <div class="blog-card" onclick="goPublic('blog/${post.slug}')" style="cursor:pointer">
+      <div class="blog-card-img">
+        <img src="${post.featuredImage || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=200&fit=crop'}"
+             alt="${post.title}" loading="lazy"
+             onerror="this.src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=200&fit=crop'" />
+        <div class="category-tag">
+          <span class="badge badge-${post.categoryName === 'Match Reports' ? 'pink' : post.categoryName === 'Athlete Spotlight' ? 'blue' : 'green'}">${post.categoryName || 'General'}</span>
+        </div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span><i class="fas fa-calendar"></i> ${formatDate(post.publishedAt)}</span>
+          <span><i class="fas fa-clock"></i> ${post.readTime || 3} min read</span>
+          <span><i class="fas fa-eye"></i> ${post.views || 0}</span>
+        </div>
+        <div class="blog-card-title">${post.title}</div>
+        <p class="blog-card-excerpt">${post.excerpt}</p>
+      </div>
+      <div class="blog-card-footer">
+        <div class="blog-author">
+          <div class="blog-author-avatar">${(post.authorInitials || post.author.substring(0,2)).toUpperCase()}</div>
+          <span class="blog-author-name">${post.author}</span>
+        </div>
+        <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
+      </div>
+    </div>
+  `;
+}
+
+function setBlogFilter(catId, btn) {
+  currentBlogFilter = catId;
+  currentBlogPage = 1;
+  renderBlogPage();
+}
+
+function setBlogPage(page) {
+  currentBlogPage = page;
+  renderBlogPage();
+  window.scrollTo({ top: document.getElementById('page-blog').offsetTop, behavior: 'smooth' });
+}
+
+function handleBlogSearch(e) {
+  if (e.key === 'Enter') executeBlogSearch();
+}
+
+function executeBlogSearch() {
+  currentBlogPage = 1;
+  currentBlogFilter = 'all';
+  renderBlogPage();
+}
+
+function renderBlogSidebar() {
+  const categories = DB.getOrDefault('categories', []);
+  const tags = DB.getOrDefault('tags', []);
+  const posts = DB.getOrDefault('blogPosts', []).filter(p => p.status === 'published');
+
+  // Categories
+  const catEl = document.getElementById('sidebarCategories');
+  if (catEl) {
+    catEl.innerHTML = categories.map(c => `
+      <div class="category-list-item" onclick="setBlogFilter('${c.id}',null)">
+        <span class="cat-name"><i class="fas fa-folder" style="color:var(--${c.color==='pink'?'pink':c.color==='blue'?'blue-mid':'green'})"></i> ${c.name}</span>
+        <span class="cat-count">${c.count}</span>
+      </div>
+    `).join('');
+  }
+
+  // Tags
+  const tagsEl = document.getElementById('sidebarTags');
+  if (tagsEl) {
+    tagsEl.innerHTML = `<div class="tag-cloud">` +
+      tags.map(t => `<span class="blog-tag-chip" onclick="searchByTag('${t.name}')">#${t.name}</span>`).join('') +
+      `</div>`;
+  }
+
+  // Recent Posts
+  const recentEl = document.getElementById('sidebarRecent');
+  if (recentEl) {
+    recentEl.innerHTML = posts.slice(0, 5).map(p => `
+      <div class="recent-post-item" onclick="goPublic('blog/${p.slug}')">
+        <div class="recent-post-img-placeholder"><i class="fas fa-newspaper"></i></div>
+        <div>
+          <div class="recent-post-title">${p.title}</div>
+          <div class="recent-post-date"><i class="fas fa-calendar"></i> ${formatDate(p.publishedAt)}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function searchByTag(tag) {
+  const input = document.getElementById('blogSearchInput');
+  if (input) input.value = tag;
+  currentBlogPage = 1;
+  currentBlogFilter = 'all';
+  renderBlogPage();
+}
+
+// ============================================================
+//  BLOG DETAIL
+// ============================================================
+function renderBlogDetail(slug) {
+  const posts = DB.getOrDefault('blogPosts', []);
+  const post = posts.find(p => p.slug === slug);
+  const detailEl = document.getElementById('blogDetailContent');
+  if (!detailEl) return;
+
+  if (!post) {
+    detailEl.innerHTML = `
+      <div style="padding:6rem 0;text-align:center">
+        <div class="empty-state"><i class="fas fa-search"></i><p>Post not found</p></div>
+        <button class="btn btn-primary mt-3" onclick="goPublic('blog')">Back to Blog</button>
+      </div>`;
+    return;
+  }
+
+  // Increment views
+  post.views = (post.views || 0) + 1;
+  DB.set('blogPosts', posts);
+
+  const related = posts.filter(p => p.id !== post.id && p.status === 'published' && (p.category === post.category || p.sport === post.sport)).slice(0, 3);
+
+  detailEl.innerHTML = `
+    <div class="blog-detail-hero">
+      <img src="${post.featuredImage || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&h=450&fit=crop'}" alt="${post.title}"
+           onerror="this.src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&h=450&fit=crop'" />
+      <div class="blog-detail-hero-overlay"></div>
+      <div class="blog-detail-hero-content">
+        <div style="display:flex;gap:.75rem;margin-bottom:1rem">
+          <span class="badge badge-pink">${post.categoryName || 'General'}</span>
+          ${post.sport ? `<span class="badge badge-blue"><i class="fas fa-${sportIcon(post.sport)}"></i> ${post.sport}</span>` : ''}
+          ${post.featured ? '<span class="badge badge-green"><i class="fas fa-star"></i> Featured</span>' : ''}
+        </div>
+        <h1 style="font-family:'Oswald',sans-serif;font-size:2.25rem;font-weight:700;color:white;line-height:1.2;margin-bottom:1rem">${post.title}</h1>
+        <div style="display:flex;align-items:center;gap:1.5rem;color:rgba(255,255,255,.7);font-size:.85rem;flex-wrap:wrap">
+          <span><i class="fas fa-user"></i> ${post.author}</span>
+          <span><i class="fas fa-calendar"></i> ${formatDate(post.publishedAt)}</span>
+          <span><i class="fas fa-clock"></i> ${post.readTime || 3} min read</span>
+          <span><i class="fas fa-eye"></i> ${post.views} views</span>
+        </div>
+      </div>
+    </div>
+    <div class="blog-detail-body">
+      <div style="margin-bottom:2rem">
+        <button class="btn btn-outline btn-sm" onclick="goPublic('blog')"><i class="fas fa-arrow-left"></i> Back to Blog</button>
+      </div>
+      <div class="blog-detail-content">${post.content}</div>
+      <div class="blog-tags-list">
+        ${(post.tags || []).map(t => `<span class="blog-tag-chip" onclick="goPublic('blog');setTimeout(()=>searchByTag('${t}'),100)">#${t}</span>`).join('')}
+      </div>
+      <div class="blog-share">
+        <span style="font-weight:600;color:var(--gray-600);font-size:.9rem">Share:</span>
+        <button class="share-btn fb" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href))"><i class="fab fa-facebook-f"></i></button>
+        <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url='+encodeURIComponent(window.location.href))"><i class="fab fa-twitter"></i></button>
+        <button class="share-btn wa" onclick="window.open('https://wa.me/?text=${encodeURIComponent(post.title+' '+window.location.href)}')"><i class="fab fa-whatsapp"></i></button>
+      </div>
+      ${related.length ? `
+        <div class="related-posts">
+          <h3 style="font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;color:var(--gray-900);margin-bottom:1.5rem">Related Articles</h3>
+          <div class="grid-3">
+            ${related.map(p => renderBlogCard(p)).join('')}
+          </div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+// ============================================================
+//  ADMIN AUTH
+// ============================================================
+const ADMIN_CREDS = [
+  { user: 'admin', pass: 'safehands' },
+  { user: 'admin2', pass: 'A7B9C2D4' },
+  { user: 'admin3', pass: 'X5Y8Z1W3' },
+  { user: 'admin4', pass: 'M9N4P6Q2' },
+];
+
+function isLoggedIn() {
+  return localStorage.getItem('bssf_admin_auth') === 'true';
+}
+
+function doLogin() {
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  const errEl = document.getElementById('loginError');
+  const valid = ADMIN_CREDS.some(c => c.user === user && c.pass === pass);
+  if (valid) {
+    localStorage.setItem('bssf_admin_auth', 'true');
+    errEl.classList.add('hidden');
+    handleRoute();
+  } else {
+    errEl.textContent = 'Invalid username or password. Please try again.';
+    errEl.classList.remove('hidden');
+  }
+}
+
+function doLogout() {
+  localStorage.removeItem('bssf_admin_auth');
+  window.location.hash = '#/';
+}
+
+// ============================================================
+//  ADMIN VIEWS
+// ============================================================
+function showAdminView(view) {
+  document.querySelectorAll('.aview').forEach(v => v.classList.remove('active'));
+  const el = document.getElementById('aview-' + view);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.admin-nav-item').forEach(n => {
+    n.classList.toggle('active', n.getAttribute('onclick')?.includes(`'${view}'`));
+  });
+  const titleEl = document.getElementById('adminPageTitle');
+  if (titleEl) titleEl.textContent = AVIEW_TITLES[view] || view;
+  window.location.hash = '#/admin/' + view;
+
+  // Load data for view
+  switch(view) {
+    case 'dashboard': refreshDashboard(); break;
+    case 'blog-manager': loadAdminBlogPosts(); loadAdminCategories(); loadAdminTags(); break;
+    case 'events-manager': loadAdminEvents(); break;
+    case 'results-manager': loadAdminResults(); break;
+    case 'standings-manager': loadAdminStandings('Football', document.querySelector('#adminStandingsTabs .sport-tab')); break;
+    case 'teams-manager': loadAdminTeams(); break;
+    case 'players-manager': loadAdminPlayers(); break;
+    case 'winners-manager': loadAdminWinners(); break;
+    case 'gallery-manager': loadAdminGallery(); break;
+  }
+}
+
+function refreshDashboard() {
+  const events = DB.getOrDefault('events', []);
+  const teams = DB.getOrDefault('teams', []);
+  const posts = DB.getOrDefault('blogPosts', []).filter(p => p.status === 'published');
+  const gallery = DB.getOrDefault('gallery', []);
+
+  document.getElementById('dash-events').textContent = events.length;
+  document.getElementById('dash-teams').textContent = teams.length;
+  document.getElementById('dash-posts').textContent = posts.length;
+  document.getElementById('dash-photos').textContent = gallery.length;
+
+  // Recent events
+  const evTbody = document.getElementById('dashRecentEvents');
+  if (evTbody) {
+    evTbody.innerHTML = events.slice(0, 5).map(e => `
+      <tr>
+        <td>${e.title}</td>
+        <td><span class="badge badge-blue">${e.sport}</span></td>
+        <td>${formatDate(e.date)}</td>
+        <td>${statusBadge(e.status)}</td>
+      </tr>
+    `).join('');
+  }
+
+  // Recent posts
+  const postTbody = document.getElementById('dashRecentPosts');
+  if (postTbody) {
+    postTbody.innerHTML = posts.slice(0, 5).map(p => `
+      <tr>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.title}</td>
+        <td><span class="badge badge-pink">${p.categoryName}</span></td>
+        <td><span class="badge badge-green">Published</span></td>
+      </tr>
+    `).join('');
+  }
+}
+
+function statusBadge(status) {
+  const map = {
+    scheduled: '<span class="badge badge-blue">Scheduled</span>',
+    live: '<span class="badge badge-live">Live</span>',
+    completed: '<span class="badge badge-green">Completed</span>',
+    cancelled: '<span class="badge badge-gray">Cancelled</span>',
+    published: '<span class="badge badge-green">Published</span>',
+    draft: '<span class="badge badge-gray">Draft</span>',
+  };
+  return map[status] || `<span class="badge badge-gray">${status}</span>`;
+}
+
+// ============================================================
+//  ADMIN BLOG
+// ============================================================
+let quillEditor = null;
+let editingPostId = null;
+
+function showBlogTab(tab) {
+  ['posts','categories','tags'].forEach(t => {
+    const el = document.getElementById('blog-tab-' + t);
+    if (el) el.classList.toggle('hidden', t !== tab);
+  });
+}
+
+function loadAdminBlogPosts() {
+  const posts = DB.getOrDefault('blogPosts', []);
+  const tbody = document.getElementById('adminPostsTable');
+  if (!tbody) return;
+  tbody.innerHTML = posts.map(p => `
+    <tr>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600">${p.title}</td>
+      <td><span class="badge badge-pink">${p.categoryName || '—'}</span></td>
+      <td>${p.author}</td>
+      <td>${statusBadge(p.status)}</td>
+      <td>${formatDate(p.publishedAt || p.createdAt)}</td>
+      <td>
+        <button class="action-btn edit" onclick="editBlogPost('${p.id}')"><i class="fas fa-edit"></i> Edit</button>
+        <button class="action-btn delete" onclick="deleteBlogPost('${p.id}')"><i class="fas fa-trash"></i></button>
+        <button class="action-btn view" onclick="goPublic('blog/${p.slug}')"><i class="fas fa-eye"></i></button>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:2rem">No posts yet</td></tr>';
+}
+
+function filterAdminPosts(term) {
+  const posts = DB.getOrDefault('blogPosts', []);
+  const filtered = term ? posts.filter(p => p.title.toLowerCase().includes(term.toLowerCase())) : posts;
+  const tbody = document.getElementById('adminPostsTable');
+  if (!tbody) return;
+  tbody.innerHTML = filtered.map(p => `
+    <tr>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600">${p.title}</td>
+      <td><span class="badge badge-pink">${p.categoryName || '—'}</span></td>
+      <td>${p.author}</td>
+      <td>${statusBadge(p.status)}</td>
+      <td>${formatDate(p.publishedAt || p.createdAt)}</td>
+      <td>
+        <button class="action-btn edit" onclick="editBlogPost('${p.id}')"><i class="fas fa-edit"></i> Edit</button>
+        <button class="action-btn delete" onclick="deleteBlogPost('${p.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:2rem">No posts found</td></tr>';
+}
+
+function openBlogPostForm(postId) {
+  editingPostId = postId || null;
+  document.getElementById('editingPostId').value = postId || '';
+  document.getElementById('blogFormTitle').textContent = postId ? 'Edit Blog Post' : 'New Blog Post';
+
+  // Populate category dropdown
+  const categories = DB.getOrDefault('categories', []);
+  const catSel = document.getElementById('postCategory');
+  catSel.innerHTML = categories.map(c => `<option value="${c.id}" data-name="${c.name}">${c.name}</option>`).join('');
+
+  if (postId) {
+    const posts = DB.getOrDefault('blogPosts', []);
+    const post = posts.find(p => p.id === postId);
+    if (post) {
+      document.getElementById('postTitle').value = post.title;
+      document.getElementById('postExcerpt').value = post.excerpt;
+      document.getElementById('postAuthor').value = post.author;
+      document.getElementById('postImage').value = post.featuredImage || '';
+      document.getElementById('postTags').value = (post.tags || []).join(', ');
+      document.getElementById('postSport').value = post.sport || '';
+      document.getElementById('postFeatured').checked = post.featured || false;
+      document.getElementById('postMeta').value = post.metaDesc || '';
+      catSel.value = post.category;
+    }
+  } else {
+    document.getElementById('postTitle').value = '';
+    document.getElementById('postExcerpt').value = '';
+    document.getElementById('postAuthor').value = 'BSSF Admin';
+    document.getElementById('postImage').value = '';
+    document.getElementById('postTags').value = '';
+    document.getElementById('postSport').value = '';
+    document.getElementById('postFeatured').checked = false;
+    document.getElementById('postMeta').value = '';
+  }
+
+  showAdminView('blog-post-form');
+
+  // Init Quill
+  setTimeout(() => {
+    const editorEl = document.getElementById('postContentEditor');
+    if (editorEl) {
+      editorEl.innerHTML = '';
+      quillEditor = new Quill('#postContentEditor', {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            [{ header: [1,2,3,false] }],
+            ['bold','italic','underline','strike'],
+            [{ list:'ordered' },{ list:'bullet' }],
+            ['blockquote','code-block'],
+            ['link','image'],
+            [{ color:[] },{ background:[] }],
+            ['clean']
+          ]
+        }
+      });
+      if (postId) {
+        const posts = DB.getOrDefault('blogPosts', []);
+        const post = posts.find(p => p.id === postId);
+        if (post) quillEditor.root.innerHTML = post.content;
+      }
+    }
+  }, 100);
+}
+
+function editBlogPost(id) { openBlogPostForm(id); }
+
+function saveBlogPost(status) {
+  const title = document.getElementById('postTitle').value.trim();
+  if (!title) { showToast('Please enter a post title', 'error'); return; }
+
+  const catSel = document.getElementById('postCategory');
+  const catId = catSel.value;
+  const catName = catSel.options[catSel.selectedIndex]?.dataset.name || '';
+  const content = quillEditor ? quillEditor.root.innerHTML : '';
+  const tags = document.getElementById('postTags').value.split(',').map(t => t.trim()).filter(Boolean);
+  const slug = document.getElementById('postTitle').value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+
+  const posts = DB.getOrDefault('blogPosts', []);
+  const existingId = document.getElementById('editingPostId').value;
+
+  const readTime = Math.max(1, Math.ceil(content.replace(/<[^>]+>/g,'').split(' ').length / 200));
+
+  if (existingId) {
+    const idx = posts.findIndex(p => p.id === existingId);
+    if (idx !== -1) {
+      posts[idx] = { ...posts[idx],
+        title, slug, excerpt: document.getElementById('postExcerpt').value,
+        content, category: catId, categoryName: catName,
+        author: document.getElementById('postAuthor').value,
+        featuredImage: document.getElementById('postImage').value,
+        tags, sport: document.getElementById('postSport').value,
+        featured: document.getElementById('postFeatured').checked,
+        metaDesc: document.getElementById('postMeta').value,
+        status, readTime,
+        publishedAt: status === 'published' ? (posts[idx].publishedAt || new Date().toISOString()) : posts[idx].publishedAt,
+      };
+    }
+  } else {
+    posts.unshift({
+      id: 'bp' + Date.now(),
+      title, slug, excerpt: document.getElementById('postExcerpt').value,
+      content, category: catId, categoryName: catName,
+      author: document.getElementById('postAuthor').value,
+      authorInitials: document.getElementById('postAuthor').value.substring(0,2).toUpperCase(),
+      featuredImage: document.getElementById('postImage').value,
+      tags, sport: document.getElementById('postSport').value,
+      featured: document.getElementById('postFeatured').checked,
+      metaDesc: document.getElementById('postMeta').value,
+      status, readTime, views: 0,
+      publishedAt: status === 'published' ? new Date().toISOString() : null,
+      createdAt: new Date().toISOString(),
+    });
+  }
+
+  DB.set('blogPosts', posts);
+  showToast(status === 'published' ? 'Post published successfully!' : 'Draft saved!');
+  showAdminView('blog-manager');
+  loadAdminBlogPosts();
+}
+
+function deleteBlogPost(id) {
+  if (!confirm('Delete this post?')) return;
+  const posts = DB.getOrDefault('blogPosts', []).filter(p => p.id !== id);
+  DB.set('blogPosts', posts);
+  loadAdminBlogPosts();
+  showToast('Post deleted');
+}
+
+function loadAdminCategories() {
+  const categories = DB.getOrDefault('categories', []);
+  const tbody = document.getElementById('adminCategoriesTable');
+  if (!tbody) return;
+  tbody.innerHTML = categories.map(c => `
+    <tr>
+      <td><span class="badge badge-${c.color}">${c.name}</span></td>
+      <td>${c.slug}</td>
+      <td>${c.count}</td>
+      <td>
+        <button class="action-btn delete" onclick="deleteCategory('${c.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function saveCategory() {
+  const name = document.getElementById('catName').value.trim();
+  const slug = document.getElementById('catSlug').value.trim() || name.toLowerCase().replace(/\s+/g,'-');
+  const color = document.getElementById('catColor').value;
+  if (!name) { showToast('Category name required', 'error'); return; }
+  const cats = DB.getOrDefault('categories', []);
+  cats.push({ id: 'c' + Date.now(), name, slug, color, count: 0 });
+  DB.set('categories', cats);
+  loadAdminCategories();
+  document.getElementById('catName').value = '';
+  document.getElementById('catSlug').value = '';
+  showToast('Category saved!');
+}
+
+function deleteCategory(id) {
+  if (!confirm('Delete this category?')) return;
+  DB.set('categories', DB.getOrDefault('categories', []).filter(c => c.id !== id));
+  loadAdminCategories();
+  showToast('Category deleted');
+}
+
+function loadAdminTags() {
+  const tags = DB.getOrDefault('tags', []);
+  const tbody = document.getElementById('adminTagsTable');
+  if (!tbody) return;
+  tbody.innerHTML = tags.map(t => `
+    <tr>
+      <td><span class="blog-tag-chip">#${t.name}</span></td>
+      <td>${t.count}</td>
+      <td>
+        <button class="action-btn delete" onclick="deleteTag('${t.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function saveTag() {
+  const name = document.getElementById('tagName').value.trim().toLowerCase().replace(/\s+/g,'-');
+  if (!name) { showToast('Tag name required', 'error'); return; }
+  const tags = DB.getOrDefault('tags', []);
+  tags.push({ id: 'tag' + Date.now(), name, count: 0 });
+  DB.set('tags', tags);
+  loadAdminTags();
+  document.getElementById('tagName').value = '';
+  showToast('Tag saved!');
+}
+
+function deleteTag(id) {
+  DB.set('tags', DB.getOrDefault('tags', []).filter(t => t.id !== id));
+  loadAdminTags();
+  showToast('Tag deleted');
+}
+
+// ============================================================
+//  ADMIN EVENTS
+// ============================================================
+function loadAdminEvents() {
+  const events = DB.getOrDefault('events', []);
+  const tbody = document.getElementById('adminEventsTable');
+  if (!tbody) return;
+  tbody.innerHTML = events.map(e => `
+    <tr>
+      <td style="font-weight:600">${e.title}</td>
+      <td><span class="badge badge-blue">${e.sport}</span></td>
+      <td>${formatDate(e.date)}</td>
+      <td>${e.homeTeam} vs ${e.awayTeam || 'TBD'}</td>
+      <td>${statusBadge(e.status)}</td>
+      <td>
+        <button class="action-btn edit" onclick="editEvent('${e.id}')"><i class="fas fa-edit"></i></button>
+        <button class="action-btn delete" onclick="deleteEvent('${e.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:2rem">No events yet</td></tr>';
+}
+
+function openEventForm(id) {
+  document.getElementById('editingEventId').value = id || '';
+  document.getElementById('eventFormTitle').textContent = id ? 'Edit Event' : 'Add Event';
+  if (id) {
+    const ev = DB.getOrDefault('events', []).find(e => e.id === id);
+    if (ev) {
+      document.getElementById('evTitle').value = ev.title;
+      document.getElementById('evSport').value = ev.sport;
+      document.getElementById('evDate').value = ev.date;
+      document.getElementById('evTime').value = ev.time;
+      document.getElementById('evLocation').value = ev.location;
+      document.getElementById('evStatus').value = ev.status;
+      document.getElementById('evHomeTeam').value = ev.homeTeam;
+      document.getElementById('evAwayTeam').value = ev.awayTeam || '';
+      document.getElementById('evHomeScore').value = ev.homeScore || 0;
+      document.getElementById('evAwayScore').value = ev.awayScore || 0;
+      document.getElementById('evDesc').value = ev.description || '';
+    }
+  } else {
+    ['evTitle','evLocation','evHomeTeam','evAwayTeam','evDesc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('evHomeScore').value = 0;
+    document.getElementById('evAwayScore').value = 0;
+    document.getElementById('evDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('evTime').value = '15:00';
+    document.getElementById('evStatus').value = 'scheduled';
+  }
+  showAdminView('event-form');
+}
+
+function editEvent(id) { openEventForm(id); }
+
+function saveEvent() {
+  const title = document.getElementById('evTitle').value.trim();
+  if (!title) { showToast('Event title required', 'error'); return; }
+  const events = DB.getOrDefault('events', []);
+  const existingId = document.getElementById('editingEventId').value;
+  const data = {
+    title, sport: document.getElementById('evSport').value,
+    date: document.getElementById('evDate').value,
+    time: document.getElementById('evTime').value,
+    location: document.getElementById('evLocation').value,
+    status: document.getElementById('evStatus').value,
+    homeTeam: document.getElementById('evHomeTeam').value,
+    awayTeam: document.getElementById('evAwayTeam').value,
+    homeScore: parseInt(document.getElementById('evHomeScore').value) || 0,
+    awayScore: parseInt(document.getElementById('evAwayScore').value) || 0,
+    description: document.getElementById('evDesc').value,
+  };
+  if (existingId) {
+    const idx = events.findIndex(e => e.id === existingId);
+    if (idx !== -1) events[idx] = { ...events[idx], ...data };
+  } else {
+    events.push({ id: 'e' + Date.now(), ...data });
+  }
+  DB.set('events', events);
+  showToast('Event saved!');
+  showAdminView('events-manager');
+  loadAdminEvents();
+}
+
+function deleteEvent(id) {
+  if (!confirm('Delete this event?')) return;
+  DB.set('events', DB.getOrDefault('events', []).filter(e => e.id !== id));
+  loadAdminEvents();
+  showToast('Event deleted');
+}
+
+// ============================================================
+//  ADMIN RESULTS
+// ============================================================
+function loadAdminResults() {
+  const events = DB.getOrDefault('events', []).filter(e => e.status === 'completed' || e.status === 'live');
+  const tbody = document.getElementById('adminResultsTable');
+  if (!tbody) return;
+  tbody.innerHTML = events.map(e => `
+    <tr>
+      <td style="font-weight:600">${e.title}</td>
+      <td><span class="badge badge-blue">${e.sport}</span></td>
+      <td>${formatDate(e.date)}</td>
+      <td style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700">${e.homeScore} – ${e.awayScore}</td>
+      <td>${e.homeScore > e.awayScore ? e.homeTeam : e.awayScore > e.homeScore ? e.awayTeam : 'Draw'}</td>
+      <td><span class="badge badge-green"><i class="fas fa-check"></i> Verified</span></td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:2rem">No results yet</td></tr>';
+}
+
+// ============================================================
+//  ADMIN STANDINGS
+// ============================================================
+function loadAdminStandings(sport, btn) {
+  if (btn) {
+    document.querySelectorAll('#adminStandingsTabs .sport-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const titleEl = document.getElementById('adminStandingsTitle');
+  if (titleEl) titleEl.textContent = sport + ' Standings';
+  const standings = DB.getOrDefault('standings', {});
+  const data = standings[sport] || [];
+  const tbody = document.getElementById('adminStandingsTable');
+  if (!tbody) return;
+  tbody.innerHTML = data.map((row, i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td style="font-weight:600">${row.team}<br><small style="color:var(--gray-400)">${row.school}</small></td>
+      <td>${row.played}</td>
+      <td>${row.won}</td>
+      <td>${row.drawn}</td>
+      <td>${row.lost}</td>
+      <td>${row.gf}</td>
+      <td>${row.ga}</td>
+      <td style="font-weight:700;color:var(--pink-light)">${row.points}</td>
+      <td>
+        <button class="action-btn edit" onclick="editStanding('${sport}',${i})"><i class="fas fa-edit"></i></button>
+        <button class="action-btn delete" onclick="deleteStanding('${sport}',${i})"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="10" style="text-align:center;color:var(--gray-500);padding:2rem">No standings data</td></tr>';
+}
+
+function openStandingForm() { showToast('Use the Events/Results managers to auto-update standings', 'warning'); }
+function editStanding(sport, idx) { showToast('Edit standings via the Events/Results managers', 'warning'); }
+function deleteStanding(sport, idx) {
+  if (!confirm('Remove this standing entry?')) return;
+  const standings = DB.getOrDefault('standings', {});
+  if (standings[sport]) { standings[sport].splice(idx, 1); DB.set('standings', standings); loadAdminStandings(sport, null); showToast('Entry removed'); }
+}
+
+// ============================================================
+//  ADMIN TEAMS
+// ============================================================
+function loadAdminTeams() {
+  const teams = DB.getOrDefault('teams', []);
+  const tbody = document.getElementById('adminTeamsTable');
+  if (!tbody) return;
+  tbody.innerHTML = teams.map(t => `
+    <tr>
+      <td style="font-weight:600">${t.name}</td>
+      <td>${t.school}</td>
+      <td><span class="badge badge-blue">${t.sport}</span></td>
+      <td>${t.coach || '—'}</td>
+      <td>
+        <button class="action-btn edit" onclick="editTeam('${t.id}')"><i class="fas fa-edit"></i></button>
+        <button class="action-btn delete" onclick="deleteTeam('${t.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--gray-500);padding:2rem">No teams yet</td></tr>';
+}
+
+function openTeamForm() {
+  openModal('Add Team', `
+    <div class="form-group mb-3"><label class="form-label">Team Name</label><input type="text" id="mTeamName" class="form-control" placeholder="e.g. Eagles" /></div>
+    <div class="form-group mb-3"><label class="form-label">School</label><input type="text" id="mTeamSchool" class="form-control" placeholder="e.g. Warwick Academy" /></div>
+    <div class="form-group mb-3"><label class="form-label">Sport</label><select id="mTeamSport" class="form-control"><option>Football</option><option>Basketball</option><option>Track</option><option>Swimming</option><option>Cricket</option><option>Tennis</option></select></div>
+    <div class="form-group"><label class="form-label">Coach</label><input type="text" id="mTeamCoach" class="form-control" placeholder="Coach name" /></div>
+  `, () => {
+    const name = document.getElementById('mTeamName').value.trim();
+    if (!name) { showToast('Team name required','error'); return; }
+    const teams = DB.getOrDefault('teams', []);
+    teams.push({ id:'t'+Date.now(), name, school: document.getElementById('mTeamSchool').value, sport: document.getElementById('mTeamSport').value, coach: document.getElementById('mTeamCoach').value, colors:{primary:'#1e40af',secondary:'#fbbf24'} });
+    DB.set('teams', teams);
+    loadAdminTeams();
+    closeModal();
+    showToast('Team added!');
+  });
+}
+
+function editTeam(id) { showToast('Edit team: click the team row to modify', 'warning'); }
+function deleteTeam(id) {
+  if (!confirm('Delete this team?')) return;
+  DB.set('teams', DB.getOrDefault('teams', []).filter(t => t.id !== id));
+  loadAdminTeams();
+  showToast('Team deleted');
+}
+
+// ============================================================
+//  ADMIN PLAYERS
+// ============================================================
+function loadAdminPlayers() {
+  const players = DB.getOrDefault('players', []);
+  const tbody = document.getElementById('adminPlayersTable');
+  if (!tbody) return;
+  tbody.innerHTML = players.map(p => `
+    <tr>
+      <td style="font-weight:600">${p.name}</td>
+      <td>${p.team}</td>
+      <td><span class="badge badge-blue">${p.sport}</span></td>
+      <td>${p.position || '—'}</td>
+      <td>
+        <button class="action-btn delete" onclick="deletePlayer('${p.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--gray-500);padding:2rem">No players yet</td></tr>';
+}
+
+function openPlayerForm() {
+  const teams = DB.getOrDefault('teams', []);
+  openModal('Add Player', `
+    <div class="form-group mb-3"><label class="form-label">Full Name</label><input type="text" id="mPlayerName" class="form-control" placeholder="Player name" /></div>
+    <div class="form-group mb-3"><label class="form-label">Team</label><select id="mPlayerTeam" class="form-control">${teams.map(t=>`<option value="${t.id}" data-name="${t.name}" data-school="${t.school}" data-sport="${t.sport}">${t.name} (${t.school})</option>`).join('')}</select></div>
+    <div class="form-group mb-3"><label class="form-label">Position</label><input type="text" id="mPlayerPos" class="form-control" placeholder="e.g. Forward" /></div>
+    <div class="form-group"><label class="form-label">Jersey Number</label><input type="text" id="mPlayerJersey" class="form-control" placeholder="e.g. 9" /></div>
+  `, () => {
+    const name = document.getElementById('mPlayerName').value.trim();
+    if (!name) { showToast('Player name required','error'); return; }
+    const teamSel = document.getElementById('mPlayerTeam');
+    const opt = teamSel.options[teamSel.selectedIndex];
+    const players = DB.getOrDefault('players', []);
+    players.push({ id:'p'+Date.now(), name, teamId: teamSel.value, team: opt.dataset.name, school: opt.dataset.school, sport: opt.dataset.sport, position: document.getElementById('mPlayerPos').value, jersey: document.getElementById('mPlayerJersey').value, stats:{}, avatar:'' });
+    DB.set('players', players);
+    loadAdminPlayers();
+    closeModal();
+    showToast('Player added!');
+  });
+}
+
+function deletePlayer(id) {
+  if (!confirm('Delete this player?')) return;
+  DB.set('players', DB.getOrDefault('players', []).filter(p => p.id !== id));
+  loadAdminPlayers();
+  showToast('Player deleted');
+}
+
+// ============================================================
+//  ADMIN WEEKLY WINNERS
+// ============================================================
+function loadAdminWinners() {
+  const winners = DB.getOrDefault('weeklyWinners', []);
+  const tbody = document.getElementById('adminWinnersTable');
+  if (!tbody) return;
+  tbody.innerHTML = winners.map(w => `
+    <tr>
+      <td style="font-weight:600">${w.playerName}<br><small style="color:var(--gray-400)">${w.playerSchool}</small></td>
+      <td>${w.achievement}</td>
+      <td><span class="badge badge-blue">${w.sport}</span></td>
+      <td>${formatDate(w.weekStart)}</td>
+      <td>${w.featured ? '<span class="badge badge-green"><i class="fas fa-star"></i> Featured</span>' : '<span class="badge badge-gray">No</span>'}</td>
+      <td>
+        <button class="action-btn edit" onclick="toggleWinnerFeatured('${w.id}')">${w.featured ? 'Unfeature' : 'Feature'}</button>
+        <button class="action-btn delete" onclick="deleteWinner('${w.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:2rem">No winners yet</td></tr>';
+}
+
+function openWinnerForm() {
+  openModal('Add Weekly Winner', `
+    <div class="form-group mb-3"><label class="form-label">Athlete Name</label><input type="text" id="mWinName" class="form-control" /></div>
+    <div class="form-group mb-3"><label class="form-label">School</label><input type="text" id="mWinSchool" class="form-control" /></div>
+    <div class="form-group mb-3"><label class="form-label">Achievement Title</label><input type="text" id="mWinAchieve" class="form-control" placeholder="e.g. Player of the Week" /></div>
+    <div class="form-group mb-3"><label class="form-label">Description</label><textarea id="mWinDesc" class="form-control" rows="3"></textarea></div>
+    <div class="form-group mb-3"><label class="form-label">Sport</label><select id="mWinSport" class="form-control"><option>Football</option><option>Basketball</option><option>Track</option><option>Swimming</option><option>Cricket</option></select></div>
+    <div class="form-group mb-3"><label class="form-label">Week Start Date</label><input type="date" id="mWinWeek" class="form-control" /></div>
+    <div class="form-group mb-3"><label class="form-label">Avatar URL</label><input type="url" id="mWinAvatar" class="form-control" /></div>
+    <div class="form-group"><label class="form-label"><input type="checkbox" id="mWinFeatured" /> Feature this winner</label></div>
+  `, () => {
+    const name = document.getElementById('mWinName').value.trim();
+    if (!name) { showToast('Athlete name required','error'); return; }
+    const winners = DB.getOrDefault('weeklyWinners', []);
+    if (document.getElementById('mWinFeatured').checked) winners.forEach(w => w.featured = false);
+    const weekStart = document.getElementById('mWinWeek').value;
+    const weekEnd = weekStart ? new Date(new Date(weekStart).getTime() + 6*24*60*60*1000).toISOString().split('T')[0] : '';
+    winners.unshift({ id:'w'+Date.now(), playerName:name, playerSchool: document.getElementById('mWinSchool').value, achievement: document.getElementById('mWinAchieve').value, description: document.getElementById('mWinDesc').value, sport: document.getElementById('mWinSport').value, weekStart, weekEnd, featured: document.getElementById('mWinFeatured').checked, avatar: document.getElementById('mWinAvatar').value });
+    DB.set('weeklyWinners', winners);
+    loadAdminWinners();
+    closeModal();
+    showToast('Winner added!');
+  });
+}
+
+function toggleWinnerFeatured(id) {
+  const winners = DB.getOrDefault('weeklyWinners', []);
+  const w = winners.find(w => w.id === id);
+  if (!w) return;
+  if (!w.featured) winners.forEach(x => x.featured = false);
+  w.featured = !w.featured;
+  DB.set('weeklyWinners', winners);
+  loadAdminWinners();
+  showToast(w.featured ? 'Winner featured!' : 'Winner unfeatured');
+}
+
+function deleteWinner(id) {
+  if (!confirm('Delete this winner?')) return;
+  DB.set('weeklyWinners', DB.getOrDefault('weeklyWinners', []).filter(w => w.id !== id));
+  loadAdminWinners();
+  showToast('Winner deleted');
+}
+
+// ============================================================
+//  ADMIN GALLERY
+// ============================================================
+function loadAdminGallery() {
+  const photos = DB.getOrDefault('gallery', []);
+  const grid = document.getElementById('adminGalleryGrid');
+  if (!grid) return;
+  grid.innerHTML = photos.map(p => `
+    <div class="gallery-item" style="position:relative">
+      <img src="${p.url}" alt="${p.caption}" loading="lazy" />
+      <div class="gallery-overlay" style="opacity:1;background:rgba(0,0,0,.5)">
+        <div style="width:100%">
+          <div class="caption" style="margin-bottom:.5rem">${p.caption}</div>
+          <div style="display:flex;gap:.5rem">
+            <span class="badge badge-blue">${p.sport}</span>
+            <button class="action-btn delete" onclick="deletePhoto('${p.id}')" style="margin-left:auto"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('') || '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-images"></i><p>No photos yet</p></div>';
+}
+
+function openPhotoForm() {
+  openModal('Add Photo', `
+    <div class="form-group mb-3"><label class="form-label">Image URL</label><input type="url" id="mPhotoUrl" class="form-control" placeholder="https://..." /></div>
+    <div class="form-group mb-3"><label class="form-label">Caption</label><input type="text" id="mPhotoCaption" class="form-control" /></div>
+    <div class="form-group mb-3"><label class="form-label">Sport</label><select id="mPhotoSport" class="form-control"><option>Football</option><option>Basketball</option><option>Track</option><option>Swimming</option><option>Cricket</option><option>General</option></select></div>
+    <div class="form-group"><label class="form-label">Date</label><input type="date" id="mPhotoDate" class="form-control" /></div>
+  `, () => {
+    const url = document.getElementById('mPhotoUrl').value.trim();
+    if (!url) { showToast('Image URL required','error'); return; }
+    const photos = DB.getOrDefault('gallery', []);
+    photos.unshift({ id:'g'+Date.now(), url, caption: document.getElementById('mPhotoCaption').value, sport: document.getElementById('mPhotoSport').value, date: document.getElementById('mPhotoDate').value });
+    DB.set('gallery', photos);
+    loadAdminGallery();
+    closeModal();
+    showToast('Photo added!');
+  });
+}
+
+function deletePhoto(id) {
+  if (!confirm('Delete this photo?')) return;
+  DB.set('gallery', DB.getOrDefault('gallery', []).filter(p => p.id !== id));
+  loadAdminGallery();
+  showToast('Photo deleted');
+}
+
+// ============================================================
+//  MODAL HELPERS
+// ============================================================
+function openModal(title, bodyHtml, onConfirm) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').innerHTML = bodyHtml;
+  document.getElementById('modalFooter').innerHTML = `
+    <button class="btn btn-outline-blue btn-sm" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary btn-sm" onclick="modalConfirmCb()"><i class="fas fa-save"></i> Save</button>
+  `;
+  window._modalConfirmCb = onConfirm;
+  document.getElementById('modalOverlay').classList.remove('hidden');
+}
+
+function modalConfirmCb() { if (window._modalConfirmCb) window._modalConfirmCb(); }
+function closeModal() { document.getElementById('modalOverlay').classList.add('hidden'); }
+
+// ============================================================
+//  TOAST
+// ============================================================
+function showToast(msg, type = 'success') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type !== 'success' ? type : ''}`;
+  const icon = type === 'error' ? 'fa-times-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-check-circle';
+  const color = type === 'error' ? '#ef4444' : type === 'warning' ? '#f59e0b' : 'var(--green)';
+  toast.innerHTML = `<i class="fas ${icon}" style="color:${color}"></i> ${msg}`;
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(100%)'; toast.style.transition = 'all .3s'; setTimeout(() => toast.remove(), 300); }, 3000);
+}
+
+// ============================================================
+//  UTILITIES
+// ============================================================
+function formatDate(dateStr) {
+  if (!dateStr) return '—';
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+  } catch(e) { return dateStr; }
+}
+
+function sportIcon(sport) {
+  const map = { Football:'futbol', Basketball:'basketball-ball', Track:'running', Swimming:'swimmer', Cricket:'baseball-ball', Tennis:'table-tennis', Volleyball:'volleyball-ball', Athletics:'medal', General:'trophy' };
+  return map[sport] || 'trophy';
+}
+
+// Mobile menu
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Scroll to top
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTopBtn');
+  if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeLightbox();
+    closeModal();
+  }
+});
+
+// Close lightbox on background click
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+// Close modal on overlay click
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+</body>
+</html>
