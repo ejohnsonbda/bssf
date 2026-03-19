@@ -766,6 +766,83 @@
     .gallery-item:hover .gallery-overlay { opacity: 1; }
     .gallery-overlay .caption { color: white; font-size: .85rem; font-weight: 500; }
 
+    /* Event Album Cards */
+    .event-albums-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 1.5rem;
+    }
+    .event-album-card {
+      background: white; border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); cursor: pointer; transition: var(--transition);
+      border: 2px solid transparent;
+    }
+    .event-album-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--pink); }
+    .event-album-thumb {
+      position: relative; aspect-ratio: 16/9; overflow: hidden;
+    }
+    .event-album-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .event-album-card:hover .event-album-thumb img { transform: scale(1.06); }
+    .event-album-count {
+      position: absolute; bottom: .6rem; right: .6rem;
+      background: rgba(0,0,0,.7); color: white; font-size: .75rem;
+      font-weight: 700; padding: .25rem .6rem; border-radius: 20px;
+    }
+    .event-album-info { padding: 1rem; }
+    .event-album-info h4 { font-size: 1rem; font-weight: 700; margin-bottom: .3rem; color: var(--gray-800); }
+    .event-album-info .meta { font-size: .8rem; color: var(--gray-500); display: flex; gap: .75rem; align-items: center; }
+    .album-back-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      color: var(--blue-mid); font-weight: 600; cursor: pointer;
+      font-size: .9rem; margin-bottom: 1.5rem; padding: .4rem .8rem;
+      border-radius: 8px; transition: var(--transition);
+    }
+    .album-back-btn:hover { background: var(--gray-100); }
+    .album-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .album-header h2 { font-size: 1.5rem; font-weight: 800; color: var(--gray-800); }
+    .album-header .meta { font-size: .85rem; color: var(--gray-500); }
+
+    /* Admin Gallery Upload Zone */
+    .batch-upload-zone {
+      border: 2px dashed var(--gray-300); border-radius: var(--radius);
+      padding: 2.5rem; text-align: center; cursor: pointer;
+      transition: var(--transition); background: var(--gray-50);
+    }
+    .batch-upload-zone:hover, .batch-upload-zone.drag-over {
+      border-color: var(--pink); background: rgba(233,30,140,.04);
+    }
+    .batch-upload-zone i { font-size: 2.5rem; color: var(--gray-400); margin-bottom: .75rem; display: block; }
+    .batch-upload-zone p { color: var(--gray-500); font-size: .9rem; }
+    .batch-upload-zone strong { color: var(--pink); }
+    .upload-preview-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: .75rem; margin-top: 1rem;
+    }
+    .upload-preview-item {
+      position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden;
+      border: 2px solid var(--gray-200);
+    }
+    .upload-preview-item img { width: 100%; height: 100%; object-fit: cover; }
+    .upload-preview-item .remove-preview {
+      position: absolute; top: 3px; right: 3px; background: rgba(0,0,0,.6);
+      color: white; border: none; border-radius: 50%; width: 20px; height: 20px;
+      font-size: .65rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .admin-album-card {
+      background: var(--gray-800); border-radius: var(--radius); overflow: hidden;
+      border: 1px solid rgba(255,255,255,.06); transition: var(--transition);
+    }
+    .admin-album-card:hover { border-color: var(--pink); }
+    .admin-album-card .thumb { aspect-ratio: 16/9; overflow: hidden; }
+    .admin-album-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .admin-album-card .info { padding: .85rem; }
+    .admin-album-card .info h4 { font-size: .9rem; font-weight: 700; color: white; margin-bottom: .3rem; }
+    .admin-album-card .info .meta { font-size: .75rem; color: var(--gray-400); }
+    .admin-album-card .actions { display: flex; gap: .5rem; margin-top: .6rem; }
+
     /* ============================================================
        LIGHTBOX
     ============================================================ */
@@ -774,12 +851,25 @@
       background: rgba(0,0,0,.95); display: flex; align-items: center;
       justify-content: center; padding: 2rem;
     }
-    .lightbox-img { max-width: 90vw; max-height: 85vh; border-radius: var(--radius); }
+    .lightbox-inner { display: flex; flex-direction: column; align-items: center; }
+    .lightbox-img { max-width: 88vw; max-height: 78vh; border-radius: var(--radius); display: block; }
+    .lightbox-caption { color: white; font-size: .95rem; margin-top: .75rem; text-align: center; max-width: 80vw; opacity: .85; }
+    .lightbox-counter { color: rgba(255,255,255,.45); font-size: .8rem; margin-top: .3rem; }
     .lightbox-close {
       position: absolute; top: 1.5rem; right: 1.5rem;
-      color: white; font-size: 2rem; cursor: pointer; opacity: .7;
+      color: white; font-size: 2rem; cursor: pointer; opacity: .7; background: none; border: none;
     }
     .lightbox-close:hover { opacity: 1; }
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.25);
+      color: white; width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.1rem; transition: var(--transition);
+    }
+    .lightbox-nav:hover { background: var(--pink); border-color: var(--pink); }
+    .lightbox-prev { left: 1.5rem; }
+    .lightbox-next { right: 1.5rem; }
 
     /* ============================================================
        ADMIN PANEL
@@ -1208,7 +1298,13 @@
 ============================================================ -->
 <div id="lightbox" class="hidden">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-  <img id="lightbox-img" class="lightbox-img" src="" alt="" />
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)"><i class="fas fa-chevron-left"></i></button>
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)"><i class="fas fa-chevron-right"></i></button>
+  <div class="lightbox-inner">
+    <img id="lightbox-img" class="lightbox-img" src="" alt="" />
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
 </div>
 
 <!-- ============================================================
@@ -1527,21 +1623,35 @@
   <!-- ==================== GALLERY PAGE ==================== -->
   <div id="page-gallery" class="page">
     <div class="page-hero">
-      <div class="breadcrumb"><span onclick="goPublic('home')" style="cursor:pointer">Home</span><span class="sep">/</span><span class="current">Gallery</span></div>
-      <h1><i class="fas fa-images"></i> Photo Gallery</h1>
-      <p>Capturing the best moments from Bermuda school sports</p>
+      <div class="breadcrumb"><span onclick="goPublic('home')" style="cursor:pointer">Home</span><span class="sep">/</span><span class="current" id="galleryBreadcrumb">Gallery</span></div>
+      <h1><i class="fas fa-images"></i> <span id="galleryPageTitle">Photo Gallery</span></h1>
+      <p id="galleryPageSub">Browse event albums — click any album to view all photos</p>
     </div>
     <section class="section">
       <div class="container">
-        <div class="sport-tabs" id="galleryTabs">
-          <button class="sport-tab active" onclick="filterGallery('all',this)">All Photos</button>
-          <button class="sport-tab" onclick="filterGallery('Football',this)">Football</button>
-          <button class="sport-tab" onclick="filterGallery('Basketball',this)">Basketball</button>
-          <button class="sport-tab" onclick="filterGallery('Track',this)">Track</button>
-          <button class="sport-tab" onclick="filterGallery('Swimming',this)">Swimming</button>
+        <!-- Album list view -->
+        <div id="galleryAlbumsView">
+          <div class="sport-tabs" id="galleryTabs">
+            <button class="sport-tab active" onclick="filterGalleryAlbums('all',this)">All Events</button>
+            <button class="sport-tab" onclick="filterGalleryAlbums('Football',this)">Football</button>
+            <button class="sport-tab" onclick="filterGalleryAlbums('Basketball',this)">Basketball</button>
+            <button class="sport-tab" onclick="filterGalleryAlbums('Cricket',this)">Cricket</button>
+            <button class="sport-tab" onclick="filterGalleryAlbums('Track',this)">Track</button>
+            <button class="sport-tab" onclick="filterGalleryAlbums('Swimming',this)">Swimming</button>
+          </div>
+          <div class="event-albums-grid" id="galleryAlbumsGrid"><!-- Populated by JS --></div>
         </div>
-        <div class="gallery-grid" id="galleryGrid">
-          <!-- Populated by JS -->
+        <!-- Single album view -->
+        <div id="galleryAlbumView" style="display:none">
+          <div class="album-back-btn" onclick="closeAlbumView()"><i class="fas fa-arrow-left"></i> Back to Albums</div>
+          <div class="album-header">
+            <div>
+              <h2 id="albumViewTitle"></h2>
+              <div class="meta" id="albumViewMeta"></div>
+            </div>
+            <span class="badge badge-pink" id="albumViewCount"></span>
+          </div>
+          <div class="gallery-grid" id="albumPhotosGrid"><!-- Populated by JS --></div>
         </div>
       </div>
     </section>
@@ -2277,11 +2387,50 @@
 
       <!-- GALLERY MANAGER -->
       <div id="aview-gallery-manager" class="aview">
-        <div class="admin-page-header">
-          <div><h2>Gallery Manager</h2><p>Manage photo gallery</p></div>
-          <button class="btn btn-primary" onclick="openPhotoForm()"><i class="fas fa-plus"></i> Add Photo</button>
+        <!-- Albums list -->
+        <div id="adminAlbumsView">
+          <div class="admin-page-header">
+            <div><h2>Gallery Manager</h2><p>Organise photos by event album</p></div>
+            <button class="btn btn-primary" onclick="openCreateAlbumForm()"><i class="fas fa-plus"></i> New Event Album</button>
+          </div>
+          <div class="gallery-grid" id="adminAlbumsGrid" style="margin-top:0"></div>
         </div>
-        <div class="gallery-grid" id="adminGalleryGrid" style="margin-top:0"></div>
+        <!-- Single album editor -->
+        <div id="adminAlbumEditor" style="display:none">
+          <div class="admin-page-header">
+            <div>
+              <div class="album-back-btn" onclick="closeAdminAlbumEditor()" style="color:var(--pink);margin-bottom:.5rem"><i class="fas fa-arrow-left"></i> Back to Albums</div>
+              <h2 id="adminAlbumEditorTitle">Album Photos</h2>
+              <p id="adminAlbumEditorMeta"></p>
+            </div>
+            <button class="btn btn-primary" onclick="openBatchUpload()"><i class="fas fa-cloud-upload-alt"></i> Upload Photos</button>
+          </div>
+          <!-- Batch upload zone -->
+          <div id="batchUploadSection" style="display:none;margin-bottom:1.5rem">
+            <div class="form-card">
+              <div class="form-card-title"><i class="fas fa-cloud-upload-alt"></i> Batch Upload Photos</div>
+              <div class="batch-upload-zone" id="batchDropZone" onclick="document.getElementById('batchFileInput').click()">
+                <i class="fas fa-images"></i>
+                <p><strong>Click to select photos</strong> or drag &amp; drop here</p>
+                <p style="margin-top:.4rem;font-size:.8rem">PNG, JPG, WebP &mdash; multiple files supported</p>
+              </div>
+              <input type="file" id="batchFileInput" accept="image/*" multiple style="display:none" onchange="handleBatchFiles(this.files)" />
+              <div class="upload-preview-grid" id="batchPreviewGrid"></div>
+              <div style="margin-top:1rem;display:flex;gap:.75rem;align-items:center">
+                <div style="flex:1">
+                  <label class="form-label">Default Caption Prefix <small style="color:var(--gray-400)">(optional)</small></label>
+                  <input type="text" id="batchCaptionPrefix" class="form-control" placeholder="e.g. 'Eagles vs Griffins'" />
+                </div>
+                <div style="padding-top:1.5rem;display:flex;gap:.5rem">
+                  <button class="btn btn-primary" onclick="saveBatchPhotos()"><i class="fas fa-save"></i> Save All</button>
+                  <button class="btn btn-outline-blue" onclick="cancelBatchUpload()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Photos grid -->
+          <div class="gallery-grid" id="adminAlbumPhotosGrid" style="margin-top:0"></div>
+        </div>
       </div>
 
       <!-- SETTINGS -->
@@ -2534,15 +2683,23 @@ function seedData() {
   ];
 
   const gallery = [
-    { id:'g1', url:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop', caption:'Eagles vs Griffins Championship Final', sport:'Football', date:'2025-04-15' },
-    { id:'g2', url:'https://images.unsplash.com/photo-1546519638405-a9f9e7f5e9b8?w=600&h=400&fit=crop', caption:'Basketball League Action', sport:'Basketball', date:'2025-04-18' },
-    { id:'g3', url:'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=400&fit=crop', caption:'Track & Field Championships', sport:'Track', date:'2025-04-22' },
-    { id:'g4', url:'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&h=400&fit=crop', caption:'Swimming Gala 2025', sport:'Swimming', date:'2025-04-25' },
-    { id:'g5', url:'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=600&h=400&fit=crop', caption:'Football Training Session', sport:'Football', date:'2025-04-10' },
-    { id:'g6', url:'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600&h=400&fit=crop', caption:'Cricket League Match', sport:'Cricket', date:'2025-04-14' },
-    { id:'g7', url:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop', caption:'Aquatics Centre Practice', sport:'Swimming', date:'2025-04-05' },
-    { id:'g8', url:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop', caption:'Basketball Finals Preview', sport:'Basketball', date:'2025-04-20' },
-    { id:'g9', url:'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop', caption:'Football Cup Semi-Final', sport:'Football', date:'2025-05-02' },
+    { id:'g1', url:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop', caption:'Eagles vs Griffins — Kick Off', albumId:'alb001', date:'2025-04-15' },
+    { id:'g2', url:'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=600&h=400&fit=crop', caption:'Eagles vs Griffins — Goal Celebration', albumId:'alb001', date:'2025-04-15' },
+    { id:'g3', url:'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop', caption:'Eagles vs Griffins — Final Whistle', albumId:'alb001', date:'2025-04-15' },
+    { id:'g4', url:'https://images.unsplash.com/photo-1546519638405-a9f9e7f5e9b8?w=600&h=400&fit=crop', caption:'Basketball Finals — Opening Tip-Off', albumId:'alb002', date:'2025-04-18' },
+    { id:'g5', url:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop', caption:'Basketball Finals — Slam Dunk', albumId:'alb002', date:'2025-04-18' },
+    { id:'g6', url:'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=400&fit=crop', caption:'Track & Field — 100m Sprint Start', albumId:'alb003', date:'2025-04-22' },
+    { id:'g7', url:'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&h=400&fit=crop', caption:'Swimming Gala — 200m Freestyle', albumId:'alb004', date:'2025-04-25' },
+    { id:'g8', url:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop', caption:'Swimming Gala — Backstroke Heat', albumId:'alb004', date:'2025-04-25' },
+    { id:'g9', url:'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600&h=400&fit=crop', caption:'Cricket League — Batting Action', albumId:'alb005', date:'2025-04-14' },
+  ];
+
+  const galleryAlbums = [
+    { id:'alb001', title:'Eagles vs Griffins — Cup Final', sport:'Football', date:'2025-04-15', description:'Championship cup final at Bermuda National Stadium.', createdAt:'2025-04-15T18:00:00Z' },
+    { id:'alb002', title:'Basketball Finals 2025', sport:'Basketball', date:'2025-04-18', description:'Season-ending basketball championship.', createdAt:'2025-04-18T17:00:00Z' },
+    { id:'alb003', title:'Track & Field Championships', sport:'Track', date:'2025-04-22', description:'Annual track and field day across all schools.', createdAt:'2025-04-22T09:00:00Z' },
+    { id:'alb004', title:'Swimming Gala 2025', sport:'Swimming', date:'2025-04-25', description:'Inter-school swimming gala at the Aquatics Centre.', createdAt:'2025-04-25T10:00:00Z' },
+    { id:'alb005', title:'Cricket League Highlights', sport:'Cricket', date:'2025-04-14', description:'Best moments from the cricket league season.', createdAt:'2025-04-14T14:00:00Z' },
   ];
 
   DB.set('teams', teams);
@@ -2554,6 +2711,7 @@ function seedData() {
   DB.set('tags', tags);
   DB.set('blogPosts', blogPosts);
   DB.set('gallery', gallery);
+  DB.set('galleryAlbums', galleryAlbums);
   DB.set('seeded', true);
 }
 
@@ -2943,51 +3101,128 @@ function initTeamsPage() {
 }
 
 // ============================================================
-//  GALLERY PAGE
+//  GALLERY PAGE — Event Albums
 // ============================================================
-let galleryFilter = 'all';
+let galleryAlbumFilter = 'all';
+let currentAlbumId = null;
+let lightboxPhotos = [];
+let lightboxIndex = 0;
 
 function initGalleryPage() {
-  filterGallery('all', document.querySelector('#galleryTabs .sport-tab'));
+  filterGalleryAlbums('all', document.querySelector('#galleryTabs .sport-tab'));
 }
 
-function filterGallery(sport, btn) {
-  galleryFilter = sport;
+function filterGalleryAlbums(sport, btn) {
+  galleryAlbumFilter = sport;
   document.querySelectorAll('#galleryTabs .sport-tab').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
-  renderGallery();
+  renderAlbumsGrid();
 }
 
-function renderGallery() {
-  let photos = DB.getOrDefault('gallery', []);
-  if (galleryFilter !== 'all') photos = photos.filter(p => p.sport === galleryFilter);
-  const grid = document.getElementById('galleryGrid');
+function renderAlbumsGrid() {
+  let albums = DB.getOrDefault('galleryAlbums', []);
+  if (galleryAlbumFilter !== 'all') albums = albums.filter(a => a.sport === galleryAlbumFilter);
+  const grid = document.getElementById('galleryAlbumsGrid');
   if (!grid) return;
-  if (!photos.length) {
-    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-images"></i><p>No photos found</p></div>';
+  if (!albums.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-images"></i><p>No event albums yet</p></div>';
     return;
   }
-  grid.innerHTML = photos.map(p => `
-    <div class="gallery-item" onclick="openLightbox('${p.url}','${p.caption}')">
-      <img src="${p.url}" alt="${p.caption}" loading="lazy" />
-      <div class="gallery-overlay">
-        <div class="caption">${p.caption}</div>
+  grid.innerHTML = albums.map(a => {
+    const photos = DB.getOrDefault('gallery', []).filter(p => p.albumId === a.id);
+    const thumb = photos[0] ? photos[0].url : 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop';
+    return `
+    <div class="event-album-card" onclick="openAlbumView('${a.id}')">
+      <div class="event-album-thumb">
+        <img src="${thumb}" alt="${a.title}" loading="lazy" />
+        <span class="event-album-count"><i class="fas fa-images"></i> ${photos.length} photo${photos.length !== 1 ? 's' : ''}</span>
       </div>
+      <div class="event-album-info">
+        <h4>${a.title}</h4>
+        <div class="meta">
+          <span class="badge badge-blue" style="font-size:.7rem">${a.sport}</span>
+          <span><i class="fas fa-calendar-alt"></i> ${a.date || ''}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openAlbumView(albumId) {
+  const albums = DB.getOrDefault('galleryAlbums', []);
+  const album = albums.find(a => a.id === albumId);
+  if (!album) return;
+  currentAlbumId = albumId;
+  document.getElementById('galleryAlbumsView').style.display = 'none';
+  document.getElementById('galleryAlbumView').style.display = 'block';
+  document.getElementById('albumViewTitle').textContent = album.title;
+  document.getElementById('albumViewMeta').innerHTML = `<span class="badge badge-blue">${album.sport}</span> &nbsp; ${album.date || ''}`;
+  renderAlbumPhotos(albumId);
+  document.getElementById('galleryBreadcrumb').textContent = album.title;
+  document.getElementById('galleryPageTitle').textContent = album.title;
+  document.getElementById('galleryPageSub').textContent = album.description || '';
+}
+
+function renderAlbumPhotos(albumId) {
+  const photos = DB.getOrDefault('gallery', []).filter(p => p.albumId === albumId);
+  const grid = document.getElementById('albumPhotosGrid');
+  if (!grid) return;
+  document.getElementById('albumViewCount').textContent = `${photos.length} photo${photos.length !== 1 ? 's' : ''}`;
+  if (!photos.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-images"></i><p>No photos in this album yet</p></div>';
+    return;
+  }
+  lightboxPhotos = photos;
+  grid.innerHTML = photos.map((p, i) => `
+    <div class="gallery-item" onclick="openLightbox(${i})">
+      <img src="${p.url}" alt="${p.caption}" loading="lazy" />
+      <div class="gallery-overlay"><div class="caption">${p.caption}</div></div>
     </div>
   `).join('');
 }
 
-function openLightbox(url, caption) {
-  document.getElementById('lightbox-img').src = url;
-  document.getElementById('lightbox-img').alt = caption;
+function closeAlbumView() {
+  currentAlbumId = null;
+  document.getElementById('galleryAlbumsView').style.display = 'block';
+  document.getElementById('galleryAlbumView').style.display = 'none';
+  document.getElementById('galleryBreadcrumb').textContent = 'Gallery';
+  document.getElementById('galleryPageTitle').textContent = 'Photo Gallery';
+  document.getElementById('galleryPageSub').textContent = 'Browse event albums — click any album to view all photos';
+}
+
+function openLightbox(index) {
+  lightboxIndex = index;
+  updateLightbox();
   document.getElementById('lightbox').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+}
+
+function updateLightbox() {
+  const p = lightboxPhotos[lightboxIndex];
+  if (!p) return;
+  document.getElementById('lightbox-img').src = p.url;
+  document.getElementById('lightbox-img').alt = p.caption;
+  document.getElementById('lightbox-caption').textContent = p.caption || '';
+  document.getElementById('lightbox-counter').textContent = `${lightboxIndex + 1} / ${lightboxPhotos.length}`;
+}
+
+function lightboxNav(dir) {
+  lightboxIndex = (lightboxIndex + dir + lightboxPhotos.length) % lightboxPhotos.length;
+  updateLightbox();
 }
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.add('hidden');
   document.body.style.overflow = '';
 }
+
+// Keyboard navigation for lightbox
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('lightbox').classList.contains('hidden')) return;
+  if (e.key === 'ArrowLeft') lightboxNav(-1);
+  if (e.key === 'ArrowRight') lightboxNav(1);
+  if (e.key === 'Escape') closeLightbox();
+});
 
 // ============================================================
 //  BLOG PAGE
@@ -4100,51 +4335,206 @@ function deleteWinner(id) {
 }
 
 // ============================================================
-//  ADMIN GALLERY
+//  ADMIN GALLERY — Event Albums + Batch Upload
 // ============================================================
+let adminCurrentAlbumId = null;
+let batchPendingFiles = []; // {dataUrl, name}
+
 function loadAdminGallery() {
-  const photos = DB.getOrDefault('gallery', []);
-  const grid = document.getElementById('adminGalleryGrid');
+  adminCurrentAlbumId = null;
+  document.getElementById('adminAlbumsView').style.display = 'block';
+  document.getElementById('adminAlbumEditor').style.display = 'none';
+  renderAdminAlbumsGrid();
+}
+
+function renderAdminAlbumsGrid() {
+  const albums = DB.getOrDefault('galleryAlbums', []);
+  const grid = document.getElementById('adminAlbumsGrid');
   if (!grid) return;
+  if (!albums.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-folder-open"></i><p>No event albums yet. Create one to start uploading photos.</p></div>';
+    return;
+  }
+  grid.innerHTML = albums.map(a => {
+    const photos = DB.getOrDefault('gallery', []).filter(p => p.albumId === a.id);
+    const thumb = photos[0] ? photos[0].url : 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop';
+    return `
+    <div class="admin-album-card">
+      <div class="thumb" onclick="openAdminAlbumEditor('${a.id}')" style="cursor:pointer">
+        <img src="${thumb}" alt="${a.title}" loading="lazy" />
+      </div>
+      <div class="info">
+        <h4>${a.title}</h4>
+        <div class="meta"><span class="badge badge-blue" style="font-size:.7rem">${a.sport}</span> &nbsp; ${a.date || ''} &nbsp; <span style="color:var(--green)">${photos.length} photo${photos.length!==1?'s':''}</span></div>
+        <div class="actions">
+          <button class="btn btn-primary btn-sm" onclick="openAdminAlbumEditor('${a.id}')"><i class="fas fa-images"></i> Manage Photos</button>
+          <button class="action-btn delete" onclick="deleteAlbum('${a.id}')"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openCreateAlbumForm() {
+  openModal('Create Event Album', `
+    <div class="form-group mb-3"><label class="form-label">Album Title *</label><input type="text" id="mAlbumTitle" class="form-control" placeholder="e.g. Eagles vs Griffins — Cup Final" /></div>
+    <div class="form-group mb-3"><label class="form-label">Sport</label><select id="mAlbumSport" class="form-control"><option>Football</option><option>Basketball</option><option>Cricket</option><option>Track</option><option>Swimming</option><option>General</option></select></div>
+    <div class="form-group mb-3"><label class="form-label">Event Date</label><input type="date" id="mAlbumDate" class="form-control" /></div>
+    <div class="form-group"><label class="form-label">Description <small>(optional)</small></label><textarea id="mAlbumDesc" class="form-control" rows="2" placeholder="Short description of the event"></textarea></div>
+  `, () => {
+    const title = document.getElementById('mAlbumTitle').value.trim();
+    if (!title) { showToast('Album title required','error'); return; }
+    const albums = DB.getOrDefault('galleryAlbums', []);
+    const album = {
+      id: 'alb' + Date.now(),
+      title,
+      sport: document.getElementById('mAlbumSport').value,
+      date: document.getElementById('mAlbumDate').value,
+      description: document.getElementById('mAlbumDesc').value,
+      createdAt: new Date().toISOString()
+    };
+    albums.unshift(album);
+    DB.set('galleryAlbums', albums);
+    closeModal();
+    showToast('Album created!');
+    openAdminAlbumEditor(album.id);
+  });
+}
+
+function deleteAlbum(albumId) {
+  if (!confirm('Delete this album and ALL its photos? This cannot be undone.')) return;
+  DB.set('galleryAlbums', DB.getOrDefault('galleryAlbums', []).filter(a => a.id !== albumId));
+  DB.set('gallery', DB.getOrDefault('gallery', []).filter(p => p.albumId !== albumId));
+  renderAdminAlbumsGrid();
+  showToast('Album deleted');
+}
+
+function openAdminAlbumEditor(albumId) {
+  adminCurrentAlbumId = albumId;
+  const albums = DB.getOrDefault('galleryAlbums', []);
+  const album = albums.find(a => a.id === albumId);
+  if (!album) return;
+  document.getElementById('adminAlbumsView').style.display = 'none';
+  document.getElementById('adminAlbumEditor').style.display = 'block';
+  document.getElementById('adminAlbumEditorTitle').textContent = album.title;
+  document.getElementById('adminAlbumEditorMeta').textContent = album.sport + (album.date ? ' · ' + album.date : '');
+  cancelBatchUpload();
+  renderAdminAlbumPhotos();
+}
+
+function closeAdminAlbumEditor() {
+  adminCurrentAlbumId = null;
+  document.getElementById('adminAlbumsView').style.display = 'block';
+  document.getElementById('adminAlbumEditor').style.display = 'none';
+  renderAdminAlbumsGrid();
+}
+
+function renderAdminAlbumPhotos() {
+  const photos = DB.getOrDefault('gallery', []).filter(p => p.albumId === adminCurrentAlbumId);
+  const grid = document.getElementById('adminAlbumPhotosGrid');
+  if (!grid) return;
+  if (!photos.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-images"></i><p>No photos yet. Click Upload Photos to add some.</p></div>';
+    return;
+  }
   grid.innerHTML = photos.map(p => `
     <div class="gallery-item" style="position:relative">
       <img src="${p.url}" alt="${p.caption}" loading="lazy" />
-      <div class="gallery-overlay" style="opacity:1;background:rgba(0,0,0,.5)">
+      <div class="gallery-overlay" style="opacity:1;background:rgba(0,0,0,.55)">
         <div style="width:100%">
-          <div class="caption" style="margin-bottom:.5rem">${p.caption}</div>
-          <div style="display:flex;gap:.5rem">
-            <span class="badge badge-blue">${p.sport}</span>
-            <button class="action-btn delete" onclick="deletePhoto('${p.id}')" style="margin-left:auto"><i class="fas fa-trash"></i></button>
-          </div>
+          <div class="caption" style="margin-bottom:.4rem;font-size:.8rem">${p.caption}</div>
+          <button class="action-btn delete" onclick="deletePhoto('${p.id}')" style="margin-left:auto"><i class="fas fa-trash"></i></button>
         </div>
       </div>
     </div>
-  `).join('') || '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-images"></i><p>No photos yet</p></div>';
-}
-
-function openPhotoForm() {
-  openModal('Add Photo', `
-    <div class="form-group mb-3"><label class="form-label">Image URL</label><input type="url" id="mPhotoUrl" class="form-control" placeholder="https://..." /></div>
-    <div class="form-group mb-3"><label class="form-label">Caption</label><input type="text" id="mPhotoCaption" class="form-control" /></div>
-    <div class="form-group mb-3"><label class="form-label">Sport</label><select id="mPhotoSport" class="form-control"><option>Football</option><option>Basketball</option><option>Track</option><option>Swimming</option><option>Cricket</option><option>General</option></select></div>
-    <div class="form-group"><label class="form-label">Date</label><input type="date" id="mPhotoDate" class="form-control" /></div>
-  `, () => {
-    const url = document.getElementById('mPhotoUrl').value.trim();
-    if (!url) { showToast('Image URL required','error'); return; }
-    const photos = DB.getOrDefault('gallery', []);
-    photos.unshift({ id:'g'+Date.now(), url, caption: document.getElementById('mPhotoCaption').value, sport: document.getElementById('mPhotoSport').value, date: document.getElementById('mPhotoDate').value });
-    DB.set('gallery', photos);
-    loadAdminGallery();
-    closeModal();
-    showToast('Photo added!');
-  });
+  `).join('');
 }
 
 function deletePhoto(id) {
   if (!confirm('Delete this photo?')) return;
   DB.set('gallery', DB.getOrDefault('gallery', []).filter(p => p.id !== id));
-  loadAdminGallery();
+  renderAdminAlbumPhotos();
+  renderAdminAlbumsGrid();
   showToast('Photo deleted');
+}
+
+// ── Batch Upload ──────────────────────────────────────────────
+function openBatchUpload() {
+  batchPendingFiles = [];
+  document.getElementById('batchPreviewGrid').innerHTML = '';
+  document.getElementById('batchCaptionPrefix').value = '';
+  document.getElementById('batchUploadSection').style.display = 'block';
+  setupBatchDragDrop();
+}
+
+function cancelBatchUpload() {
+  batchPendingFiles = [];
+  document.getElementById('batchUploadSection').style.display = 'none';
+  document.getElementById('batchPreviewGrid').innerHTML = '';
+  document.getElementById('batchFileInput').value = '';
+}
+
+function setupBatchDragDrop() {
+  const zone = document.getElementById('batchDropZone');
+  if (!zone || zone._ddSetup) return;
+  zone._ddSetup = true;
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('drag-over');
+    handleBatchFiles(e.dataTransfer.files);
+  });
+}
+
+function handleBatchFiles(files) {
+  const MAX = 2 * 1024 * 1024;
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) { showToast(`${file.name} is not an image`, 'warning'); return; }
+    if (file.size > MAX) { showToast(`${file.name} exceeds 2MB limit`, 'warning'); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      const dataUrl = e.target.result;
+      const id = 'bp' + Date.now() + Math.random().toString(36).slice(2);
+      batchPendingFiles.push({ id, dataUrl, name: file.name });
+      addBatchPreview(id, dataUrl);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function addBatchPreview(id, dataUrl) {
+  const grid = document.getElementById('batchPreviewGrid');
+  const div = document.createElement('div');
+  div.className = 'upload-preview-item';
+  div.id = 'prev_' + id;
+  div.innerHTML = `<img src="${dataUrl}" /><button class="remove-preview" onclick="removeBatchPreview('${id}')" title="Remove"><i class="fas fa-times"></i></button>`;
+  grid.appendChild(div);
+}
+
+function removeBatchPreview(id) {
+  batchPendingFiles = batchPendingFiles.filter(f => f.id !== id);
+  const el = document.getElementById('prev_' + id);
+  if (el) el.remove();
+}
+
+function saveBatchPhotos() {
+  if (!batchPendingFiles.length) { showToast('No photos selected', 'warning'); return; }
+  if (!adminCurrentAlbumId) return;
+  const prefix = document.getElementById('batchCaptionPrefix').value.trim();
+  const photos = DB.getOrDefault('gallery', []);
+  batchPendingFiles.forEach((f, i) => {
+    photos.unshift({
+      id: 'g' + Date.now() + i,
+      url: f.dataUrl,
+      caption: prefix ? `${prefix} — Photo ${i + 1}` : f.name.replace(/\.[^.]+$/, ''),
+      albumId: adminCurrentAlbumId,
+      date: new Date().toISOString().slice(0, 10)
+    });
+  });
+  DB.set('gallery', photos);
+  showToast(`${batchPendingFiles.length} photo${batchPendingFiles.length > 1 ? 's' : ''} uploaded!`);
+  cancelBatchUpload();
+  renderAdminAlbumPhotos();
 }
 
 // ============================================================
