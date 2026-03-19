@@ -872,6 +872,81 @@
     .lightbox-next { right: 1.5rem; }
 
     /* ============================================================
+       HELP & DOCUMENTATION STYLES
+    ============================================================ */
+    .help-tab-content { animation: fadeIn .2s ease; }
+    .help-hero-card {
+      display: flex; gap: 1.5rem; align-items: flex-start;
+      background: linear-gradient(135deg, rgba(233,30,140,.12), rgba(37,99,235,.12));
+      border: 1px solid rgba(233,30,140,.25); border-radius: var(--radius);
+      padding: 1.5rem; margin-bottom: 1.5rem;
+    }
+    .help-hero-icon {
+      width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--pink), var(--blue-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; color: white;
+    }
+    .help-hero-card h3 { font-size: 1.2rem; font-weight: 800; color: white; margin-bottom: .5rem; }
+    .help-hero-card p { color: var(--gray-300); font-size: .9rem; line-height: 1.7; }
+    .help-section-title {
+      font-size: 1rem; font-weight: 800; color: white; text-transform: uppercase;
+      letter-spacing: .05em; margin: 1.2rem 0 .75rem;
+      padding-bottom: .4rem; border-bottom: 2px solid rgba(233,30,140,.3);
+    }
+    .help-intro { color: var(--gray-300); font-size: .9rem; line-height: 1.75; margin-bottom: 1rem; }
+    .help-grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .help-grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .help-card {
+      background: var(--gray-800); border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius); padding: 1.1rem;
+    }
+    .help-card h4 { font-size: .9rem; font-weight: 700; color: white; margin-bottom: .4rem; }
+    .help-card p { font-size: .82rem; color: var(--gray-300); line-height: 1.65; }
+    .help-card-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; margin-bottom: .6rem;
+    }
+    .help-steps { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 1rem; }
+    .help-step {
+      display: flex; gap: 1rem; align-items: flex-start;
+      background: var(--gray-800); border-radius: var(--radius); padding: .9rem 1rem;
+      border-left: 3px solid var(--pink);
+    }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: var(--pink); color: white; font-weight: 800; font-size: .85rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .help-step strong { color: white; font-size: .9rem; display: block; margin-bottom: .2rem; }
+    .help-step p { color: var(--gray-300); font-size: .82rem; line-height: 1.6; margin: 0; }
+    .help-tip {
+      background: rgba(22,163,74,.1); border-left: 4px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: .85rem 1rem; font-size: .85rem; color: var(--green);
+      margin-bottom: .75rem;
+    }
+    .help-tip strong { color: #86efac; }
+    .help-tip a { color: var(--pink-light); }
+    .help-table-wrap { overflow-x: auto; border-radius: var(--radius); margin-bottom: 1rem; }
+    .help-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+    .help-table thead th {
+      background: rgba(107,33,168,.5); color: white; text-align: left;
+      padding: .65rem .9rem; font-weight: 700; white-space: nowrap;
+    }
+    .help-table tbody td { padding: .6rem .9rem; border-bottom: 1px solid rgba(255,255,255,.05); color: var(--gray-300); vertical-align: top; }
+    .help-table tbody tr:hover td { background: rgba(255,255,255,.03); }
+    .help-badge {
+      display: inline-block; padding: .15rem .55rem; border-radius: 20px;
+      font-size: .75rem; font-weight: 700;
+    }
+    .help-badge.pink { background: rgba(233,30,140,.2); color: var(--pink-light); }
+    .help-badge.blue { background: rgba(37,99,235,.2); color: var(--blue-light); }
+    .help-badge.green { background: rgba(22,163,74,.2); color: var(--green); }
+    .help-badge.gray { background: rgba(255,255,255,.1); color: var(--gray-300); }
+
+    /* ============================================================
        ADMIN PANEL
     ============================================================ */
     #admin-shell {
@@ -2465,33 +2540,296 @@
         </div>
       </div>
 
-      <!-- HELP -->
+      <!-- HELP & DOCUMENTATION -->
       <div id="aview-help" class="aview">
         <div class="admin-page-header">
-          <div><h2>Help & Documentation</h2><p>Guides and troubleshooting</p></div>
+          <div><h2><i class="fas fa-life-ring" style="color:var(--pink-light)"></i> Help &amp; Documentation</h2><p>Detailed guides for every section of the BSSF platform</p></div>
         </div>
-        <div class="grid-2">
-          <div class="form-card">
-            <div class="form-card-title"><i class="fas fa-book" style="color:var(--pink-light)"></i> Quick Start Guide</div>
-            <div style="color:var(--gray-300);font-size:.9rem;line-height:1.8">
-              <p><strong style="color:white">1. Adding Events:</strong> Go to Events Manager → Add Event → Fill in details → Save</p>
-              <p><strong style="color:white">2. Recording Results:</strong> Events Manager → Select completed event → Enter scores → Mark verified</p>
-              <p><strong style="color:white">3. Blog Posts:</strong> Blog Manager → New Post → Write content → Publish</p>
-              <p><strong style="color:white">4. Weekly Winners:</strong> Weekly Winners → Add Winner → Select athlete → Feature</p>
-              <p><strong style="color:white">5. Gallery:</strong> Gallery Manager → Add Photo → Enter URL → Save</p>
+
+        <!-- Help Tab Nav -->
+        <div class="sport-tabs" id="helpTabs" style="margin-bottom:1.5rem;flex-wrap:wrap">
+          <button class="sport-tab active" onclick="showHelpTab('overview',this)"><i class="fas fa-home"></i> Overview</button>
+          <button class="sport-tab" onclick="showHelpTab('events',this)"><i class="fas fa-calendar"></i> Events</button>
+          <button class="sport-tab" onclick="showHelpTab('results',this)"><i class="fas fa-trophy"></i> Results</button>
+          <button class="sport-tab" onclick="showHelpTab('standings',this)"><i class="fas fa-list-ol"></i> Standings</button>
+          <button class="sport-tab" onclick="showHelpTab('blog',this)"><i class="fas fa-newspaper"></i> Blog</button>
+          <button class="sport-tab" onclick="showHelpTab('gallery',this)"><i class="fas fa-images"></i> Gallery</button>
+          <button class="sport-tab" onclick="showHelpTab('teams',this)"><i class="fas fa-users"></i> Teams &amp; Players</button>
+          <button class="sport-tab" onclick="showHelpTab('schools',this)"><i class="fas fa-school"></i> Schools</button>
+          <button class="sport-tab" onclick="showHelpTab('winners',this)"><i class="fas fa-star"></i> Weekly Winners</button>
+          <button class="sport-tab" onclick="showHelpTab('admin',this)"><i class="fas fa-shield-alt"></i> Admin &amp; Security</button>
+          <button class="sport-tab" onclick="showHelpTab('troubleshoot',this)"><i class="fas fa-wrench"></i> Troubleshooting</button>
+        </div>
+
+        <!-- ── OVERVIEW ── -->
+        <div id="htab-overview" class="help-tab-content">
+          <div class="help-hero-card">
+            <div class="help-hero-icon"><i class="fas fa-futbol"></i></div>
+            <div>
+              <h3>Welcome to the BSSF Admin Panel</h3>
+              <p>This is your complete control centre for the Bermuda School Sports Federation platform. From here you can manage every piece of content that appears on the public website — events, results, standings, teams, players, blog posts, photos, and more.</p>
             </div>
           </div>
-          <div class="form-card">
-            <div class="form-card-title"><i class="fas fa-wrench" style="color:var(--blue-light)"></i> Troubleshooting</div>
-            <div style="color:var(--gray-300);font-size:.9rem;line-height:1.8">
-              <p><strong style="color:white">Content not showing:</strong> Check status is set to "published"</p>
-              <p><strong style="color:white">Images not loading:</strong> Verify URL is valid and accessible</p>
-              <p><strong style="color:white">Standings not updating:</strong> Ensure results are marked as verified</p>
-              <p><strong style="color:white">Login issues:</strong> Clear browser cache, try different browser</p>
+          <div class="help-grid-3">
+            <div class="help-card">
+              <div class="help-card-icon" style="background:rgba(233,30,140,.15);color:var(--pink-light)"><i class="fas fa-tachometer-alt"></i></div>
+              <h4>Dashboard</h4>
+              <p>Your home screen. Shows live stats — total events, teams, blog posts, and gallery photos. Also displays recent events and latest published articles at a glance.</p>
+            </div>
+            <div class="help-card">
+              <div class="help-card-icon" style="background:rgba(37,99,235,.15);color:var(--blue-light)"><i class="fas fa-globe"></i></div>
+              <h4>Public Site</h4>
+              <p>Everything you manage here is reflected instantly on the public-facing website. Visitors can browse events, standings, teams, gallery albums, and blog posts without logging in.</p>
+            </div>
+            <div class="help-card">
+              <div class="help-card-icon" style="background:rgba(22,163,74,.15);color:var(--green)"><i class="fas fa-database"></i></div>
+              <h4>Data Storage</h4>
+              <p>All data is stored in your browser's localStorage. No external server is needed. Data persists across page refreshes but is browser-specific — clearing your cache will erase data.</p>
+            </div>
+          </div>
+          <div class="help-section-title">Platform Sections at a Glance</div>
+          <div class="help-table-wrap">
+            <table class="help-table">
+              <thead><tr><th>Section</th><th>What It Does</th><th>Who Sees It</th></tr></thead>
+              <tbody>
+                <tr><td><i class="fas fa-calendar" style="color:var(--pink-light)"></i> Events Manager</td><td>Schedule and manage all fixtures across every sport</td><td>Admin only</td></tr>
+                <tr><td><i class="fas fa-trophy" style="color:var(--yellow)"></i> Results Manager</td><td>Record and verify match scores; auto-updates standings</td><td>Admin only</td></tr>
+                <tr><td><i class="fas fa-list-ol" style="color:var(--blue-light)"></i> Standings Manager</td><td>View and manually adjust league tables per sport</td><td>Admin only</td></tr>
+                <tr><td><i class="fas fa-newspaper" style="color:var(--green)"></i> Blog Manager</td><td>Write, publish, and organise news articles</td><td>Admin only</td></tr>
+                <tr><td><i class="fas fa-images" style="color:var(--pink-light)"></i> Gallery Manager</td><td>Create event albums and batch-upload photos</td><td>Admin only</td></tr>
+                <tr><td><i class="fas fa-users" style="color:var(--blue-light)"></i> Teams Manager</td><td>Add school teams with logos, colors, and coaches</td><td>Admin only</td></tr>
+                <tr><td><i class="fas fa-running" style="color:var(--green)"></i> Players Manager</td><td>Maintain full athlete rosters with stats</td><td>Admin only</td></tr>
+                <tr><td><i class="fas fa-school" style="color:var(--yellow)"></i> Schools Manager</td><td>Manage participating schools with logos and contacts</td><td>Admin only</td></tr>
+                <tr><td><i class="fas fa-star" style="color:var(--pink-light)"></i> Weekly Winners</td><td>Feature the athlete of the week on the home page</td><td>Admin only</td></tr>
+                <tr><td><i class="fas fa-cog" style="color:var(--gray-400)"></i> Settings</td><td>Configure site name, contact info, social links</td><td>Admin only</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── EVENTS ── -->
+        <div id="htab-events" class="help-tab-content" style="display:none">
+          <div class="help-section-title"><i class="fas fa-calendar-alt" style="color:var(--pink-light)"></i> Events Manager</div>
+          <p class="help-intro">The Events Manager is where you schedule all fixtures — football matches, basketball games, cricket matches, track meets, and swimming galas. Events appear on the public Events page and feed into the live score ticker on the home page.</p>
+          <div class="help-steps">
+            <div class="help-step"><span class="step-num">1</span><div><strong>Open Events Manager</strong><p>Click <em>Events</em> in the left sidebar. You'll see a table of all existing events sorted by date.</p></div></div>
+            <div class="help-step"><span class="step-num">2</span><div><strong>Add a New Event</strong><p>Click the <span class="help-badge pink">+ Add Event</span> button. A form will appear asking for: Sport, Home Team, Away Team, Date &amp; Time, Venue, and Status.</p></div></div>
+            <div class="help-step"><span class="step-num">3</span><div><strong>Set the Status</strong><p>Choose from <span class="help-badge blue">Scheduled</span> (upcoming), <span class="help-badge green">Live</span> (in progress), or <span class="help-badge gray">Completed</span> (finished). You can update this at any time.</p></div></div>
+            <div class="help-step"><span class="step-num">4</span><div><strong>Save the Event</strong><p>Click Save. The event immediately appears on the public Events page and in the home page upcoming events grid.</p></div></div>
+            <div class="help-step"><span class="step-num">5</span><div><strong>Update During a Match</strong><p>When a match starts, edit the event and change Status to <span class="help-badge green">Live</span>. A pulsing green dot will appear on the public site. When it ends, change to <span class="help-badge gray">Completed</span> and record the result.</p></div></div>
+          </div>
+          <div class="help-tip"><i class="fas fa-lightbulb"></i> <strong>Pro Tip:</strong> Schedule all fixtures at the start of the season so the public calendar is always up to date. You can edit dates and venues at any time.</div>
+          <div class="help-section-title" style="margin-top:1.5rem">Event Status Guide</div>
+          <div class="help-table-wrap">
+            <table class="help-table">
+              <thead><tr><th>Status</th><th>What It Means</th><th>Public Display</th></tr></thead>
+              <tbody>
+                <tr><td><span class="help-badge blue">Scheduled</span></td><td>Match is upcoming and confirmed</td><td>Blue badge, shown in upcoming events</td></tr>
+                <tr><td><span class="help-badge green">Live</span></td><td>Match is currently in progress</td><td>Pulsing green dot, appears in live ticker</td></tr>
+                <tr><td><span class="help-badge gray">Completed</span></td><td>Match has ended, result recorded</td><td>Gray badge, shows final score</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── RESULTS ── -->
+        <div id="htab-results" class="help-tab-content" style="display:none">
+          <div class="help-section-title"><i class="fas fa-trophy" style="color:var(--yellow)"></i> Results Manager</div>
+          <p class="help-intro">The Results Manager lets you record and verify match scores. When a result is saved and verified, the standings tables update automatically — no manual calculation needed.</p>
+          <div class="help-steps">
+            <div class="help-step"><span class="step-num">1</span><div><strong>Go to Results Manager</strong><p>Click <em>Results</em> in the sidebar. You'll see all events listed with their current score status.</p></div></div>
+            <div class="help-step"><span class="step-num">2</span><div><strong>Find the Match</strong><p>Use the sport filter or scroll to find the completed match. Events with no score show a <span class="help-badge gray">Pending</span> badge.</p></div></div>
+            <div class="help-step"><span class="step-num">3</span><div><strong>Enter the Score</strong><p>Click the edit icon on the event row. Enter the Home Score and Away Score in the fields provided.</p></div></div>
+            <div class="help-step"><span class="step-num">4</span><div><strong>Add Match Notes (Optional)</strong><p>Add notes like <em>AET</em> (after extra time), <em>Pen</em> (penalties), or any other relevant detail.</p></div></div>
+            <div class="help-step"><span class="step-num">5</span><div><strong>Mark as Verified</strong><p>Toggle the Verified switch to confirm the score is official. Standings recalculate immediately on save.</p></div></div>
+          </div>
+          <div class="help-tip"><i class="fas fa-lightbulb"></i> <strong>Important:</strong> Standings only update when a result is marked <strong>Verified</strong>. Always verify scores before moving on.</div>
+        </div>
+
+        <!-- ── STANDINGS ── -->
+        <div id="htab-standings" class="help-tab-content" style="display:none">
+          <div class="help-section-title"><i class="fas fa-list-ol" style="color:var(--blue-light)"></i> Standings Manager</div>
+          <p class="help-intro">League tables are calculated automatically from verified results. The Standings Manager lets you view all tables and make manual adjustments when needed (e.g. walkovers, forfeits, administrative changes).</p>
+          <div class="help-grid-2">
+            <div class="help-card">
+              <h4><i class="fas fa-sync" style="color:var(--green)"></i> Automatic Updates</h4>
+              <p>Every time you verify a result in the Results Manager, the standings for that sport recalculate instantly. Win = 3 pts, Draw = 1 pt, Loss = 0 pts.</p>
+            </div>
+            <div class="help-card">
+              <h4><i class="fas fa-edit" style="color:var(--blue-light)"></i> Manual Adjustments</h4>
+              <p>Click the edit icon on any team row to manually change points, wins, draws, losses, goals for, or goals against. Use this for walkovers or administrative decisions.</p>
+            </div>
+            <div class="help-card">
+              <h4><i class="fas fa-sort" style="color:var(--pink-light)"></i> Sort Order</h4>
+              <p>Teams are sorted by Points (highest first). Ties are broken by Goal Difference, then Goals For. The top team is highlighted with a gold accent.</p>
+            </div>
+            <div class="help-card">
+              <h4><i class="fas fa-filter" style="color:var(--yellow)"></i> Sport Tabs</h4>
+              <p>Click the sport tabs (Football, Basketball, Cricket, Track, Swimming) to switch between league tables. Each sport has its own independent table.</p>
+            </div>
+          </div>
+          <div class="help-table-wrap" style="margin-top:1rem">
+            <table class="help-table">
+              <thead><tr><th>Column</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td>Pos</td><td>League position (rank)</td></tr>
+                <tr><td>Team</td><td>Team name and school</td></tr>
+                <tr><td>P</td><td>Matches played</td></tr>
+                <tr><td>W</td><td>Wins</td></tr>
+                <tr><td>D</td><td>Draws</td></tr>
+                <tr><td>L</td><td>Losses</td></tr>
+                <tr><td>GF</td><td>Goals / Points For</td></tr>
+                <tr><td>GA</td><td>Goals / Points Against</td></tr>
+                <tr><td>GD</td><td>Goal / Point Difference (GF minus GA)</td></tr>
+                <tr><td>Pts</td><td>Total league points</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── BLOG ── -->
+        <div id="htab-blog" class="help-tab-content" style="display:none">
+          <div class="help-section-title"><i class="fas fa-newspaper" style="color:var(--green)"></i> Blog Manager</div>
+          <p class="help-intro">The Blog Manager is a full publishing system. Write news articles, athlete profiles, event previews, and match reports. Posts appear on the public News &amp; Blog page with categories, tags, featured images, and social sharing.</p>
+          <div class="help-steps">
+            <div class="help-step"><span class="step-num">1</span><div><strong>Create a New Post</strong><p>Click <span class="help-badge pink">+ New Post</span>. The post editor opens with a rich text editor (Quill), title field, category selector, tags, and featured image.</p></div></div>
+            <div class="help-step"><span class="step-num">2</span><div><strong>Write Your Article</strong><p>Use the Quill editor toolbar to format text: bold, italic, headings, bullet lists, numbered lists, blockquotes, and links. Paste content from Word or Google Docs — formatting is preserved.</p></div></div>
+            <div class="help-step"><span class="step-num">3</span><div><strong>Set Category &amp; Tags</strong><p>Select a category (e.g. Football, Basketball) from the dropdown. Add tags as comma-separated keywords (e.g. <em>cup-final, warwick-academy, 2025</em>). These power the filter tabs and tag cloud on the public blog.</p></div></div>
+            <div class="help-step"><span class="step-num">4</span><div><strong>Add a Featured Image</strong><p>Paste a direct image URL in the Featured Image field. This appears as the article's hero banner on the blog page and in the post grid thumbnail.</p></div></div>
+            <div class="help-step"><span class="step-num">5</span><div><strong>Set Status &amp; Publish</strong><p>Choose <span class="help-badge gray">Draft</span> to save without publishing, or <span class="help-badge green">Published</span> to make it live immediately. Toggle <strong>Featured Post</strong> to display it as the large hero article at the top of the blog page.</p></div></div>
+          </div>
+          <div class="help-tip"><i class="fas fa-lightbulb"></i> <strong>Featured Post:</strong> Only one post can be featured at a time. Setting a new post as featured will automatically un-feature the previous one.</div>
+          <div class="help-section-title" style="margin-top:1.5rem">Managing Categories &amp; Tags</div>
+          <div class="help-grid-2">
+            <div class="help-card">
+              <h4><i class="fas fa-tag" style="color:var(--pink-light)"></i> Categories</h4>
+              <p>Categories appear as filter tabs on the public blog. Add a category by entering a name and choosing a color. Delete categories with the trash icon. Recommended: keep to 5–7 categories maximum.</p>
+            </div>
+            <div class="help-card">
+              <h4><i class="fas fa-tags" style="color:var(--blue-light)"></i> Tags</h4>
+              <p>Tags appear in the tag cloud sidebar on the public blog. Readers can click a tag to filter posts. Use specific, descriptive tags like <em>cup-final</em>, <em>saltus-grammar</em>, or <em>track-2025</em>.</p>
             </div>
           </div>
         </div>
-      </div>
+
+        <!-- ── GALLERY ── -->
+        <div id="htab-gallery" class="help-tab-content" style="display:none">
+          <div class="help-section-title"><i class="fas fa-images" style="color:var(--pink-light)"></i> Gallery Manager — Event Albums</div>
+          <p class="help-intro">The Gallery is organised into Event Albums. Each album represents a single event (e.g. a match, gala, or ceremony) and can hold unlimited photos. Visitors browse albums on the public Gallery page and click into any album to view all its photos in a lightbox.</p>
+          <div class="help-steps">
+            <div class="help-step"><span class="step-num">1</span><div><strong>Create an Event Album</strong><p>Click <span class="help-badge pink">+ New Event Album</span>. Enter the album title (e.g. <em>Eagles vs Griffins — Cup Final</em>), select the sport, set the event date, and add an optional description. Click Save.</p></div></div>
+            <div class="help-step"><span class="step-num">2</span><div><strong>Open the Album</strong><p>Click <span class="help-badge blue">Manage Photos</span> on any album card to open that album's photo editor.</p></div></div>
+            <div class="help-step"><span class="step-num">3</span><div><strong>Batch Upload Photos</strong><p>Click <span class="help-badge pink">Upload Photos</span>. Either drag and drop multiple image files onto the upload zone, or click to open your file browser and select multiple files at once (hold Ctrl/Cmd to select many).</p></div></div>
+            <div class="help-step"><span class="step-num">4</span><div><strong>Preview &amp; Caption</strong><p>Thumbnails of all selected photos appear in the preview grid. Remove any unwanted photos by clicking the × button. Optionally enter a Caption Prefix (e.g. <em>Eagles vs Griffins</em>) — photos will be named <em>Eagles vs Griffins — Photo 1</em>, <em>Photo 2</em>, etc.</p></div></div>
+            <div class="help-step"><span class="step-num">5</span><div><strong>Save All Photos</strong><p>Click <span class="help-badge green">Save All</span>. All photos are saved to the album instantly and appear in the public gallery.</p></div></div>
+          </div>
+          <div class="help-tip"><i class="fas fa-lightbulb"></i> <strong>File Limits:</strong> Max 2MB per photo. Accepted formats: PNG, JPG, WebP. Photos are stored as base64 in localStorage — keep total photo data under ~8MB for best performance.</div>
+          <div class="help-grid-2" style="margin-top:1rem">
+            <div class="help-card">
+              <h4><i class="fas fa-search-plus" style="color:var(--pink-light)"></i> Public Lightbox</h4>
+              <p>Visitors can click any photo to open the full-screen lightbox viewer. Use ← → arrow keys or the on-screen buttons to navigate between photos. Press Escape to close.</p>
+            </div>
+            <div class="help-card">
+              <h4><i class="fas fa-trash" style="color:var(--red)"></i> Deleting Content</h4>
+              <p>Delete individual photos with the trash icon inside the album editor. Delete an entire album (and all its photos) with the trash icon on the album card. Both actions ask for confirmation first.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TEAMS & PLAYERS ── -->
+        <div id="htab-teams" class="help-tab-content" style="display:none">
+          <div class="help-section-title"><i class="fas fa-users" style="color:var(--blue-light)"></i> Teams Manager</div>
+          <p class="help-intro">Manage every school team competing in the federation. Teams appear on the public Teams page with their logo, colors, sport badge, and coach name.</p>
+          <div class="help-steps">
+            <div class="help-step"><span class="step-num">1</span><div><strong>Add a Team</strong><p>Click <span class="help-badge pink">+ Add Team</span>. Fill in: Team Name, School, Sport, Coach Name, Primary Color, Secondary Color.</p></div></div>
+            <div class="help-step"><span class="step-num">2</span><div><strong>Upload a Team Logo</strong><p>Click the circular logo upload area to select a PNG/JPG/WebP image (max 2MB, ideally 200×200px square). A live circular preview updates immediately. Alternatively, paste a direct image URL in the URL field below the upload area.</p></div></div>
+            <div class="help-step"><span class="step-num">3</span><div><strong>No Logo? No Problem</strong><p>If no logo is uploaded, the system automatically generates a colored badge using the team's initials and primary color.</p></div></div>
+            <div class="help-step"><span class="step-num">4</span><div><strong>Edit or Delete</strong><p>Click the pencil icon to edit any team's details or replace its logo. Click the trash icon to delete a team (confirmation required).</p></div></div>
+          </div>
+          <div class="help-section-title" style="margin-top:1.5rem"><i class="fas fa-running" style="color:var(--green)"></i> Players Manager</div>
+          <p class="help-intro">Maintain a complete athlete directory. Player profiles include their team, school, sport, position, jersey number, and sport-specific stats.</p>
+          <div class="help-steps">
+            <div class="help-step"><span class="step-num">1</span><div><strong>Add a Player</strong><p>Click <span class="help-badge pink">+ Add Player</span>. Enter: Full Name, Team, School, Sport, Position, Jersey Number, and stats (Goals, Assists, Points — varies by sport).</p></div></div>
+            <div class="help-step"><span class="step-num">2</span><div><strong>Update Stats</strong><p>After each match, click the edit icon on any player to update their season statistics. Stats are displayed on the player's public profile.</p></div></div>
+          </div>
+        </div>
+
+        <!-- ── SCHOOLS ── -->
+        <div id="htab-schools" class="help-tab-content" style="display:none">
+          <div class="help-section-title"><i class="fas fa-school" style="color:var(--yellow)"></i> Schools Manager</div>
+          <p class="help-intro">The Schools Manager stores the full profile of every participating school — contact information, colors, and official logo. School data is referenced throughout the platform when displaying teams and events.</p>
+          <div class="help-steps">
+            <div class="help-step"><span class="step-num">1</span><div><strong>Add a School</strong><p>Click <span class="help-badge pink">+ Add School</span>. Fill in: School Name, Short Name (abbreviation), Email, Phone, Website, Founded Year, Address, Primary Color, Secondary Color.</p></div></div>
+            <div class="help-step"><span class="step-num">2</span><div><strong>Upload School Logo</strong><p>Click the upload area to select a logo image (PNG/JPG/WebP, max 2MB). A live preview appears immediately. Alternatively, paste a direct image URL — the preview updates instantly.</p></div></div>
+            <div class="help-step"><span class="step-num">3</span><div><strong>Save &amp; Edit</strong><p>Click Save School. The school appears in the schools table. Click the edit icon at any time to update details or replace the logo.</p></div></div>
+          </div>
+          <div class="help-tip"><i class="fas fa-lightbulb"></i> <strong>Logo Tip:</strong> Use a square image (1:1 ratio) at least 200×200px for the best display quality across all screen sizes.</div>
+        </div>
+
+        <!-- ── WEEKLY WINNERS ── -->
+        <div id="htab-winners" class="help-tab-content" style="display:none">
+          <div class="help-section-title"><i class="fas fa-star" style="color:var(--pink-light)"></i> Weekly Winners Manager</div>
+          <p class="help-intro">The Weekly Winner is featured prominently on the public home page in a dedicated spotlight section. Use this to celebrate outstanding athlete performances each week.</p>
+          <div class="help-steps">
+            <div class="help-step"><span class="step-num">1</span><div><strong>Add a Winner</strong><p>Click <span class="help-badge pink">+ Add Winner</span>. Enter: Athlete Name, School, Sport, Achievement description, Week/Date, and an optional Photo URL.</p></div></div>
+            <div class="help-step"><span class="step-num">2</span><div><strong>Write a Strong Achievement</strong><p>Be specific and celebratory — e.g. <em>"Scored a hat-trick in the Cup Final, leading Eagles to a 3–1 victory over Griffins."</em> This text appears verbatim on the home page.</p></div></div>
+            <div class="help-step"><span class="step-num">3</span><div><strong>The Most Recent Winner is Featured</strong><p>The home page automatically displays the most recently added winner. Add a new winner each Monday to keep the spotlight fresh throughout the season.</p></div></div>
+          </div>
+          <div class="help-tip"><i class="fas fa-lightbulb"></i> <strong>Best Practice:</strong> Update the Weekly Winner every Monday morning before the school week begins for maximum visibility.</div>
+        </div>
+
+        <!-- ── ADMIN & SECURITY ── -->
+        <div id="htab-admin" class="help-tab-content" style="display:none">
+          <div class="help-section-title"><i class="fas fa-shield-alt" style="color:var(--pink-light)"></i> Admin Access &amp; Security</div>
+          <p class="help-intro">The admin panel is protected by username and password authentication. Only authorised users should have access to these credentials.</p>
+          <div class="help-table-wrap">
+            <table class="help-table">
+              <thead><tr><th>Username</th><th>Password</th><th>Role</th></tr></thead>
+              <tbody>
+                <tr><td>admin</td><td>safehands</td><td>Super Admin</td></tr>
+                <tr><td>admin2</td><td>A7B9C2D4</td><td>Super Admin</td></tr>
+                <tr><td>admin3</td><td>X5Y8Z1W3</td><td>Super Admin</td></tr>
+                <tr><td>admin4</td><td>M9N4P6Q2</td><td>Super Admin</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="help-tip" style="margin-top:1rem"><i class="fas fa-exclamation-triangle" style="color:var(--yellow)"></i> <strong>Security Warning:</strong> Change default passwords before deploying to a live public URL. Share credentials only with authorised school staff.</div>
+          <div class="help-grid-2" style="margin-top:1rem">
+            <div class="help-card">
+              <h4><i class="fas fa-sign-out-alt" style="color:var(--pink-light)"></i> Logging Out</h4>
+              <p>Click the <strong>Logout</strong> button in the top-right of the admin panel header. This clears your session and returns you to the public home page.</p>
+            </div>
+            <div class="help-card">
+              <h4><i class="fas fa-lock" style="color:var(--blue-light)"></i> Session Security</h4>
+              <p>Your admin session is stored in sessionStorage and expires when you close the browser tab. Always log out on shared computers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TROUBLESHOOTING ── -->
+        <div id="htab-troubleshoot" class="help-tab-content" style="display:none">
+          <div class="help-section-title"><i class="fas fa-wrench" style="color:var(--blue-light)"></i> Troubleshooting</div>
+          <p class="help-intro">Most issues with the BSSF platform are quick to resolve. Here are the most common problems and their solutions.</p>
+          <div class="help-table-wrap">
+            <table class="help-table">
+              <thead><tr><th>Problem</th><th>Cause</th><th>Solution</th></tr></thead>
+              <tbody>
+                <tr><td>All data has disappeared</td><td>Browser localStorage was cleared</td><td>Re-enter data. Consider exporting a backup via browser DevTools → Application → localStorage</td></tr>
+                <tr><td>Blog post not visible on public site</td><td>Post status is set to Draft</td><td>Edit the post and change Status to Published</td></tr>
+                <tr><td>Standings not updating after result</td><td>Result not marked as Verified</td><td>Go to Results Manager, edit the result, toggle Verified on, and save</td></tr>
+                <tr><td>Logo / photo not showing</td><td>Image URL is broken or file too large</td><td>Re-upload the image or use a working direct URL. Max file size is 2MB</td></tr>
+                <tr><td>Admin login fails</td><td>Wrong credentials or caps lock on</td><td>Try username: admin / password: safehands. Check Caps Lock</td></tr>
+                <tr><td>Gallery photos not loading</td><td>External image URL is unavailable</td><td>Re-upload the photo from your device instead of using a URL</td></tr>
+                <tr><td>Site looks broken on mobile</td><td>Outdated browser</td><td>Update to the latest version of Chrome, Safari, or Firefox</td></tr>
+                <tr><td>Live ticker not scrolling</td><td>No events with Live status</td><td>Edit an event and set its status to Live</td></tr>
+                <tr><td>Data not syncing between devices</td><td>localStorage is browser-specific</td><td>This is by design. Contact UminDesign to upgrade to a cloud database version</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="help-tip" style="margin-top:1.5rem"><i class="fas fa-envelope"></i> <strong>Need More Help?</strong> Contact UminDesign: <a href="mailto:ejohnson@umindesign.com" style="color:var(--pink-light)">ejohnson@umindesign.com</a> &nbsp;|&nbsp; <a href="tel:+14417775353" style="color:var(--pink-light)">+1 (441) 777-5353</a></div>
+        </div>
+
+      </div><!-- end aview-help -->
 
     </main>
   </div>
@@ -3526,6 +3864,14 @@ function doLogout() {
 // ============================================================
 //  ADMIN VIEWS
 // ============================================================
+function showHelpTab(tab, btn) {
+  document.querySelectorAll('.help-tab-content').forEach(t => t.style.display = 'none');
+  const el = document.getElementById('htab-' + tab);
+  if (el) el.style.display = 'block';
+  document.querySelectorAll('#helpTabs .sport-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
 function showAdminView(view) {
   document.querySelectorAll('.aview').forEach(v => v.classList.remove('active'));
   const el = document.getElementById('aview-' + view);
